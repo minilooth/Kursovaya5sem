@@ -41,7 +41,6 @@ class AuthService {
     let user = localStorage.getItem('user');
 
     if (user === null) {
-      console.log('asdasd');
       return null;
     }
     else {

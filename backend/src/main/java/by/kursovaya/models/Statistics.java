@@ -14,12 +14,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity(name = "by.kursovaya.kursovaya.models.Statistics")
 @Table(name = "statistics")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"autodealer"})
 public class Statistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +48,6 @@ public class Statistics {
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name = "AutodealerId", referencedColumnName = "Id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "AutodealerId", referencedColumnName = "Id", nullable = false, insertable = false, updatable = false) 
     private Autodealer autodealer;
 }

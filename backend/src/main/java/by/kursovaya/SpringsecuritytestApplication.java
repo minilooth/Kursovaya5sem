@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-// @EntityScan(basePackages = { "by.kursovaya.models" })
 public class SpringsecuritytestApplication {
 
 	public static void main(String[] args) {

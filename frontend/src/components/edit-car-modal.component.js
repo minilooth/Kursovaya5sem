@@ -483,7 +483,7 @@ export default class EditCarModal extends Component {
 
     getCar() {
         if (this.props.show && !this.state.isDataGetted) {
-            CarService.getCar(this.props.initialData.id).then(
+            CarService.get(this.props.initialData.id).then(
                 response => {
                     this.setState({
                         id: response.data.id,
@@ -529,21 +529,23 @@ export default class EditCarModal extends Component {
                             error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                     }
                 }
+            ).catch(
+                error => {
+                    toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+                }
             )
         }
     }
 
     editCar = (e) => {
+        e.preventDefault();
+
+        this.validate();
 
         this.setState({
             message: "",
             successful: false,
-            isDisabled: true,
         });
-
-        e.preventDefault();
-
-        this.validate();
 
         if (this.state.file != null) {
             Utils.getBase64(this.state.file).then(
@@ -556,7 +558,11 @@ export default class EditCarModal extends Component {
         }
 
         if (this.isFormInvalid === false) {
-            CarService.editCar(
+            this.setState({
+                isDisabled: true
+            })
+
+            CarService.edit(
                 this.state.id,
                 this.state.brand,
                 this.state.model,
@@ -573,39 +579,43 @@ export default class EditCarModal extends Component {
                 this.state.price,
                 this.state.fileBase64
             ).then(
-            response => {
-                this.setState({
-                    isDisabled: false,
-                })
-                toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
-
-                this.props.onHide();
-            },
-            error => {
-                if (error.response.data.status === 401) {
-                    AuthService.logout();
-                    this.props.history.push({
-                        pathname: "/login",
-                        state: {
-                          showToast: true,
-                          toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
-                        }
-                    });
-                    window.location.reload();
-                }
-                else {
-                    toast.error((error.response &&
-                                    error.response.data &&
-                                    error.response.data.message) ||
-                                    error.message ||
-                                    error.toString(),
-                                {position: toast.POSITION.BOTTOM_RIGHT});
+                response => {
                     this.setState({
-                        successful: false,
                         isDisabled: false,
-                    });
+                    })
+                    toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
+
+                    this.props.onHide();
+                },
+                error => {
+                    if (error.response.data.status === 401) {
+                        AuthService.logout();
+                        this.props.history.push({
+                            pathname: "/login",
+                            state: {
+                            showToast: true,
+                            toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
+                            }
+                        });
+                        window.location.reload();
+                    }
+                    else {
+                        toast.error((error.response &&
+                                        error.response.data &&
+                                        error.response.data.message) ||
+                                        error.message ||
+                                        error.toString(),
+                                    {position: toast.POSITION.BOTTOM_RIGHT});
+                        this.setState({
+                            successful: false,
+                            isDisabled: false,
+                        });
+                    }
+            }).catch(
+                error => {
+                    toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
                 }
-            });
+            );
         }
     }
 

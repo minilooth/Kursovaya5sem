@@ -1,22 +1,8 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/test/';
-
 class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + 'all', {headers: authHeader()});
-  }
-
-  getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
-  }
-
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
-  }
-
-  getAllUsers(searchUsername) {
+  getAll(searchUsername) {
     return axios.get('http://localhost:8080/api/admin/users/getAllUsers', {headers: authHeader(), params: {searchUsername: searchUsername}});
   }
 
@@ -24,11 +10,15 @@ class UserService {
     return axios.get('http://localhost:8080/api/admin/users/getUsers', { headers: authHeader() });
   }
 
-  getUserById(id) {
+  get(id) {
     return axios.get('http://localhost:8080/api/admin/users/' + id, {headers: authHeader()});
   }
 
-  editUser(id, username, password, firstname, surname, email, mobilePhone, roleId) {
+  getCurrentUser() {
+    return axios.get("http://localhost:8080/api/users/currentUser", { headers: authHeader() });
+  }
+
+  edit(id, username, password, firstname, surname, email, mobilePhone, roleId) {
     return axios.patch('http://localhost:8080/api/admin/users/edit/' + id, 
                        { id,
                          username,
@@ -40,15 +30,27 @@ class UserService {
                          roleId}, {headers: authHeader()});
   }
 
-  deleteUser(id) {
+  editProfile(id, username, password, firstname, surname, email, mobilePhone) {
+    return axios.patch('http://localhost:8080/api/users/editProfile', {
+      id,
+      username,
+      password,
+      firstname,
+      surname,
+      email,
+      mobilePhone
+    }, {headers: authHeader()});
+  }
+
+  delete(id) {
     return axios.delete('http://localhost:8080/api/admin/users/delete/' + id, {headers: authHeader()});
   }
 
-  lockUser(id) {
+  lock(id) {
     return axios.patch('http://localhost:8080/api/admin/users/lock/' + id, null, {headers: authHeader()});
   }
 
-  addUser(username, password, firstname, surname, email, mobilePhone, roleId) {
+  add(username, password, firstname, surname, email, mobilePhone, roleId) {
     return axios.post('http://localhost:8080/api/admin/users/add', {
       username,
       password,

@@ -1,5 +1,12 @@
 package by.kursovaya.payload.request;
 
+import by.kursovaya.models.enums.BodyColor;
+import by.kursovaya.models.enums.BodyType;
+import by.kursovaya.models.enums.EngineType;
+import by.kursovaya.models.enums.InteriorColor;
+import by.kursovaya.models.enums.InteriorMaterial;
+import by.kursovaya.models.enums.TransmissionType;
+import by.kursovaya.models.enums.WheelDriveType;
 import lombok.Data;
 
 @Data
@@ -8,15 +15,15 @@ public class EditCarRequest {
     private String brand;
     private String model;
     private Integer yearOfIssue;
-    private Integer bodyType;
+    private BodyType bodyType;
     private Float engineVolume;
-    private Integer engineType;
-    private Integer transmissionType;
-    private Integer wheelDriveType;
+    private EngineType engineType;
+    private TransmissionType transmissionType;
+    private WheelDriveType wheelDriveType;
     private Float mileage;
-    private Integer bodyColor;
-    private Integer interiorMaterial;
-    private Integer interiorColor;
+    private BodyColor bodyColor;
+    private InteriorMaterial interiorMaterial;
+    private InteriorColor interiorColor;
     private Float price;
     private String image;
     private Integer autodealerId;

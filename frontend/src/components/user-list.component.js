@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import { ButtonGroup, Card, Button, Container, InputGroup, FormControl } from 'react-bootstrap';
+import { ButtonGroup, Card, Button, Container, InputGroup, FormControl, Spinner } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -19,11 +19,13 @@ export default class UserList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
 
         this.state = {
             users: [],
+            isLoading: true,
+            
             searchUsername: this.props.value,
+            
             columns: [{
                 dataField: 'id',
                 text: 'Ид',
@@ -55,7 +57,7 @@ export default class UserList extends Component {
             }, {
                 dataField: 'password',
                 text: 'Пароль',
-                formatter: this.passwordFormatter,
+                formatter: () => {return "Зашифрован";},
                 headerAlign: 'center',
                 style: {
                     overflow: "hidden",
@@ -126,7 +128,7 @@ export default class UserList extends Component {
                 dataField: 'dateOfRegistration',
                 text: 'Дата регистрации',
                 sort: true,
-                formatter: this.dateOfRegistrationFormatter,
+                formatter: (dateOfRegistration) => {return new Date(dateOfRegistration).toLocaleString();},
                 headerAlign: 'center',
                 style: {
                     overflow: "hidden",
@@ -141,7 +143,7 @@ export default class UserList extends Component {
                 dataField: 'roles',
                 text: 'Уровень доступа',
                 sort: true,
-                formatter: this.rolesFormatter,
+                formatter: (roles) => {return roles[0].name === "ADMIN" ? "Администратор" : "Пользователь";},
                 headerAlign: 'center',
                 align: 'center',
                 style: {
@@ -157,7 +159,7 @@ export default class UserList extends Component {
                 dataField: 'isAccountNonLocked',
                 text: 'Заблокирован',
                 sort: true,
-                formatter: this.isAccountNonLockedFormatter,
+                formatter: (isAccountNonLocked) => {return isAccountNonLocked ? "Нет" : "Да";},
                 headerAlign: 'center',
                 align: 'center',
                 style: {
@@ -179,10 +181,10 @@ export default class UserList extends Component {
                     verticalAlign: 'middle'
                 }
             }],
-            error: "",
-            show: false,
-            resetData: true,
-            modalData: [],
+
+            showUserEditModal: false,
+            resetUserEditModalData: true,
+            editUserModalData: [],
         }
 
         this.searchUsername = "";
@@ -191,12 +193,12 @@ export default class UserList extends Component {
     }
 
     editOnClick = (id) =>{
-        UserService.getUserById(id).then(
+        UserService.get(id).then(
             response => {
                 this.setState({
-                    show: !this.state.show,
-                    resetData: false,
-                    modalData: {
+                    showUserEditModal: !this.state.showUserEditModal,
+                    resetUserEditModalData: false,
+                    editUserModalData: {
                         id: response.data.id,
                         username: response.data.username,
                         firstname: response.data.firstname,
@@ -227,7 +229,9 @@ export default class UserList extends Component {
                                 error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     actionsFormatter = (cell, row) => {
@@ -242,30 +246,11 @@ export default class UserList extends Component {
         );
     }
 
-    isAccountNonLockedFormatter = (isAccountNonLocked) => {
-        return isAccountNonLocked === 1 ? "Нет" : "Да";
-    }
-    
-    dateOfRegistrationFormatter = (dateOfRegistration) => {
-        return new Date(dateOfRegistration).toLocaleString();
-    }
-    
-    passwordFormatter = () => {
-        return "Зашифрован";
-    }
-    
-    rolesFormatter = (roles) => {
-        return roles[0].name === "ADMIN" ? "Администратор" : "Пользователь";
-    }
-
-    noDataIndication = () => {
-        return this.options.noDataText;
-    }
-
     refreshUserList() {
-        UserService.getAllUsers(this.searchUsername).then(
+        UserService.getAll(this.searchUsername).then(
             response => {
                 this.setState({
+                    isLoading: false,                    
                     users: response.data
                 });
             },
@@ -289,11 +274,13 @@ export default class UserList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     deleteUser = (id) => {
-        UserService.deleteUser(id).then(
+        UserService.delete(id).then(
             response => {
                 this.refreshUserList();
                 toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
@@ -318,11 +305,13 @@ export default class UserList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     lockUser = (id) => {
-        UserService.lockUser(id).then(
+        UserService.lock(id).then(
             response => {
                 this.refreshUserList();
                 toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
@@ -347,7 +336,9 @@ export default class UserList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });    
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     searchOnChange = event => {
@@ -359,57 +350,74 @@ export default class UserList extends Component {
         this.refreshUserList();
     }
 
-    handleClose = () => {
+    handleUserEditModalClose = () => {
         this.setState({
-            show: false,
-            resetData: true
+            showUserEditModal: false,
+            resetUserEditModalData: true
         })
         this.refreshUserList();
     }
 
+    
+
     render() {
+        let table = null;
+
+        if (this.state.isLoading) {
+            table = 
+                <div style={{display: "flex", justifyContent: "center"}}> 
+                    <Spinner animation="border" role="status">
+                        <span className="sr-only">Загрузка...</span>
+                    </Spinner>
+                    &nbsp;
+                    <div>
+                        <div style={{fontSize: "24px"}}>Загрузка...</div>
+                    </div>
+                </div>
+        }
+        else {
+            table = 
+                <BootstrapTable 
+                    keyField='id' 
+                    data={this.state.users} 
+                    columns={this.state.columns} 
+                    hover 
+                    condensed 
+                    bordered 
+                    bootstrap4 
+                    pagination={ paginationFactory() } 
+                    noDataIndication={this.searchUsername === "" ? "Список пользователей пока пуст :(" : "Не найдено ни одного пользователя :("} />
+        }
+
         return(
             <div>
                 <Container style={{marginBottom: "50px", width: "95%"}} fluid>
                     <Card className={"border border-light bg-light text-black"} style={{marginTop: "100px"}}>
                         <Card.Header className={"d-flex justify-content-between"} >
-                            <div style={{display: 'flex', alignItems: 'center', fontSize: '18px'}}><FontAwesomeIcon icon={faList}/>&nbsp;Список пользователей</div>
+                            <div style={{display: 'flex', alignItems: 'center', fontSize: '24px'}}><FontAwesomeIcon icon={faList}/>&nbsp;Список пользователей</div>
                             <div>
                                 <InputGroup style={{width: "250px"}}>
                                     <InputGroup.Prepend>
-                                        <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
+                                        <InputGroup.Text><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
                                     </InputGroup.Prepend>
                                     <FormControl
                                         value={this.state.searchUsername}
-                                        ref={input => { this.inputElement = input }}
                                         onChange={this.searchOnChange}
-                                        placeholder="Имя пользователя"
-                                        aria-label="Username"
-                                        aria-describedby="basic-addon1"
-                                    />
+                                        placeholder="Имя пользователя"/>
                                 </InputGroup>
                             </div>    
                         </Card.Header>
                         <Card.Body style={{fontSize: "12px"}}>
-                            <BootstrapTable 
-                                keyField='id' 
-                                data={this.state.users} 
-                                columns={this.state.columns} 
-                                hover 
-                                condensed 
-                                bordered 
-                                bootstrap4 
-                                pagination={ paginationFactory() } 
-                                noDataIndication={this.searchUsername === "" ? "Список пользователей пока пуст :(" : "Не найдено ни одного пользователя :("} />
+                            {table}
                         </Card.Body>
                     </Card>
                 </Container>
                 <EditUserModal 
-                    show={this.state.show}
-                    resetData={this.state.resetData} 
-                    onHide={this.handleClose} 
-                    data={this.state.modalData}
-                    onCancel={this.handleClose}/>
+                    show={this.state.showUserEditModal}
+                    resetData={this.state.resetUserEditModalData} 
+                    onHide={this.handleUserEditModalClose} 
+                    data={this.state.editUserModalData}
+                    onCancel={this.handleUserEditModalClose}/>
                 <ToastContainer limit={3}/>
             </div>
         )

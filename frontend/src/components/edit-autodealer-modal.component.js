@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Spinner, Button, Form, Col } from 'react-bootstrap';
-import { faTimes, faSave, faEdit, faUndo } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSave, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -11,18 +11,6 @@ import AuthService from '../services/auth.service';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-const leftFormGroupStyle = {
-    marginRight: "15px"
-}
-
-const rightFormGroupStyle = {
-    marginLeft: "15px"
-}
-
-const errorStyle = {
-    color: 'red',
-    fontSize: "14px"
-}
 
 export default class EditAutodealerModal extends Component {
     constructor(props) {
@@ -79,75 +67,51 @@ export default class EditAutodealerModal extends Component {
     }
 
     onTitleFocus = () => {
-        this.setState({
-            isTitleInvalid: false
-        })
+        this.setState({ isTitleInvalid: false })
     }
 
     onWorkingHoursStartFocus = () => {
-        this.setState({
-            isWorkingHoursStartInvalid: false
-        })
+        this.setState({ isWorkingHoursStartInvalid: false })
     }
 
     onWorkingHoursEndFocus = () => {
-        this.setState({
-            isWorkingHoursEndInvalid: false
-        })
+        this.setState({ isWorkingHoursEndInvalid: false })
     }
 
     onCityFocus = () => {
-        this.setState({
-            isCityInvalid: false
-        })
+        this.setState({ isCityInvalid: false })
     }
 
     onAddressFocus = () => {
-        this.setState({
-            isAddressInvalid: false
-        })
+        this.setState({ isAddressInvalid: false })
     }
 
     onDescriptionFocus = () => {
-        this.setState({
-            isDescriptionInvalid: false
-        })
+        this.setState({ isDescriptionInvalid: false })
     }
 
     onTitleChange = (e) => {
-        this.setState({
-            title: e.target.value
-        })
+        this.setState({ title: e.target.value })
     }
 
     onWorkingHoursStartChange = (e) => {
-        this.setState({
-            workingHoursStart: e.target.value
-        })
+        this.setState({ workingHoursStart: e.target.value })
     }
 
     onWorkingHoursEndChange = (e) => {
-        this.setState({
-            workingHoursEnd: e.target.value
-        })
+        this.setState({ workingHoursEnd: e.target.value })
     }
 
     onCityChange = (e) => {
-        this.setState({
-            city: e.target.value
-        })
+        this.setState({ city: e.target.value })
     }
 
     onAddressChange = (e) => {
-        this.setState({
-            address: e.target.value
-        })
+        this.setState({ address: e.target.value })
     }
 
     onDescriptionChange = (e) => {
-        this.setState({
-            description: e.target.value
-        })
+        this.setState({ description: e.target.value })
     }
 
     validate = () => {
@@ -272,6 +236,8 @@ export default class EditAutodealerModal extends Component {
         this.validate();
 
         if (!this.isFormInvalid) {
+            this.setState({ isDisabled: true })
+
             AutodealerService.edit(this.state.id, this.state.title, this.state.workingHoursStart, this.state.workingHoursEnd, this.state.city, this.state.address, this.state.description).then(
                 response => {
                     toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
@@ -297,10 +263,13 @@ export default class EditAutodealerModal extends Component {
                                     error.message ||
                                     error.toString(), {position: toast.POSITION.BOTTOM_RIGHT});
                     }
-                  }
-            )
-        }
+                }
+            ).catch(() => {
+                toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+            })
 
+            this.setState({ isDisabled: false })
+        }
     }
 
     onFormReset = () => {
@@ -348,7 +317,7 @@ export default class EditAutodealerModal extends Component {
             formData = 
                 <Form noValidate>
                     <Form.Row>
-                        <Form.Group as={Col} id="title" style={leftFormGroupStyle}>
+                        <Form.Group as={Col} id="title" className="left__form__froup__style">
                             <Form.Label>Название</Form.Label>
                             <Form.Control
                                 name="title"
@@ -359,7 +328,7 @@ export default class EditAutodealerModal extends Component {
                                 onFocus={this.onTitleFocus}
                                 onChange={this.onTitleChange}
                                 placeholder="Введите название"/>
-                                {this.state.isTitleInvalid ? <span style={errorStyle}>{this.state.titleError}</span> : null}
+                                {this.state.isTitleInvalid ? <span className="error">{this.state.titleError}</span> : null}
                         </Form.Group>
                         <Col style={{display: "flex", flexDirection: "column", marginLeft: "15px"}}>
                             <div style={{display: "flex", flexDirection: "row"}}>
@@ -400,13 +369,13 @@ export default class EditAutodealerModal extends Component {
                                     </Form.Control>
                                 </Form.Group>
                             </div>
-                            {this.state.isWorkingHoursStartInvalid ? <span style={errorStyle}>{this.state.workingHoursStartError}</span> : null}
-                            {this.state.isWorkingHoursEndInvalid ? <span style={errorStyle}>{this.state.workingHoursEndError}</span> : null}
+                            {this.state.isWorkingHoursStartInvalid ? <span className="error">{this.state.workingHoursStartError}</span> : null}
+                            {this.state.isWorkingHoursEndInvalid ? <span className="error">{this.state.workingHoursEndError}</span> : null}
                         </Col>
                         
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group as={Col} style={leftFormGroupStyle}>
+                        <Form.Group as={Col} className="left__form__froup__style">
                             <Form.Label>Город</Form.Label>
                             <Form.Control
                                 name="city"
@@ -417,9 +386,9 @@ export default class EditAutodealerModal extends Component {
                                 onChange={this.onCityChange}
                                 onFocus={this.onCityFocus}
                                 placeholder="Введите город"/>
-                            {this.state.isCityInvalid ? <span style={errorStyle}>{this.state.cityError}</span> : null}
+                            {this.state.isCityInvalid ? <span className="error">{this.state.cityError}</span> : null}
                         </Form.Group>
-                        <Form.Group as={Col} style={rightFormGroupStyle}>
+                        <Form.Group as={Col} className="right__form__froup__style">
                             <Form.Label>Адрес</Form.Label>
                             <Form.Control
                                 name="address"
@@ -430,7 +399,7 @@ export default class EditAutodealerModal extends Component {
                                 onChange={this.onAddressChange}
                                 onFocus={this.onAddressFocus}
                                 placeholder="Введите адрес"/>
-                            {this.state.isAddressInvalid ? <span style={errorStyle}>{this.state.addressError}</span> : null}
+                            {this.state.isAddressInvalid ? <span className="error">{this.state.addressError}</span> : null}
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
@@ -446,7 +415,7 @@ export default class EditAutodealerModal extends Component {
                                 onFocus={this.onDescriptionFocus}
                                 placeholder="Введите описание"
                                 style={{resize: "none", height: "150px"}}/>
-                            {this.state.isDescriptionInvalid ? <span style={errorStyle}>{this.state.descriptionError}</span> : null}
+                            {this.state.isDescriptionInvalid ? <span className="error">{this.state.descriptionError}</span> : null}
                         </Form.Group>
                     </Form.Row>
                 </Form>

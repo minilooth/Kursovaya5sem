@@ -24,11 +24,15 @@ import org.springframework.web.bind.annotation.RestController;
 import by.kursovaya.models.Car;
 import by.kursovaya.models.Deal;
 import by.kursovaya.models.User;
+import by.kursovaya.models.enums.DealSortType;
+import by.kursovaya.payload.request.EditDealRequest;
 import by.kursovaya.payload.request.NewDealRequest;
+import by.kursovaya.payload.response.ConfirmDealResponse;
 import by.kursovaya.payload.response.DealResponse;
 import by.kursovaya.payload.response.MessageResponse;
 import by.kursovaya.services.CarService;
 import by.kursovaya.services.DealService;
+import by.kursovaya.services.StatisticsService;
 import by.kursovaya.services.UserService;
 
 @CrossOrigin(origins = "*")
@@ -44,9 +48,12 @@ public class DealController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StatisticsService statisticsService;
+
     @GetMapping("/get")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getDeals(@RequestParam(value = "searchUsername", required = false) String searchUsername, Model model) {
+    public ResponseEntity<?> getDeals(@RequestParam(value = "searchUsername", required = false) String searchUsername, @RequestParam(value="sortType") Integer dealSortType, Model model) {
         List<Deal> deals = dealService.get();
 
         if (searchUsername != null && !searchUsername.isEmpty() && !searchUsername.isBlank()) {
@@ -62,8 +69,9 @@ public class DealController {
             dealResponse.setImage(carService.getCarImage(deal.getCar().getImageName()));
             dealResponse.setAmount(deal.getAmount());
             dealResponse.setDate(deal.getDate());
-            dealResponse.setIsConfirmed(deal.getIsConfirmed() == Byte.parseByte("1") ? true : false);
+            dealResponse.setIsConfirmed(deal.getIsConfirmed());
             dealResponse.setUsername(deal.getUser().getUsername());
+            dealResponse.setUserId(deal.getUser().getId());
             dealResponse.setBrand(deal.getCar().getBrand());
             dealResponse.setModel(deal.getCar().getModel());
             dealResponse.setCarId(deal.getCarId());
@@ -77,7 +85,40 @@ public class DealController {
             dealResponses.add(dealResponse);
         }
 
+        dealResponses = dealService.sort(dealResponses, DealSortType.valueOf(dealSortType).orElse(null));
+
         return ResponseEntity.status(HttpStatus.OK).body(dealResponses);
+    }
+
+    @GetMapping("/get/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> get(@PathVariable(value = "id") Integer id, Model model) {
+        Deal deal = dealService.get(id);
+
+        if (deal == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Сделка с таким id не найдена."));
+        }
+
+        DealResponse dealResponse = new DealResponse();
+
+        dealResponse.setId(deal.getId());
+        dealResponse.setImage(carService.getCarImage(deal.getCar().getImageName()));
+        dealResponse.setAmount(deal.getAmount());
+        dealResponse.setDate(deal.getDate());
+        dealResponse.setIsConfirmed(deal.getIsConfirmed());
+        dealResponse.setUsername(deal.getUser().getUsername());
+        dealResponse.setUserId(deal.getUser().getId());
+        dealResponse.setBrand(deal.getCar().getBrand());
+        dealResponse.setModel(deal.getCar().getModel());
+        dealResponse.setCarId(deal.getCarId());
+        dealResponse.setYearOfIssue(deal.getCar().getYearOfIssue());
+        dealResponse.setEngineVolume(deal.getCar().getEngineVolume());
+        dealResponse.setEngineType(deal.getCar().getEngineType());
+        dealResponse.setTransmissionType(deal.getCar().getTransmissionType());
+        dealResponse.setBodyType(deal.getCar().getBodyType());
+        dealResponse.setWheelDriveType(deal.getCar().getWheelDriveType());
+
+        return ResponseEntity.status(HttpStatus.OK).body(dealResponse);
     }
 
     @PatchMapping("/confirm/{id}")
@@ -89,15 +130,22 @@ public class DealController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Сделка с таким id не найдена."));
         }
 
-        if (deal.getIsConfirmed() == 1) {
+        if (deal.getIsConfirmed() == true) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Сделка уже подтверждена."));
         }
 
-        deal.setIsConfirmed(Byte.parseByte("1"));
+        deal.setIsConfirmed(true);
 
         dealService.update(deal);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Сделка успешно подтверждена."));
+        statisticsService.addSaleToStatistics(deal.getCar(), deal.getCar().getAutodealer());
+
+        ConfirmDealResponse confirmDealResponse = new ConfirmDealResponse();
+
+        confirmDealResponse.setMessage("Сделка успешно подтверждена.");
+        confirmDealResponse.setCheck(dealService.generateCheck(deal));
+
+        return ResponseEntity.status(HttpStatus.OK).body(confirmDealResponse);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -109,13 +157,13 @@ public class DealController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Сделка с таким id не найдена."));
         }
 
-        if (deal.getIsConfirmed() == 1) {
+        if (deal.getIsConfirmed() == true) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Невозможно удалить подтвержденную сделку."));
         }
 
         Car car = deal.getCar();
 
-        car.setIsSold(Byte.parseByte("0"));
+        car.setIsSold(false);
 
         carService.update(car);
 
@@ -149,7 +197,7 @@ public class DealController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Сделка с этим автомобилем уже создана."));
         }
 
-        car.setIsSold(Byte.parseByte("1"));
+        car.setIsSold(true);
 
         carService.update(car);
 
@@ -160,11 +208,53 @@ public class DealController {
         newDeal.setCar(car);
         newDeal.setCarId(car.getId());
         newDeal.setAmount(car.getPrice());
-        newDeal.setIsConfirmed(Byte.parseByte("0"));
+        newDeal.setIsConfirmed(false);
         newDeal.setDate(new Date());
 
         dealService.add(newDeal);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Сделка успешно добавлена."));
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> editDeal(@PathVariable(value = "id") Integer id, @RequestBody EditDealRequest editDealRequest, Model model) {
+        if (editDealRequest == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Не удалось получить информацию о сделке."));
+        }
+
+        Deal deal = dealService.get(id);
+
+        if (deal == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Сделка с таким id не найдена."));
+        }
+
+        Car car = carService.getCarById(editDealRequest.getCarId());
+
+        if (car == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль с таким id не найден."));
+        }
+
+        User user = userService.findById(editDealRequest.getUserId());
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Пользователь с таким id не найден."));
+        }
+
+        Car oldCar = deal.getCar();
+
+        oldCar.setIsSold(false);
+        car.setIsSold(true);
+
+        carService.update(oldCar);
+        carService.update(car);
+
+        deal.setCarId(car.getId());
+        deal.setUserId(user.getId());
+        deal.setAmount(car.getPrice());
+        
+        dealService.update(deal);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Сделка успешно изменена."));
     }
 }

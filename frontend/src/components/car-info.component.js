@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {Container, Button, Spinner} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Container, Button, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEdit, faTrash, faPaperPlane, faCar} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faPaperPlane, faCar } from '@fortawesome/free-solid-svg-icons';
 
 import SelectAutodealer from './select-autodealer.component';
 import CarNotFound from './errors/car-not-found.component';
@@ -10,6 +10,7 @@ import EditCarModal from './edit-car-modal.component';
 
 import AuthService from '../services/auth.service';
 import CarService from '../services/car.service';
+import AutodealerService from '../services/autodealer.service';
 import CurrencyService from '../services/currency.service';
 
 import Utils from '../utils/utils';
@@ -22,9 +23,9 @@ export default class CarInfo extends Component {
         super(props);
 
         this.state = {
-            show: JSON.parse(localStorage.getItem('autodealer')) === null ? true : false,
+            showSelectAutodealerModal: AutodealerService.getCurrentAutodealer() === null ? true : false,
 
-            showEditModal: false,
+            showEditCarModal: false,
             resetData: false,
 
             carId: this.props.match.params.id,
@@ -41,7 +42,7 @@ export default class CarInfo extends Component {
     }
 
     getCar(id) {
-        CarService.getCar(id).then(
+        CarService.get(id).then(
             response => {
                 this.setState({
                     car: response.data,
@@ -73,16 +74,15 @@ export default class CarInfo extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     getCurrencies() {
         CurrencyService.getDollarRate().then(
             response => {
-                console.log(response);
-                this.setState({
-                    dollarRate: response.data.Cur_OfficialRate,
-                })
+                this.setState({ dollarRate: response.data.Cur_OfficialRate })
             },
             error => {
                 toast.error((error.response &&
@@ -91,12 +91,13 @@ export default class CarInfo extends Component {
                     error.message ||
                     error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
+        
         CurrencyService.getEuroRate().then(
             response => {
-                this.setState({
-                    euroRate: response.data.Cur_OfficialRate,
-                })
+                this.setState({ euroRate: response.data.Cur_OfficialRate })
             },
             error => {
                 toast.error((error.response &&
@@ -105,19 +106,17 @@ export default class CarInfo extends Component {
                     error.message ||
                     error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
             }
-        )
-    }
-
-    handleClose = () => {
-        this.setState({
-            show: false,
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
         })
     }
 
-    handleEditModalClose = () => {
-        this.setState({
-            showEditModal: false,
-        })
+    handleSelectAutodealerModalClose = () => {
+        this.setState({ showSelectAutodealerModal: false })
+    }
+
+    handleEditCarModalClose = () => {
+        this.setState({ showEditCarModal: false })
 
         setTimeout(() => this.refreshData(), 750);
     }
@@ -125,15 +124,13 @@ export default class CarInfo extends Component {
     refreshData() {
         const carId = this.props.match.params.id;
 
-        if (carId && localStorage.getItem("autodealer") !== null) {
+        if (carId && AutodealerService.getCurrentAutodealer() !== null) {
             this.getCar(carId);
         }
     }
 
     componentDidMount() {
-        this.setState({
-            carId: this.props.match.params.id,
-        })
+        this.setState({ carId: this.props.match.params.id })
         this.getCurrencies();
         this.refreshData();
     }
@@ -143,9 +140,7 @@ export default class CarInfo extends Component {
             response => {
                 toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
 
-                setTimeout(() => this.props.history.push({
-                    pathname: "/carsList",
-                }), 5000);
+                setTimeout(() => this.props.history.push("/carsList"), 5000);
             },
             error => {
                 if (error.response.data.status === 401) {
@@ -167,27 +162,23 @@ export default class CarInfo extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     onEdit = () => {
         this.setState({
-            showEditModal: true,
+            showEditCarModal: true,
         })
     }
 
     onOrder = () => {
-        let userId = JSON.parse(localStorage.getItem('user')).id;
-
-        console.log(userId);
-
-        CarService.order(this.state.car.id, userId).then(
+        CarService.order(this.state.car.id).then(
             response => {
                 toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
 
-                setTimeout(() => this.props.history.push({
-                    pathname: "/carsList",
-                }), 5000);
+                setTimeout(() => this.props.history.push("/carsList"), 5000);
             },
             error => {
                 if (error.response.data.status === 401) {
@@ -209,7 +200,9 @@ export default class CarInfo extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     render() {
@@ -248,7 +241,7 @@ export default class CarInfo extends Component {
                                         Опубликовано {new Date(this.state.car.receiptDate).toLocaleDateString("ru-RU")}
                                     </div>
                                     <div className="car__info-title-id">
-                                        № {this.state.car.id}
+                                        ID: {this.state.car.id}
                                     </div>
                                 </div>
                             </div>
@@ -282,6 +275,14 @@ export default class CarInfo extends Component {
                                             <img src={this.state.car.image} style={{width: "100%"}} alt="Автомобиль"></img>
                                         )}
                                     </div>
+                                )}
+
+                                {this.state.car.isSold === 1 ? (
+                                    <div className="gallery__status">
+                                        <span>Продано</span>
+                                    </div>
+                                ) : (
+                                    null
                                 )}
                             </div>
                             <div className="car__info-data-container">
@@ -318,8 +319,8 @@ export default class CarInfo extends Component {
                                         : 
                                             (
                                                 <div>
-                                                <Button variant="success" style={{width: "100%", marginBottom: "15px"}} onClick={this.onEdit}><FontAwesomeIcon icon={faEdit}/>&nbsp;Редактировать</Button>
-                                                <Button variant="danger" style={{width: "100%"}} onClick={this.onDelete}><FontAwesomeIcon icon={faTrash}/>&nbsp;Удалить</Button>
+                                                <Button variant="success" style={{width: "100%", marginBottom: "15px"}} onClick={this.onEdit} disabled={this.state.car.isSold}><FontAwesomeIcon icon={faEdit}/>&nbsp;Редактировать</Button>
+                                                <Button variant="danger" style={{width: "100%"}} onClick={this.onDelete} disabled={this.state.car.isSold}><FontAwesomeIcon icon={faTrash}/>&nbsp;Удалить</Button>
                                                 </div>
                                             )
                                         }
@@ -336,14 +337,14 @@ export default class CarInfo extends Component {
                 {info}
                 <SelectAutodealer 
                     prevProps={this.props}
-                    show={this.state.show}
-                    onHide={this.handleClose} 
-                    onCancel={this.handleClose}/>
+                    show={this.state.showSelectAutodealerModal}
+                    onHide={this.handleSelectAutodealerModalClose} 
+                    onCancel={this.handleSelectAutodealerModalClose}/>
                 <EditCarModal
-                    show={this.state.showEditModal}
-                    onHide={this.handleEditModalClose} 
+                    show={this.state.showEditCarModal}
+                    onHide={this.handleEditCarModalClose} 
                     initialData={this.state.car}
-                    onCancel={this.handleEditModalClose}/>
+                    onCancel={this.handleEditCarModalClose}/>
                 <ToastContainer limit={3}/>
             </Container>
         )

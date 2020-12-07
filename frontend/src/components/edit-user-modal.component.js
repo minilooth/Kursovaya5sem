@@ -74,7 +74,9 @@ export default class EditUserModal extends Component {
             surnameError: "",
             emailError: "",
             mobilePhoneError: "",
-            roleError: ""
+            roleError: "",
+
+            isChangeButtonDisabled: false,
         };
 
         this.isFormInvalid = false;
@@ -310,7 +312,11 @@ export default class EditUserModal extends Component {
         this.validate();
 
         if (this.isFormInvalid === false) {
-          UserService.editUser(
+          this.setState({
+            isChangeButtonDisabled: true
+          })
+          
+          UserService.edit(
             this.state.id,
             this.state.username,
             this.state.password,
@@ -323,9 +329,16 @@ export default class EditUserModal extends Component {
             response => {
               toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
               this.props.onHide();
+
+              this.setState({
+                isChangeButtonDisabled: false
+              });
             },
             error => {
               if (error.response.data.status === 401) {
+                  this.setState({
+                    isChangeButtonDisabled: false
+                  });
                   AuthService.logout();
                   this.props.history.push({
                       pathname: "/login",
@@ -337,12 +350,19 @@ export default class EditUserModal extends Component {
                   window.location.reload();
               }
               else {
+                  this.setState({
+                    isChangeButtonDisabled: false
+                  });
                   toast.error((error.response && 
                               error.response.data &&
                               error.response.data.message) ||
                               error.message ||
                               error.toString(), {position: toast.POSITION.BOTTOM_RIGHT});
               }
+            }
+          ).catch(
+            error => {
+                toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
             }
           )
         }
@@ -495,7 +515,7 @@ export default class EditUserModal extends Component {
                 </Form>       
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={this.editUser.bind(this)}><FontAwesomeIcon icon={faSave}/>&nbsp;Изменить</Button>
+                    <Button variant="primary" onClick={this.editUser.bind(this)} disabled={this.state.isChangeButtonDisabled}><FontAwesomeIcon icon={faSave}/>&nbsp;Изменить</Button>
                     <Button variant="danger" onClick={this.props.onCancel}><FontAwesomeIcon icon={faTimes}/>&nbsp;Отменить</Button>
                 </Modal.Footer>
                 <ToastContainer/>

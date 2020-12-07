@@ -6,12 +6,13 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardAdmin from "./components/board-admin.component";
 import UserList from "./components/user-list.component";
 import AddUserBoard from "./components/add-user-board";
 import CarsList from "./components/cars-list.component";
@@ -24,6 +25,8 @@ import AutodealersList from './components/autodealers-list.component';
 import AddAutodealer from './components/add-autodealer.component';
 import DealsList from './components/deals-list.component';
 import AddDeal from './components/add-deal.component';
+import UserCarsList from './components/user-cars-list.component';
+import StatisticsPage from './components/statistics-page.component';
 
 class App extends Component {
   constructor(props) {
@@ -73,7 +76,7 @@ class App extends Component {
   render() {
     let selectAutodealerModal = null;
 
-    if (this.state.currentUser !== null) {
+    if (AuthService.getCurrentUser() !== null) {
       selectAutodealerModal = 
         <SelectAutodealer 
         prevProps={ this.props }
@@ -99,7 +102,6 @@ class App extends Component {
                 <NavDropdown title="Автомобили" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/admin/addCar">Добавить автомобиль</NavDropdown.Item>
                   <NavDropdown.Item href="/carsList">Список автомобилей</NavDropdown.Item>
-                  <NavDropdown.Item href="#">Список проданных автомобилей</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="Автосалоны" id="basic-nav-dropdown">
@@ -112,7 +114,7 @@ class App extends Component {
                   <NavDropdown.Item href="/admin/dealsList">Список сделок</NavDropdown.Item>
                 </NavDropdown>
 
-                <Nav.Link href="#">Статистика</Nav.Link>
+                <Nav.Link href="/admin/statistics">Статистика</Nav.Link>
               </Nav>
             ) : (
               null
@@ -121,7 +123,7 @@ class App extends Component {
             { this.state.currentUser != null && !this.state.isAdmin ? (
               <Nav>
                 <Nav.Link href="/carsList">Список автомобилей</Nav.Link>
-                <Nav.Link href="#">Мои автомобили</Nav.Link>
+                <Nav.Link href="/myCars">Мои автомобили</Nav.Link>
               </Nav>
             ) : (
               null
@@ -154,25 +156,25 @@ class App extends Component {
 
         <Switch>
             <Route exact path={["/", "/home"]} component={ Home } />
-            <Route exact path="/login" component={ Login } />
+            <Route exact path="/login" component={ Login }/>
             <Route exact path="/register" component={ Register } />
             <Route exact path="/profile" component={ Profile } />
-            <Route path="/user" component={ BoardUser } />
             <Route exact path="/admin/userList" component={ this.state.isAdmin ? UserList : AccessDenied }/>
             <Route exact path="/admin/addUser" component={ this.state.isAdmin ? AddUserBoard : AccessDenied }/>
             <Route exact path="/admin/editUser/:id" component={ this.state.isAdmin ? AddUserBoard : AccessDenied }/>
-            <Route exact path="/carsList" component={ CarsList }/>
+            <Route exact path="/carsList" component={ CarsList } />
             <Route exact path="/cars/:id" component={ CarInfo }/>
-            <Route exact path="/admin/addCar" component={ this.state.isAdmin ? AddCar : AccessDenied }/>
+            <Route exact path="/admin/addCar" render={(props) => { return this.state.isAdmin ? (<AddCar {...props} toast={toast}/>) : (<AccessDenied {...props} toast={toast}/>) }}/>
             <Route exact path="/admin/autodealersList" component={ this.state.isAdmin ? AutodealersList : AccessDenied }/>
             <Route exact path="/admin/addAutodealer" component={ this.state.isAdmin ? AddAutodealer : AccessDenied }/>
             <Route exact path="/admin/dealsList" component={ this.state.isAdmin ? DealsList : AccessDenied }/>
             <Route exact path="/admin/addDeal" component={ this.state.isAdmin ? AddDeal : AccessDenied }/>
-            <Route path="/admin" component={ BoardAdmin } />
+            <Route exact path="/admin/statistics" component={this.state.isAdmin ? StatisticsPage : AccessDenied}/>
+            <Route exact path="/myCars" component={UserCarsList}/>
             <Route component={ PageNotFound }/>
         </Switch>
         {selectAutodealerModal}
-        
+        <ToastContainer limit={ 3 }/>
       </div>
     );
   }

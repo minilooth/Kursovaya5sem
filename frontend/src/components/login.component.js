@@ -122,7 +122,11 @@ export default class Login extends Component {
     } else {
       this.setState({
         loading: false
-      });
+      }).catch(
+        error => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        }
+    );
     }
   }
 

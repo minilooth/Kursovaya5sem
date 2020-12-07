@@ -7,10 +7,23 @@ import by.kursovaya.models.enums.InteriorColor;
 import by.kursovaya.models.enums.InteriorMaterial;
 import by.kursovaya.models.enums.TransmissionType;
 import by.kursovaya.models.enums.WheelDriveType;
-import by.kursovaya.utils.Utils;
+import by.kursovaya.utils.DateUtils;
+import by.kursovaya.utils.SpringUtilsFactory;
+import by.kursovaya.utils.UtilsFactory;
 
 public class Validator {
-    public static ValidationResult isUsernameValid(String username) {
+    private static Validator instance;
+
+    private Validator() {}
+
+    public static Validator getInstance() {
+        if (instance == null) {
+            instance = new Validator();
+        }
+        return instance;
+    }
+
+    public ValidationResult isUsernameValid(String username) {
         if (username == null || username.isEmpty() || username.isBlank()) {
             return new ValidationResult(false, "Имя пользователя не может быть пустым.");
         }
@@ -23,7 +36,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isPasswordValid(String password) {
+    public ValidationResult isPasswordValid(String password) {
         if (password == null || password.isEmpty() || password.isBlank()) {
             return new ValidationResult(false, "Пароль не может быть пустым.");
         }
@@ -36,7 +49,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isFirstnameValid(String firstname) {
+    public ValidationResult isFirstnameValid(String firstname) {
         if (firstname == null || firstname.isEmpty() || firstname.isBlank()) {
             return new ValidationResult(false, "Имя не может быть пустым.");
         }
@@ -49,7 +62,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isSurnameValid(String surname) {
+    public ValidationResult isSurnameValid(String surname) {
         if (surname == null || surname.isEmpty() || surname.isBlank()) {
             return new ValidationResult(false, "Фамилия не может быть пустой.");
         }
@@ -62,7 +75,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isEmailValid(String email) {
+    public ValidationResult isEmailValid(String email) {
         if (email == null || email.isEmpty() || email.isBlank()) {
             return new ValidationResult(false, "E-mail не может быть пустым.");
         }
@@ -75,7 +88,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isPhoneNumberValid(String phoneNumber) {
+    public ValidationResult isPhoneNumberValid(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isEmpty() || phoneNumber.isBlank()) {
             return new ValidationResult(false, "Мобильный телефон не может быть пустым.");
         }
@@ -88,7 +101,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isBrandValid(String brand) {
+    public ValidationResult isBrandValid(String brand) {
         if (brand == null || brand.isEmpty() || brand.isBlank()) {
             return new ValidationResult(false, "Марка не может быть пуста.");
         }
@@ -101,7 +114,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isModelValid(String model) {
+    public ValidationResult isModelValid(String model) {
         if (model == null || model.isEmpty() || model.isBlank()) {
             return new ValidationResult(false, "Модель не может быть пуста.");
         }
@@ -114,7 +127,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isYearOfIssueValid(Integer yearOfIssue) {
+    public ValidationResult isYearOfIssueValid(Integer yearOfIssue) {
         if (yearOfIssue == null) {
             return new ValidationResult(false, "Год выпуска не может быть пустым.");
         }
@@ -124,7 +137,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isBodyTypeValid(Integer bodyType) {
+    public ValidationResult isBodyTypeValid(Integer bodyType) {
         if (bodyType == null) {
             return new ValidationResult(false, "Тип кузова не может быть пустым.");
         }
@@ -134,7 +147,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isEngineVolumeValid(Float engineVolume) {
+    public ValidationResult isBodyTypeValid(BodyType bodyType) {
+        if (bodyType == null) {
+            return new ValidationResult(false, "Тип кузова не может быть пустым.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isEngineVolumeValid(Float engineVolume) {
         if (engineVolume == null) {
             return new ValidationResult(false, "Объем двигателя не может быть пустым.");
         }
@@ -144,9 +164,9 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isEngineTypeValid(Integer engineType) {
+    public ValidationResult isEngineTypeValid(Integer engineType) {
         if (engineType == null) {
-            return new ValidationResult(false, "Тип кузова не может быть пустым.");
+            return new ValidationResult(false, "Тип двигателя не может быть пустым.");
         }
         if (engineType < 0 || engineType > EngineType.values().length) {
             return new ValidationResult(false, "Тип двиигателя не найден.");
@@ -154,7 +174,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isTransmissionTypeValid(Integer transmissionType) {
+    public ValidationResult isEngineTypeValid(EngineType engineType) {
+        if (engineType == null) {
+            return new ValidationResult(false, "Тип двигателя не может быть пустым.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isTransmissionTypeValid(Integer transmissionType) {
         if (transmissionType == null) {
             return new ValidationResult(false, "Коробка передач не может быть пуста.");
         }
@@ -164,7 +191,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isWheelDriveTypeValid(Integer wheelDriveType) {
+    public ValidationResult isTransmissionTypeValid(TransmissionType transmissionType) {
+        if (transmissionType == null) {
+            return new ValidationResult(false, "Коробка передач не может быть пуста.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isWheelDriveTypeValid(Integer wheelDriveType) {
         if (wheelDriveType == null) {
             return new ValidationResult(false, "Привод не может быть пустым.");
         }
@@ -174,7 +208,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isMileageValid(Float mileage) {
+    public ValidationResult isWheelDriveTypeValid(WheelDriveType wheelDriveType) {
+        if (wheelDriveType == null) {
+            return new ValidationResult(false, "Привод не может быть пустым.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isMileageValid(Float mileage) {
         if (mileage == null) {
             return new ValidationResult(false, "Пробег не может быть пустым.");
         }
@@ -184,7 +225,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isBodyColorValid(Integer bodyColor) {
+    public ValidationResult isBodyColorValid(Integer bodyColor) {
         if (bodyColor == null) {
             return new ValidationResult(false, "Цвет не может быть пустым.");
         }
@@ -194,7 +235,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isInteriorMaterialValid(Integer interiorMaterial) {
+    public ValidationResult isBodyColorValid(BodyColor bodyColor) {
+        if (bodyColor == null) {
+            return new ValidationResult(false, "Цвет не может быть пустым.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isInteriorMaterialValid(Integer interiorMaterial) {
         if (interiorMaterial == null) {
             return new ValidationResult(false, "Материал салона не может быть пустым.");
         }
@@ -204,7 +252,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isInteriorColorValid(Integer interiorColor) {
+    public ValidationResult isInteriorMaterialValid(InteriorMaterial interiorMaterial) {
+        if (interiorMaterial == null) {
+            return new ValidationResult(false, "Материал салона не может быть пустым.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isInteriorColorValid(Integer interiorColor) {
         if (interiorColor == null) {
             return new ValidationResult(false, "Цвет салона не может быть пустым.");
         }
@@ -214,7 +269,14 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isPriceValid(Float price) {
+    public ValidationResult isInteriorColorValid(InteriorColor interiorColor) {
+        if (interiorColor == null) {
+            return new ValidationResult(false, "Тип двигателя не может быть пустым.");
+        }
+        return new ValidationResult(true, null);
+    }
+
+    public ValidationResult isPriceValid(Float price) {
         if (price == null) {
             return new ValidationResult(false, "Цена не может быть пуста.");
         }
@@ -224,7 +286,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isTitleValid(String title) {
+    public ValidationResult isTitleValid(String title) {
         if (title == null || title.isEmpty() || title.isBlank()) {
             return new ValidationResult(false, "Название не может быть пусто.");
         }
@@ -237,20 +299,24 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isWorkingHoursValid(String workingHoursStart, String workingHoursEnd) {
+    public ValidationResult isWorkingHoursValid(String workingHoursStart, String workingHoursEnd) {
         if (workingHoursStart == null || workingHoursStart.isEmpty() || workingHoursStart.isBlank()) {
             return new ValidationResult(false, "Начало работы некорректно.");
         }
         if (workingHoursEnd == null || workingHoursEnd.isEmpty() || workingHoursEnd.isBlank()) {
             return new ValidationResult(false, "Конец работы некорректно.");
         }
-        if (Utils.compareTime(workingHoursStart, workingHoursEnd) != 1) {
+
+        UtilsFactory utilsFactory = new SpringUtilsFactory();
+        DateUtils dateUtils = utilsFactory.createDateUtils();
+
+        if (dateUtils.compareTime(workingHoursStart, workingHoursEnd) != 1) {
             return new ValidationResult(false, "Время работы некорректно.");
         }
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isCityValid(String city) {
+    public ValidationResult isCityValid(String city) {
         if (city == null || city.isEmpty() || city.isBlank()) {
             return new ValidationResult(false, "Город не может быть пустым.");
         }
@@ -263,7 +329,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isAddressValid(String address) {
+    public ValidationResult isAddressValid(String address) {
         if (address == null || address.isEmpty() || address.isBlank()) {
             return new ValidationResult(false, "Адрес не можеть пустым.");
         }
@@ -276,7 +342,7 @@ public class Validator {
         return new ValidationResult(true, null);
     }
 
-    public static ValidationResult isDescriptionValid(String description) {
+    public ValidationResult isDescriptionValid(String description) {
         if (description == null || description.isEmpty() || description.isBlank()) {
             return new ValidationResult(false, "Описание не может быть пустым.");
         }

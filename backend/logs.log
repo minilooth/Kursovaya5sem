@@ -1,0 +1,118 @@
+2020-12-03 17:08:16.418  INFO 20052 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20052 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-03 17:08:16.580  INFO 20052 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-03 17:08:17.377  INFO 20052 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-03 17:08:17.379  INFO 20052 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-03 17:08:20.506  INFO 20052 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-03 17:08:20.778  INFO 20052 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 231ms. Found 6 JPA repository interfaces.
+2020-12-03 17:08:21.897  INFO 20052 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@49c57a74' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-03 17:08:21.907  INFO 20052 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-03 17:08:23.962  INFO 20052 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-03 17:08:24.029  INFO 20052 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-03 17:08:24.030  INFO 20052 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-03 17:08:24.579  INFO 20052 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-03 17:08:24.579  INFO 20052 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7182 ms
+2020-12-03 17:08:24.686  WARN 20052 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-03 17:08:24.865  INFO 20052 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-12-03 17:08:47.378  INFO 20052 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-12-03 17:08:47.794  INFO 20052 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-03 17:08:48.269  INFO 20052 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-03 17:08:49.340  INFO 20052 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2020-12-03 17:08:51.300  INFO 20052 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-12-03 17:08:52.174  INFO 20052 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-03 17:08:53.839  INFO 20052 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@891344e, org.springframework.security.web.context.SecurityContextPersistenceFilter@e49fe7a, org.springframework.security.web.header.HeaderWriterFilter@b16da28, org.springframework.web.filter.CorsFilter@51ca537e, org.springframework.security.web.authentication.logout.LogoutFilter@1ca216f7, by.kursovaya.security.jwt.AuthTokenFilter@15023373, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@11ea22d7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f556939, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c93c62c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bd65233, org.springframework.security.web.session.SessionManagementFilter@3a994a69, org.springframework.security.web.access.ExceptionTranslationFilter@5dfd068b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@266ee07b]
+2020-12-03 17:08:54.551  INFO 20052 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-03 17:08:54.734  INFO 20052 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-03 17:08:54.738  INFO 20052 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-03 17:09:12.815  INFO 20052 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-03 17:09:12.824  INFO 20052 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-03 17:09:13.989  INFO 20052 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-03 17:09:14.001  INFO 20052 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 59.87 seconds (JVM running for 65.399)
+2020-12-03 17:12:14.152  INFO 20052 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-03 17:12:14.154  INFO 20052 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-03 17:12:14.214  INFO 20052 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 59 ms
+2020-12-03 17:12:14.601 ERROR 20052 --- [http-nio-8080-exec-5] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-11-28T16:49:33Z. Current time: 2020-12-03T17:12:14Z, a difference of 433361599 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-03 17:12:14.601 ERROR 20052 --- [http-nio-8080-exec-4] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-11-28T16:49:33Z. Current time: 2020-12-03T17:12:14Z, a difference of 433361599 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-03 17:12:14.623 ERROR 20052 --- [http-nio-8080-exec-4] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-03 17:12:14.623 ERROR 20052 --- [http-nio-8080-exec-5] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-03 17:12:15.200 ERROR 20052 --- [http-nio-8080-exec-6] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-11-28T16:49:33Z. Current time: 2020-12-03T17:12:15Z, a difference of 433362199 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-03 17:12:15.201 ERROR 20052 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-03 17:12:23.288  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-03 17:12:28.239  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-03 17:12:29.467  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:12:30.113  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:12:30.146  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:12:30.154  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:12:37.942  INFO 20052 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-03 17:12:44.854  INFO 20052 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-03 17:12:45.245  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-03 17:12:45.251  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-03 17:12:45.721  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-03 17:12:46.585  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-03 17:12:46.947  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-03 17:12:46.952  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-03 17:12:51.795  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-03 17:12:51.797  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-03 17:12:51.812  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:12:51.818  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:12:55.012  INFO 20052 --- [http-nio-8080-exec-10] by.kursovaya.controller.UserController   : Get user request
+2020-12-03 17:12:55.017  INFO 20052 --- [http-nio-8080-exec-10] by.kursovaya.controller.UserController   : Reponsed user.
+2020-12-03 17:12:57.354  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-03 17:12:57.355  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-03 17:12:59.572  INFO 20052 --- [http-nio-8080-exec-3] by.kursovaya.controller.UserController   : Lock user request.
+2020-12-03 17:12:59.579  INFO 20052 --- [http-nio-8080-exec-3] by.kursovaya.controller.UserController   : Responsed succesfully user lock message.
+2020-12-03 17:12:59.998  INFO 20052 --- [http-nio-8080-exec-5] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-03 17:12:59.998  INFO 20052 --- [http-nio-8080-exec-5] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-03 17:13:01.649  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.UserController   : Lock user request.
+2020-12-03 17:13:01.654  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.UserController   : Responsed succesfully user lock message.
+2020-12-03 17:13:01.739  INFO 20052 --- [http-nio-8080-exec-7] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-03 17:13:01.740  INFO 20052 --- [http-nio-8080-exec-7] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-03 17:13:05.817  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:05.829  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:09.923  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:09.965  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:10.002  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Get not sold cars request.
+2020-12-03 17:13:10.059  INFO 20052 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:10.067  INFO 20052 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:10.680  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
+2020-12-03 17:13:35.377  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Get car request with id: 2
+2020-12-03 17:13:35.395  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:35.403  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:35.427  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Responsed car.
+2020-12-03 17:13:41.434  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:41.436  INFO 20052 --- [http-nio-8080-exec-6] by.kursovaya.controller.CarController    : Get not sold cars request.
+2020-12-03 17:13:41.440  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:41.524  INFO 20052 --- [http-nio-8080-exec-6] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
+2020-12-03 17:13:44.223  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:44.228  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:44.234  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.CarController    : Get car request with id: 2
+2020-12-03 17:13:44.269  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.CarController    : Responsed car.
+2020-12-03 17:13:46.143  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Get car request with id: 2
+2020-12-03 17:13:46.152  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Responsed car.
+2020-12-03 17:13:50.923  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.CarController    : Get car request with id: 2
+2020-12-03 17:13:50.933  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.CarController    : Responsed car.
+2020-12-03 17:13:54.089  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:54.095  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:54.112  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:54.117  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:13:57.876  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-03 17:13:57.883  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-03 17:13:59.757  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:13:59.763  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:02.422  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:14:02.428  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:05.434  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:14:05.443  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:05.467  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:14:05.472  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:21.957  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:14:21.962  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:21.965  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.StatisticsController      : Get statistics request.
+2020-12-03 17:14:21.983  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:14:21.989  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:22.001  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.StatisticsController      : Responsed statistics.
+2020-12-03 17:14:34.324  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Get current user request.
+2020-12-03 17:14:34.334  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Responsed current user.
+2020-12-03 17:14:34.350  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-03 17:14:34.354  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-03 17:14:37.693  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.UserController   : Get current user request.
+2020-12-03 17:14:37.697  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.UserController   : Responsed current user.

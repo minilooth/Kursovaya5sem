@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Container, FormControl, InputGroup, ListGroup, Spinner, Button } from 'react-bootstrap';
-import { faWarehouse, faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faWarehouse, faSearch, faEdit, faTrash, faSort } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -11,6 +11,8 @@ import AuthService from '../services/auth.service';
 import AutodealerService from '../services/autodealer.service';
 
 import EditAutodealerModal from './edit-autodealer-modal.component';
+
+import Utils from '../utils/utils';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
@@ -64,12 +66,18 @@ export default class AutodealersList extends Component {
         }
 
         this.searchTitle = "";
+        this.sortType = "0";
 
         this.titleOnChange = this.titleOnChange.bind(this);
     }
 
     titleOnChange = event => {
         this.searchTitle = event.target.value;
+        this.refreshAutodealerList();
+    }
+
+    sortTypeOnChange = event => {
+        this.sortType = event.target.value;
         this.refreshAutodealerList();
     }
 
@@ -129,11 +137,13 @@ export default class AutodealersList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     refreshAutodealerList = () => {
-        AutodealerService.getAutodealers(this.searchTitle).then(
+        AutodealerService.getAll(this.searchTitle, this.sortType).then(
             response => {
                 this.setState({
                     autodealers: response.data,
@@ -159,7 +169,9 @@ export default class AutodealersList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     componentDidMount() {
@@ -175,7 +187,7 @@ export default class AutodealersList extends Component {
     }
 
     edit = (id) => {
-        AutodealerService.getAutodealer(id).then(
+        AutodealerService.get(id).then(
             response => {
                 this.setState({
                     showEditModal: !this.state.showEditModal,
@@ -210,7 +222,9 @@ export default class AutodealersList extends Component {
                                 error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     render() {
@@ -246,17 +260,30 @@ export default class AutodealersList extends Component {
                 <Card>
                     <Card.Header className={ "d-flex justify-content-between" }>
                         <div style={{ display: 'flex', alignItems: 'center', fontSize: '24px' }}><FontAwesomeIcon icon={ faWarehouse }/>&nbsp;Автосалоны</div>
-                        <div>
-                            <InputGroup style={{ width: "250px" }}>
+                        <div style={{display: "flex", flexDirection: "row"}}>
+                            <InputGroup style={{ width: "250px", marginRight: "20px" }}>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text><FontAwesomeIcon icon={ faSearch }/></InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <FormControl
                                     value={ this.state.searchTitle }
-                                    ref={ input => { this.inputElement = input } }
                                     onChange={ this.titleOnChange }
-                                    placeholder="Название"
-                                />
+                                    placeholder="Название"/>
+                            </InputGroup>
+                            <InputGroup style={{ width: "250px"}}>
+                                <InputGroup.Prepend style={{width: "42px"}}>
+                                    <InputGroup.Text style={{width: "42px", display: "flex", justifyContent: "center"}}><FontAwesomeIcon icon={ faSort } /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                    as="select"
+                                    value={ this.sortType }
+                                    onChange={ this.sortTypeOnChange }>
+                                    {
+                                        Utils.getAutodealerSortTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </FormControl>
                             </InputGroup>
                         </div> 
                     </Card.Header>

@@ -8,6 +8,10 @@ label {
   padding: 40px 40px;
 }
 
+.table td {
+  border-top: 0;
+}
+
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
@@ -25,7 +29,7 @@ label {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-align: justify;
 }
@@ -40,12 +44,25 @@ label {
   border-radius: 50%;
 }
 
+.error { 
+  color: red;
+  font-size: 14px;
+}
+
+.left__form__group__style {
+  margin-right: 15px;
+}
+
+.right__form__group__style {
+  margin-left: 15px;
+}
+
 .gallery__empty-container {
   border-right: 1px solid lightgray;
   padding: 15px;
   padding-bottom: 15px;
   width: 65%;
-  height: 500px;
+  height: 550px;
   display: flex;
 }
 
@@ -56,7 +73,7 @@ label {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 496px;
+  height: 520px;
   padding: 0 140px;
   background: url(../src/images/pattern.svg) -3px 0;
   border-radius: 2px;
@@ -168,7 +185,7 @@ label {
   align-items: center;
   justify-content: center;
   width: 30%;
-  height: 180px;
+  height: 195px;
   border: 1px solid lightgray;
   border-radius: 5px;
   color: #a2b4cb;
@@ -182,7 +199,7 @@ label {
   align-items: center;
   justify-content: center;
   width: 30%;
-  height: 180px;
+  height: 195px;
   box-sizing: content-box;
   overflow: hidden;
   border-radius: 5px;
@@ -473,5 +490,151 @@ label {
   background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath fill="%23f8f8f8" d="M12 12L0 0h1l11 11v1zM6 12L0 6V5l7 7H6zM0 12v-1l1 1H0zM14 8L6 0h1l8 8h-1z"/%3E%3C/svg%3E%0A');
   background-size: 12px 12px;
 }
+
+
+
+.gallery__status {
+  background-color: rgba(24,26,27,0.5);
+  color: #fff;
+  backdrop-filter: blur(1px);
+  position: absolute;
+  width: 740px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat",system-ui,sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 22px;
+  text-align: center;
+}
+
+.car__item__photo-sold {
+  background-color: rgba(24,26,27,0.5);
+  color: #fff;
+  backdrop-filter: blur(1px);
+  position: absolute;
+  width: 285px;
+  height: 195px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat",system-ui,sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.profile__container {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile__image {
+  width: 33%;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile__image-username {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.profile__image-mobilephone {
+  font-size: 16px;
+  text-align: center;
+}
+
+.profile__image-email {
+  font-size: 16px;
+  text-align: center;
+}
+
+.profile__image-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.profile__data {
+  margin-left: 15px;
+  width: 67%;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-label {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.profile__data-label-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.profile__data-label-item {
+  font-weight: bold;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+
+.profile__data-label-item:first-child {
+  font-weight: bold;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 15px;
+  padding-top: 0;
+}
+
+.profile__data-label-item:last-child {
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.profile__data-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.profile__data-item {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+
+.profile__data-item:first-child {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 15px;
+  padding-top: 0;
+}
+
+.profile__data-item:last-child {
+  padding-top: 10px;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+
+
 
 

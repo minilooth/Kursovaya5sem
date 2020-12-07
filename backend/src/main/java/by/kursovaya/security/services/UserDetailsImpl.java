@@ -60,7 +60,7 @@ public class UserDetailsImpl implements UserDetails {
                                    user.getEmail(),
                                    user.getMobilePhone(),
                                    user.getDateOfRegistration(),
-                                   user.getIsAccountNonLocked() == 0 ? false : true,
+                                   user.getIsAccountNonLocked(),
                                    authorities);
     }
 

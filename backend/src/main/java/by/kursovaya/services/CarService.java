@@ -1,5 +1,7 @@
 package by.kursovaya.services;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,14 +15,18 @@ import org.springframework.util.Base64Utils;
 import by.kursovaya.models.Car;
 import by.kursovaya.models.enums.BodyColor;
 import by.kursovaya.models.enums.BodyType;
+import by.kursovaya.models.enums.CarSortType;
 import by.kursovaya.models.enums.EngineType;
 import by.kursovaya.models.enums.InteriorColor;
 import by.kursovaya.models.enums.InteriorMaterial;
 import by.kursovaya.models.enums.TransmissionType;
+import by.kursovaya.models.enums.UserCarsListSortType;
 import by.kursovaya.models.enums.WheelDriveType;
 import by.kursovaya.payload.request.SetCarFilterRequest;
 import by.kursovaya.repositories.CarRepository;
-import by.kursovaya.utils.Utils;
+import by.kursovaya.utils.FileUtils;
+import by.kursovaya.utils.SpringUtilsFactory;
+import by.kursovaya.utils.UtilsFactory;
 import lombok.SneakyThrows;
 
 @Service
@@ -77,8 +83,11 @@ public class CarService {
             return null;
         }
 
+        UtilsFactory utilsFactory = new SpringUtilsFactory();
+        FileUtils fileUtils = utilsFactory.createFileUtils();
+
         while(true) {
-            String filename = Utils.generateFilename(IMAGE_NAME_LOWER_BOUND, IMAGE_NAME_HIGHER_BOUND);
+            String filename = fileUtils.generateFilename(IMAGE_NAME_LOWER_BOUND, IMAGE_NAME_HIGHER_BOUND);
 
             Car car = carRepository.findAll().stream().filter(c -> c.getImageName() != null && c.getImageName().startsWith(filename)).findFirst().orElse(null);
 
@@ -94,17 +103,17 @@ public class CarService {
         String modelFilter = setCarFilterRequest.getModelFilter();
         Integer yearOfIssueMinFilter = setCarFilterRequest.getYearOfIssueMinFilter() == null ? 1975 : setCarFilterRequest.getYearOfIssueMinFilter();
         Integer yearOfIssueMaxFilter = setCarFilterRequest.getYearOfIssueMaxFilter() == null ? 2020 : setCarFilterRequest.getYearOfIssueMaxFilter();
-        BodyType bodyTypeFilter = setCarFilterRequest.getBodyTypeFilter() == null ? null : BodyType.valueOf(setCarFilterRequest.getBodyColorFilter()).orElse(null);
+        BodyType bodyTypeFilter = setCarFilterRequest.getBodyTypeFilter() == null ? null : setCarFilterRequest.getBodyTypeFilter();
         Float engineVolumeMinFilter = setCarFilterRequest.getEngineVolumeMinFilter() == null ? 0.8f : setCarFilterRequest.getEngineVolumeMinFilter();
         Float engineVolumeMaxFilter = setCarFilterRequest.getEngineVolumeMaxFilter() == null ? 7.0f : setCarFilterRequest.getEngineVolumeMaxFilter();
-        EngineType engineTypeFilter = setCarFilterRequest.getEngineTypeFilter() == null ? null : EngineType.valueOf(setCarFilterRequest.getEngineTypeFilter()).orElse(null);
-        TransmissionType transmissionTypeFilter = setCarFilterRequest.getTransmissionTypeFilter() == null ? null : TransmissionType.valueOf(setCarFilterRequest.getTransmissionTypeFilter()).orElse(null);
-        WheelDriveType wheelDriveTypeFilter = setCarFilterRequest.getWheelDriveTypeFilter() == null ? null : WheelDriveType.valueOf(setCarFilterRequest.getWheelDriveTypeFilter()).orElse(null);
+        EngineType engineTypeFilter = setCarFilterRequest.getEngineTypeFilter() == null ? null : setCarFilterRequest.getEngineTypeFilter();
+        TransmissionType transmissionTypeFilter = setCarFilterRequest.getTransmissionTypeFilter() == null ? null : setCarFilterRequest.getTransmissionTypeFilter();
+        WheelDriveType wheelDriveTypeFilter = setCarFilterRequest.getWheelDriveTypeFilter() == null ? null : setCarFilterRequest.getWheelDriveTypeFilter();
         Float mileageMinFilter = setCarFilterRequest.getMileageMinFilter() == null ? 0f : setCarFilterRequest.getMileageMinFilter();
         Float mileageMaxFilter = setCarFilterRequest.getMileageMaxFilter() == null ? 1000000f : setCarFilterRequest.getMileageMaxFilter();
-        BodyColor bodyColorFilter = setCarFilterRequest.getBodyColorFilter() == null ? null : BodyColor.valueOf(setCarFilterRequest.getBodyColorFilter()).orElse(null);
-        InteriorMaterial interiorMaterialFilter = setCarFilterRequest.getInteriorMaterialFilter() == null ? null : InteriorMaterial.valueOf(setCarFilterRequest.getInteriorMaterialFilter()).orElse(null);
-        InteriorColor interiorColorFilter = setCarFilterRequest.getInteriorColorFilter() == null ? null : InteriorColor.valueOf(setCarFilterRequest.getInteriorColorFilter()).orElse(null); 
+        BodyColor bodyColorFilter = setCarFilterRequest.getBodyColorFilter() == null ? null : setCarFilterRequest.getBodyColorFilter();
+        InteriorMaterial interiorMaterialFilter = setCarFilterRequest.getInteriorMaterialFilter() == null ? null : setCarFilterRequest.getInteriorMaterialFilter();
+        InteriorColor interiorColorFilter = setCarFilterRequest.getInteriorColorFilter() == null ? null : setCarFilterRequest.getInteriorColorFilter(); 
         Float priceMinFilter = setCarFilterRequest.getPriceMinFilter() == null ? 0f : setCarFilterRequest.getPriceMinFilter();
         Float priceMaxFilter = setCarFilterRequest.getPriceMaxFilter() == null ? 1000000f : setCarFilterRequest.getPriceMaxFilter();
 
@@ -160,5 +169,60 @@ public class CarService {
             cars = cars.stream().filter(c -> c.getPrice() <= priceMaxFilter).collect(Collectors.toList());
         }
         return cars;
+    }
+
+    public List<Car> sortCars(List<Car> cars, CarSortType carSortType) {
+        if (carSortType == null) {
+            return cars;
+        }
+
+        switch(carSortType) {
+            case NEW_ADS:
+                Collections.reverse(cars);
+                return cars;
+            case CHEAP_CARS:
+                return cars.stream().sorted(Comparator.comparing(Car::getPrice)).collect(Collectors.toList());
+            case EXPENSIVE_CARS:
+                List<Car> expensiveCars = cars.stream().sorted(Comparator.comparing(Car::getPrice)).collect(Collectors.toList());
+                Collections.reverse(expensiveCars);
+                return expensiveCars;
+            case NEW_CARS:
+                List<Car> oldCars = cars.stream().sorted(Comparator.comparing(Car::getYearOfIssue)).collect(Collectors.toList());
+                Collections.reverse(oldCars);
+                return oldCars;
+            case OLD_CARS:
+                return cars.stream().sorted(Comparator.comparing(Car::getYearOfIssue)).collect(Collectors.toList());
+            case LEAST_MILEAGE:
+                return cars.stream().sorted(Comparator.comparing(Car::getMileage)).collect(Collectors.toList());
+            default:
+                return cars;
+        }
+    }
+
+    public List<Car> sortUserCars(List<Car> cars, UserCarsListSortType userCarsListSortType) {
+        if (userCarsListSortType == null) {
+            return cars;
+        }
+
+        switch(userCarsListSortType) {
+            case WITHOUT_SORT:
+                return cars;
+                case CHEAP_CARS:
+                return cars.stream().sorted(Comparator.comparing(Car::getPrice)).collect(Collectors.toList());
+            case EXPENSIVE_CARS:
+                List<Car> expensiveCars = cars.stream().sorted(Comparator.comparing(Car::getPrice)).collect(Collectors.toList());
+                Collections.reverse(expensiveCars);
+                return expensiveCars;
+            case NEW_CARS:
+                List<Car> oldCars = cars.stream().sorted(Comparator.comparing(Car::getYearOfIssue)).collect(Collectors.toList());
+                Collections.reverse(oldCars);
+                return oldCars;
+            case OLD_CARS:
+                return cars.stream().sorted(Comparator.comparing(Car::getYearOfIssue)).collect(Collectors.toList());
+            case LEAST_MILEAGE:
+                return cars.stream().sorted(Comparator.comparing(Car::getMileage)).collect(Collectors.toList());
+            default:
+                return cars;
+        }
     }
 }

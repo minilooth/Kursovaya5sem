@@ -3,6 +3,7 @@ package by.kursovaya.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,17 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 import by.kursovaya.models.Autodealer;
 import by.kursovaya.models.Car;
 import by.kursovaya.models.Deal;
-import by.kursovaya.models.Role;
 import by.kursovaya.models.User;
-import by.kursovaya.models.enums.BodyColor;
-import by.kursovaya.models.enums.BodyType;
-import by.kursovaya.models.enums.EngineType;
-import by.kursovaya.models.enums.InteriorColor;
-import by.kursovaya.models.enums.InteriorMaterial;
-import by.kursovaya.models.enums.RoleEnum;
-import by.kursovaya.models.enums.TransmissionType;
-import by.kursovaya.models.enums.WheelDriveType;
-import by.kursovaya.payload.request.CarOrderRequest;
+import by.kursovaya.models.enums.UserCarsListSortType;
 import by.kursovaya.payload.request.EditCarRequest;
 import by.kursovaya.payload.request.NewCarRequest;
 import by.kursovaya.payload.request.SetCarFilterRequest;
@@ -71,18 +64,28 @@ public class CarController {
     @Autowired
     private DealService dealService;
 
-    @PostMapping("/cars/getNotSoldCars")
+    @PostMapping("/cars/get")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> getNotSoldCars(@RequestParam(required = true, value="autodealerId") Integer autodealerId, @RequestBody SetCarFilterRequest setCarFilterRequest, Model model) {
+    public ResponseEntity<?> getCars(@RequestParam(required = true, value="autodealerId") Integer autodealerId, @RequestBody SetCarFilterRequest setCarFilterRequest, Model model) {
         logger.info("Get not sold cars request.");
 
-        Autodealer autodealer = autodealerService.getAutodealer(autodealerId);
+        Autodealer autodealer = autodealerService.get(autodealerId);
 
         if (autodealer == null) {
+            logger.warn("Current autodealer not found.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Автосалон с таким id не найден."));
         }
 
-        List<Car> cars = carService.getCarsByAutodealerId(autodealer.getId()).stream().filter(c -> c.getIsSold().equals(Byte.parseByte("0"))).collect(Collectors.toList());
+        List<Car> cars = null;
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            cars = carService.getCarsByAutodealerId(autodealer.getId());            
+        }
+        else {
+            cars = carService.getCarsByAutodealerId(autodealer.getId()).stream().filter(c -> c.getIsSold() == false).collect(Collectors.toList());
+        }
+
         Integer countOfCars = cars.size();
         Integer countOfTodayCars = cars.stream().filter(c -> c.getReceiptDate().isAfter(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT))).collect(Collectors.toList()).size();
 
@@ -90,306 +93,389 @@ public class CarController {
             cars = carService.filterCars(cars, setCarFilterRequest);
         }
 
+        cars = carService.sortCars(cars, setCarFilterRequest.getSortType());
+
         cars.forEach(c -> c.setImage(carService.getCarImage(c.getImageName())));
 
+        logger.info("Responsed cars, count of cars and count of today added cars.");
         return ResponseEntity.status(HttpStatus.OK).body(new GetCarsResponse(cars, countOfCars, countOfTodayCars));
     }
 
-    @GetMapping("/cars/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> getCar(@PathVariable(value = "id") Integer id, @RequestParam(required = true, value="autodealerId") Integer autodealerId, Model model) {
-        Autodealer autodealer = autodealerService.getAutodealer(autodealerId);
+    @GetMapping("/cars/get/notSoldCars")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getNotSoldCars(@RequestParam(value = "autodealerId", required = true) Integer autodealerId, Model model) {
+        Autodealer autodealer = autodealerService.get(autodealerId);
 
         if (autodealer == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Автосалон не найден."));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Автосалон с таким id не найден."));
         }
         
+        List<Car> cars = carService.getCarsByAutodealerId(autodealerId);
+
+        cars = cars.stream().filter(c -> c.getIsSold() == false).collect(Collectors.toList());
+
+        cars.forEach(c -> c.setImage(carService.getCarImage(c.getImageName())));
+
+        return ResponseEntity.status(HttpStatus.OK).body(cars);
+    }
+
+    @GetMapping("/cars/get/users")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<?> getUsersCars(@RequestParam(required = true, value="searchBrand") String searchBrand, @RequestParam(required = true, value="userCarsListSortType") Integer userCarsListSortType, Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = principal instanceof UserDetailsImpl ? userService.getUsers().stream().filter(u -> u.getUsername().equals(((UserDetailsImpl)principal).getUsername())).findFirst().orElse(null) : null;
+        
+        List<Car> cars = new ArrayList<>();
+        List<Deal> deals = dealService.get().stream().filter(d -> d.getUserId() == user.getId() && d.getIsConfirmed()).collect(Collectors.toList());
+
+        for (Deal deal : deals) {
+            cars.add(deal.getCar());
+        }
+
+        cars.forEach(c -> c.setImage(carService.getCarImage(c.getImageName())));
+
+        if (searchBrand != null && !searchBrand.isEmpty() && !searchBrand.isBlank()) {
+            cars = cars.stream().filter(c -> c.getBrand().startsWith(searchBrand)).collect(Collectors.toList());
+        }
+
+        cars = carService.sortUserCars(cars, UserCarsListSortType.valueOf(userCarsListSortType).orElse(null));
+        
+
+        return ResponseEntity.status(HttpStatus.OK).body(cars);
+    }
+
+    @GetMapping("/cars/get/notSoldAndCurrentDealCar")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getNotSoldCarsAndCurrentDealCar(@RequestParam(required = true, value="autodealerId") Integer autodealerId, @RequestParam(required = true, value = "carId") Integer carId, Model model) {
+        logger.info("Get not sold cars and current deal car request.");
+
+        Autodealer autodealer = autodealerService.get(autodealerId);
+
+        if (autodealer == null) {
+            logger.info("Current autodealer not found.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Автосалон с таким id не найден."));
+        }
+
+        List<Car> cars = carService.getCarsByAutodealerId(autodealer.getId()).stream().filter(c -> c.getIsSold() == false || c.getId() == carId).collect(Collectors.toList());
+
+        cars.forEach(c -> c.setImage(carService.getCarImage(c.getImageName())));
+
+        logger.info("Responsed not sold cars and current deal car.");
+        return ResponseEntity.status(HttpStatus.OK).body(cars);
+    }
+
+    @GetMapping("/cars/get/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> getCar(@PathVariable(value = "id") Integer id, @RequestParam(required = true, value="autodealerId") Integer autodealerId, Model model) {
+        logger.info("Get car request with id: " + autodealerId);
+        
+        Autodealer autodealer = autodealerService.get(autodealerId);
         Car car = carService.getCarById(id);
 
+        if (autodealer == null) {
+            logger.warn("Current autodealer not found.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Автосалон с таким id не найден."));
+        }
         if (car == null) {
+            logger.warn("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль с таким id не найден."));
         }
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        Role role = null;
-
-        if (principal instanceof UserDetailsImpl) {
-            String username = ((UserDetailsImpl)principal).getUsername();
-
-            User user = userService.getUsers().stream().filter(u -> u.getUsername().equals(username)).findFirst().orElse(null);
-
-            if (user != null) {
-                role = user.getRoles().stream().filter(r -> r.getName() == RoleEnum.ADMIN).findFirst().orElse(null);
-            }
-        }
-
-        if (role == null || role.getName() == RoleEnum.USER) {
-            if (car.getIsSold() == 1) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
+            if (car.getIsSold() == true) {
+                logger.warn("This car is sold or at sale stage.");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Этот автомобиль уже продан или находится на стадии продажи."));
             }
         }
 
-        car.setImage(carService.getCarImage(car.getImageName()));
-
         if (!car.getAutodealerId().equals(autodealer.getId())) {
+            logger.warn("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль не найден."));
         }
 
+        car.setImage(carService.getCarImage(car.getImageName()));
+
+        logger.info("Responsed car.");
         return ResponseEntity.status(HttpStatus.OK).body(car);
     }
 
     @DeleteMapping("/admin/cars/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteCar(@PathVariable(value = "id") Integer id, Model model) {
-        if (id == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Не удалось получить информацию об автомобиле."));
-        }
+    public ResponseEntity<?> deleteCar(@PathVariable(value = "id", required = true) Integer id, Model model) {
+        logger.info("Delete car request.");
 
         Car car = carService.getCarById(id);
 
         if (car == null) {
+            logger.info("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль с таким id не найден."));
         }
 
         carService.deleteCar(car);
 
+        logger.info("Responsed successfully delete car message.");
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Автомобиль успешно удален."));
     }
 
     @PatchMapping("/admin/cars/edit/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> editCar(@PathVariable(value = "id") Integer id, @RequestBody EditCarRequest editCarRequest, Model model) {
-        if (editCarRequest == null) {
+    public ResponseEntity<?> editCar(@PathVariable(value = "id", required = true) Integer id, @RequestBody EditCarRequest editCarRequest, Model model) {
+        logger.info("Edit car request.");
+
+        if (editCarRequest.getAutodealerId() == null) {
+            logger.warn("Unable to get car data.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Не удалось получить информацию об автосалоне."));
+        }
+        if (editCarRequest.getId() == null) {
+            logger.warn("Unable to get car data.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Не удалось получить информацию об автомобиле."));
         }
 
-        Autodealer autodealer = autodealerService.getAutodealer(editCarRequest.getAutodealerId());
-
-        if (autodealer == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Не удалось найти автосалон."));
-        }
-
+        Autodealer autodealer = autodealerService.get(editCarRequest.getAutodealerId());
         Car car = carService.getCarById(id);
 
+        if (autodealer == null) {
+            logger.warn("Autodealer not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Не удалось найти автосалон."));
+        }
         if (car == null) {
+            logger.warn("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль с таким id не найден."));
         }
         if (car.getAutodealerId() != autodealer.getId()) {
+            logger.warn("This autodealer haven't this car.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]В текущем автосалоне нет такого автомобиля."));
         }
 
+        Validator validator = Validator.getInstance();
         ValidationResult validationResult = null;
 
-        validationResult = Validator.isBrandValid(editCarRequest.getBrand());
+        validationResult = validator.isBrandValid(editCarRequest.getBrand());
         if (!validationResult.getIsValid()) {
+            logger.warn("Brand is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isModelValid(editCarRequest.getModel());
+        validationResult = validator.isModelValid(editCarRequest.getModel());
         if (!validationResult.getIsValid()) {
+            logger.warn("Model is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isYearOfIssueValid(editCarRequest.getYearOfIssue());
+        validationResult = validator.isYearOfIssueValid(editCarRequest.getYearOfIssue());
         if (!validationResult.getIsValid()) {
+            logger.warn("Year of issue is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isBodyTypeValid(editCarRequest.getBodyType());
+        validationResult = validator.isBodyTypeValid(editCarRequest.getBodyType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Body type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isEngineVolumeValid(editCarRequest.getEngineVolume());
+        validationResult = validator.isEngineVolumeValid(editCarRequest.getEngineVolume());
         if (!validationResult.getIsValid()) {
+            logger.warn("Engine volume is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isEngineTypeValid(editCarRequest.getEngineType());
+        validationResult = validator.isEngineTypeValid(editCarRequest.getEngineType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Engine type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isTransmissionTypeValid(editCarRequest.getTransmissionType());
+        validationResult = validator.isTransmissionTypeValid(editCarRequest.getTransmissionType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Transmission type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isWheelDriveTypeValid(editCarRequest.getWheelDriveType());
+        validationResult = validator.isWheelDriveTypeValid(editCarRequest.getWheelDriveType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Wheel drive type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isMileageValid(editCarRequest.getMileage());
+        validationResult = validator.isMileageValid(editCarRequest.getMileage());
         if (!validationResult.getIsValid()) {
+            logger.warn("Mileage is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isBodyColorValid(editCarRequest.getBodyColor());
+        validationResult = validator.isBodyColorValid(editCarRequest.getBodyColor());
         if (!validationResult.getIsValid()) {
+            logger.warn("Body color is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isInteriorMaterialValid(editCarRequest.getInteriorMaterial());
+        validationResult = validator.isInteriorMaterialValid(editCarRequest.getInteriorMaterial());
         if (!validationResult.getIsValid()) {
+            logger.warn("Interior material is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isInteriorColorValid(editCarRequest.getInteriorColor());
+        validationResult = validator.isInteriorColorValid(editCarRequest.getInteriorColor());
         if (!validationResult.getIsValid()) {
+            logger.warn("Interior color is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isPriceValid(editCarRequest.getPrice());
+        validationResult = validator.isPriceValid(editCarRequest.getPrice());
         if (!validationResult.getIsValid()) {
+            logger.warn("Price is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
 
-        try {
-            car.setBrand(editCarRequest.getBrand());
-            car.setModel(editCarRequest.getModel());
-            car.setYearOfIssue(editCarRequest.getYearOfIssue());
-            car.setBodyType(BodyType.valueOf(editCarRequest.getBodyType()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setEngineVolume(editCarRequest.getEngineVolume());
-            car.setEngineType(EngineType.valueOf(editCarRequest.getEngineType()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setTransmissionType(TransmissionType.valueOf(editCarRequest.getTransmissionType()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setWheelDriveType(WheelDriveType.valueOf(editCarRequest.getWheelDriveType()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setMileage(editCarRequest.getMileage());
-            car.setBodyColor(BodyColor.valueOf(editCarRequest.getBodyColor()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setInteriorColor(InteriorColor.valueOf(editCarRequest.getInteriorColor()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setInteriorMaterial(InteriorMaterial.valueOf(editCarRequest.getInteriorMaterial()).orElseThrow(() -> new IllegalArgumentException()));
-            car.setPrice(editCarRequest.getPrice());
-            car.setAutodealerId(autodealer.getId());
+        car.setBrand(editCarRequest.getBrand());
+        car.setModel(editCarRequest.getModel());
+        car.setYearOfIssue(editCarRequest.getYearOfIssue());
+        car.setBodyType(editCarRequest.getBodyType());
+        car.setEngineVolume(editCarRequest.getEngineVolume());
+        car.setEngineType(editCarRequest.getEngineType());
+        car.setTransmissionType(editCarRequest.getTransmissionType());
+        car.setWheelDriveType(editCarRequest.getWheelDriveType());
+        car.setMileage(editCarRequest.getMileage());
+        car.setBodyColor(editCarRequest.getBodyColor());
+        car.setInteriorColor(editCarRequest.getInteriorColor());
+        car.setInteriorMaterial(editCarRequest.getInteriorMaterial());
+        car.setPrice(editCarRequest.getPrice());
+        car.setAutodealerId(autodealer.getId());
 
-            if (editCarRequest.getImage() != null && !editCarRequest.getImage().isEmpty() && !editCarRequest.getImage().isBlank()){
-                car.setImageName(carService.saveCarImage(editCarRequest.getImage()));
-            }
-
-            carService.update(car);
-
-            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Автомобиль успешно изменен."));
+        if (editCarRequest.getImage() != null && !editCarRequest.getImage().isEmpty() && !editCarRequest.getImage().isBlank()){
+            car.setImageName(carService.saveCarImage(editCarRequest.getImage()));
         }
-        catch (IllegalArgumentException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new MessageResponse("Что-то пошло не так :("));
-        }
+
+        carService.update(car);
+
+        logger.info("Responsed succesufully add car message.");
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Автомобиль успешно изменен."));
     }
 
     @PostMapping("/admin/cars/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addCar(@RequestBody NewCarRequest newCarRequest, Model model) {
-        if (newCarRequest == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Не удалось получить информацию об автомобиле."));
-        }
+        logger.info("Add car request.");
 
-        Autodealer autodealer = autodealerService.getAutodealer(newCarRequest.getAutodealerId());
+        Autodealer autodealer = autodealerService.get(newCarRequest.getAutodealerId());
 
         if (autodealer == null) {
+            logger.warn("Autodealer not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автосалон с таким id не найден."));
         }
 
+        Validator validator = Validator.getInstance();
         ValidationResult validationResult = null;
 
-        validationResult = Validator.isBrandValid(newCarRequest.getBrand());
+        validationResult = validator.isBrandValid(newCarRequest.getBrand());
         if (!validationResult.getIsValid()) {
+            logger.warn("Brand is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isModelValid(newCarRequest.getModel());
+        validationResult = validator.isModelValid(newCarRequest.getModel());
         if (!validationResult.getIsValid()) {
+            logger.warn("Model is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isYearOfIssueValid(newCarRequest.getYearOfIssue());
+        validationResult = validator.isYearOfIssueValid(newCarRequest.getYearOfIssue());
         if (!validationResult.getIsValid()) {
+            logger.warn("Year of issue is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isBodyTypeValid(newCarRequest.getBodyType());
+        validationResult = validator.isBodyTypeValid(newCarRequest.getBodyType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Body type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isEngineVolumeValid(newCarRequest.getEngineVolume());
+        validationResult = validator.isEngineVolumeValid(newCarRequest.getEngineVolume());
         if (!validationResult.getIsValid()) {
+            logger.warn("Engine volume is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isEngineTypeValid(newCarRequest.getEngineType());
+        validationResult = validator.isEngineTypeValid(newCarRequest.getEngineType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Engine type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isTransmissionTypeValid(newCarRequest.getTransmissionType());
+        validationResult = validator.isTransmissionTypeValid(newCarRequest.getTransmissionType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Transmission type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isWheelDriveTypeValid(newCarRequest.getWheelDriveType());
+        validationResult = validator.isWheelDriveTypeValid(newCarRequest.getWheelDriveType());
         if (!validationResult.getIsValid()) {
+            logger.warn("Wheel drive type is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isMileageValid(newCarRequest.getMileage());
+        validationResult = validator.isMileageValid(newCarRequest.getMileage());
         if (!validationResult.getIsValid()) {
+            logger.warn("Mileage is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isBodyColorValid(newCarRequest.getBodyColor());
+        validationResult = validator.isBodyColorValid(newCarRequest.getBodyColor());
         if (!validationResult.getIsValid()) {
+            logger.warn("Body color is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isInteriorMaterialValid(newCarRequest.getInteriorMaterial());
+        validationResult = validator.isInteriorMaterialValid(newCarRequest.getInteriorMaterial());
         if (!validationResult.getIsValid()) {
+            logger.warn("Interior material is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isInteriorColorValid(newCarRequest.getInteriorColor());
+        validationResult = validator.isInteriorColorValid(newCarRequest.getInteriorColor());
         if (!validationResult.getIsValid()) {
+            logger.warn("Interior color is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
-        validationResult = Validator.isPriceValid(newCarRequest.getPrice());
+        validationResult = validator.isPriceValid(newCarRequest.getPrice());
         if (!validationResult.getIsValid()) {
+            logger.warn("Price is not valid.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(validationResult.getMessage()));
         }
 
-        try {
-            Car newCar = new Car();
+        Car newCar = new Car();
 
-            newCar.setBrand(newCarRequest.getBrand());
-            newCar.setModel(newCarRequest.getModel());
-            newCar.setYearOfIssue(newCarRequest.getYearOfIssue());
-            newCar.setBodyType(BodyType.valueOf(newCarRequest.getBodyType()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setEngineVolume(newCarRequest.getEngineVolume());
-            newCar.setEngineType(EngineType.valueOf(newCarRequest.getEngineType()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setTransmissionType(TransmissionType.valueOf(newCarRequest.getTransmissionType()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setWheelDriveType(WheelDriveType.valueOf(newCarRequest.getWheelDriveType()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setMileage(newCarRequest.getMileage());
-            newCar.setBodyColor(BodyColor.valueOf(newCarRequest.getBodyColor()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setInteriorColor(InteriorColor.valueOf(newCarRequest.getInteriorColor()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setInteriorMaterial(InteriorMaterial.valueOf(newCarRequest.getInteriorMaterial()).orElseThrow(() -> new IllegalArgumentException()));
-            newCar.setPrice(newCarRequest.getPrice());
-            newCar.setAutodealerId(autodealer.getId());
-            newCar.setIsSold(Byte.parseByte("0"));
-            newCar.setReceiptDate(LocalDateTime.now());
-            newCar.setImageName(carService.saveCarImage(newCarRequest.getImage()));
+        newCar.setBrand(newCarRequest.getBrand());
+        newCar.setModel(newCarRequest.getModel());
+        newCar.setYearOfIssue(newCarRequest.getYearOfIssue());
+        newCar.setBodyType(newCarRequest.getBodyType());
+        newCar.setEngineVolume(newCarRequest.getEngineVolume());
+        newCar.setEngineType(newCarRequest.getEngineType());
+        newCar.setTransmissionType(newCarRequest.getTransmissionType());
+        newCar.setWheelDriveType(newCarRequest.getWheelDriveType());
+        newCar.setMileage(newCarRequest.getMileage());
+        newCar.setBodyColor(newCarRequest.getBodyColor());
+        newCar.setInteriorColor(newCarRequest.getInteriorColor());
+        newCar.setInteriorMaterial(newCarRequest.getInteriorMaterial());
+        newCar.setPrice(newCarRequest.getPrice());
+        newCar.setAutodealerId(autodealer.getId());
+        newCar.setIsSold(false);
+        newCar.setReceiptDate(LocalDateTime.now());
+        newCar.setImageName(carService.saveCarImage(newCarRequest.getImage()));
 
-            carService.add(newCar);
+        carService.add(newCar);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Автомобиль успешно добавлен."));
-        }
-        catch (IllegalArgumentException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new MessageResponse("Что-то пошло не так :("));
-        }
+        logger.info("Responsed successfully add car message.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Автомобиль успешно добавлен."));
     }
 
     @PostMapping("/cars/order")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<?> orderCar(@RequestBody CarOrderRequest carOrderRequest, Model model) {
-        System.out.println(carOrderRequest);
+    public ResponseEntity<?> orderCar(@RequestParam(value = "carId", required = true) Integer carId, Model model) {
+        logger.info("Order car request.");
 
-        if (carOrderRequest == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Не удалось получить информацию об автомобиле или о пользователе."));
-        }
+        Car car = carService.getCarById(carId);
 
-        Car car = carService.getCarById(carOrderRequest.getCarId());
-
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = principal instanceof UserDetailsImpl ? userService.getUsers().stream().filter(u -> u.getUsername().equals(((UserDetailsImpl)principal).getUsername())).findFirst().orElse(null) : null;
+        
         if (car == null) {
+            logger.warn("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль с таким id не найден."));
         }
-
-        User user = userService.findById(carOrderRequest.getUserId());
-
         if (user == null) {
+            logger.warn("User not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Пользователь с таким id не найден."));
         }
 
-        car.setIsSold(Byte.parseByte("1"));
+        car.setIsSold(true);
 
         carService.update(car);
 
         Deal deal = new Deal();
         deal.setAmount(car.getPrice());
         deal.setDate(new Date());
-        deal.setIsConfirmed(Byte.parseByte("0"));
+        deal.setIsConfirmed(false);
         deal.setCarId(car.getId());
         deal.setCar(car);
         deal.setUserId(user.getId());
@@ -397,6 +483,7 @@ public class CarController {
 
         dealService.add(deal);
 
+        logger.info("Responsed successfully order car message.");
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Заявка успешно оставлена."));
     }
 }

@@ -39,6 +39,26 @@ class Utils {
         });
     }
 
+    getCarSortTypes() {
+        return ['Новые объявления', 'Дешевые авто', 'Дорогие авто', 'Новые авто', 'Старые авто', 'Меньший пробег'];
+    }
+
+    getAutodealerSortTypes() {
+        return ['Без сортировки', 'По алфавиту', 'По алфавиту в обратном порядке'];
+    }
+
+    getDealSortTypes() {
+        return ['Новые сделки', 'Старые сделки', 'По сумме по убыванию', 'По сумме по ворзастанию'];
+    }
+
+    getUserCarsListSortTypes() {
+        return ['Без сортировки', 'Дешевые авто', 'Дорогие авто', 'Новые авто', 'Старые авто', 'Меньший пробег'];
+    }
+
+    getMonths() {
+        return ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Окрябрь', 'Ноябрь', 'Декабрь'];
+    }
+
     generateYearArray(startYear) {
         var years = [];
         var currentYear = new Date().getFullYear();
@@ -104,8 +124,6 @@ class Utils {
         if (firstTimeHours > secondTimeHours && firstTimeMinutes === secondTimeMinutes) {
             return -1;
         }
-
-        
 
         if (secondTimeHours === firstTimeHours) {
             if (firstTimeMinutes < secondTimeMinutes) {

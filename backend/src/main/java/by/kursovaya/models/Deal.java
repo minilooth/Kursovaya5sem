@@ -2,7 +2,6 @@ package by.kursovaya.models;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,8 +37,8 @@ public class Deal {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Column(name = "IsConfirmed", nullable = false)
-    private Byte isConfirmed;
+    @Column(name = "IsConfirmed", nullable = false, columnDefinition="TINYINT(1)")
+    private Boolean isConfirmed;
 
     @Column(name = "UserId", nullable = false)
     private Integer userId;
@@ -48,12 +47,12 @@ public class Deal {
     private Integer carId;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "CarId", referencedColumnName = "Id", insertable = false, updatable = false)
     private Car car;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "UserId", referencedColumnName = "Id", insertable = false, updatable = false)
     private User user;
 }

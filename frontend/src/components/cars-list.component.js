@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-
-import {Container, Form, Button, Spinner} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCar} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 
 import SelectAutodealer from './select-autodealer.component';
 
 import AuthService from '../services/auth.service';
 import CarService from '../services/car.service';
+import AutodealerService from '../services/autodealer.service';
 import CurrencyService from '../services/currency.service';
 
 import Utils from '../utils/utils';
@@ -32,7 +32,7 @@ export default class CarsList extends Component {
         super(props);
 
         this.state = {
-            show: JSON.parse(localStorage.getItem('autodealer')) === null ? true : false,
+            showSelectAutodealerModal: AutodealerService.getCurrentAutodealer() === null ? true : false,
             cars: [],
             countOfNotSoldCars: 0,
             countOfTodayReceiptCars: 0,
@@ -49,6 +49,7 @@ export default class CarsList extends Component {
                   },
                 style: {
                     border: "0",
+                    borderTop: "0",
                     padding: "0",
                 }
             }],
@@ -73,22 +74,23 @@ export default class CarsList extends Component {
             modelFilter: "",
             yearOfIssueMinFilter: "",
             yearOfIssueMaxFilter: "",
-            bodyTypeFilter: "-1",
+            bodyTypeFilter: "",
             engineVolumeMinFilter: "",
             engineVolumeMaxFilter: "",
-            engineTypeFilter: "-1",
-            transmissionTypeFilter: "-1",
-            wheelDriveTypeFilter: "-1",
+            engineTypeFilter: "",
+            transmissionTypeFilter: "",
+            wheelDriveTypeFilter: "",
             mileageMinFilter: "",
             mileageMaxFilter: "",
-            bodyColorFilter: "-1",
-            interiorMaterialFilter: "-1",
-            interiorColorFilter: "-1",
+            bodyColorFilter: "",
+            interiorMaterialFilter: "",
+            interiorColorFilter: "",
             priceMinFilter: "",
-            priceMaxFilter: ""
+            priceMaxFilter: "",
         }
 
         this.applyFilter = this.applyFilter.bind(this);
+
         this.onChangeBrandFilter = this.onChangeBrandFilter.bind(this);
         this.onChangeModelFilter = this.onChangeModelFilter.bind(this);
         this.onChangeYearOfIssueMinFilter = this.onChangeYearOfIssueMinFilter.bind(this);
@@ -107,19 +109,18 @@ export default class CarsList extends Component {
         this.onChangePriceMinFilter = this.onChangePriceMinFilter.bind(this);
         this.onChangePriceMaxFilter = this.onChangePriceMaxFilter.bind(this);
 
-        this.years = Utils.generateYearArray(1975);
-        this.engineVolumes = Utils.generateEngineVolumeArray(0.8, 7.0);
+        this.onChangeSortType = this.onChangeSortType.bind(this);
+
         this.isFilterModeEnabled = false;
         this.isFilterOptionAdded = false;
+
+        this.sortType = "0";
     }
 
     getCurrencies() {
         CurrencyService.getDollarRate().then(
             response => {
-                console.log(response);
-                this.setState({
-                    dollarRate: response.data.Cur_OfficialRate,
-                })
+                this.setState({ dollarRate: response.data.Cur_OfficialRate })
             },
             error => {
                 toast.error((error.response &&
@@ -128,12 +129,12 @@ export default class CarsList extends Component {
                     error.message ||
                     error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
         CurrencyService.getEuroRate().then(
             response => {
-                this.setState({
-                    euroRate: response.data.Cur_OfficialRate,
-                })
+                this.setState({ euroRate: response.data.Cur_OfficialRate })
             },
             error => {
                 toast.error((error.response &&
@@ -142,100 +143,106 @@ export default class CarsList extends Component {
                     error.message ||
                     error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     onChangeBrandFilter(e) {
-        this.setState({
-            brandFilter: e.target.value
-        })
+        this.setState({ brandFilter: e.target.value })
     }
     onChangeModelFilter(e) {
-        this.setState({
-            modelFilter: e.target.value
-        })
+        this.setState({ modelFilter: e.target.value })
     }
     onChangeYearOfIssueMinFilter(e) {
-        this.setState({
-            yearOfIssueMinFilter: e.target.value
-        })
+        this.setState({ yearOfIssueMinFilter: e.target.value })
     }
     onChangeYearOfIssueMaxFilter(e) {
-        this.setState({
-            yearOfIssueMaxFilter: e.target.value
-        })
+        this.setState({ yearOfIssueMaxFilter: e.target.value })
     }
     onChangeBodyTypeFilter(e) {
-        this.setState({
-            bodyTypeFilter: e.target.value
-        })
+        this.setState({ bodyTypeFilter: e.target.value })
     }
     onChangeEngineVolumeMinFilter(e) {
-        this.setState({
-            engineVolumeMinFilter: e.target.value
-        })
+        this.setState({ engineVolumeMinFilter: e.target.value })
     }
     onChangeEngineVolumeMaxFilter(e) {
-        this.setState({
-            engineVolumeMaxFilter: e.target.value
-        })
+        this.setState({ engineVolumeMaxFilter: e.target.value })
     }
     onChangeEngineTypeFilter(e) {
-        this.setState({
-            engineTypeFilter: e.target.value
-        })
+        this.setState({ engineTypeFilter: e.target.value })
     }
     onChangeTransmissionTypeFilter(e) {
-        this.setState({
-            transmissionTypeFilter: e.target.value
-        })
+        this.setState({ transmissionTypeFilter: e.target.value })
     }
     onChangeWheelDriveTypeFilter(e) {
-        this.setState({
-            wheelDriveTypeFilter: e.target.value
-        })
+        this.setState({ wheelDriveTypeFilter: e.target.value })
     }
     onChangeMileageMinFilter(e) {
-        this.setState({
-            mileageMinFilter: e.target.value
-        })
+        this.setState({ mileageMinFilter: e.target.value })
     }
     onChangeMileageMaxFilter(e) {
-        this.setState({
-            mileageMaxFilter: e.target.value
-        })
+        this.setState({ mileageMaxFilter: e.target.value })
     }
     onChangeBodyColorFilter(e) {
-        this.setState({
-            bodyColorFilter: e.target.value
-        })
+        this.setState({ bodyColorFilter: e.target.value })
     }
     onChangeInteriorMaterialFilter(e) {
-        this.setState({
-            interiorMaterialFilter: e.target.value
-        })
+        this.setState({ interiorMaterialFilter: e.target.value })
     }
     onChangeInteriorColorFilter(e) {
-        this.setState({
-            interiorColorFilter: e.target.value
-        })
+        this.setState({ interiorColorFilter: e.target.value })
     }
     onChangePriceMinFilter(e) {
-        this.setState({
-            priceMinFilter: e.target.value
-        })
+        this.setState({ priceMinFilter: e.target.value })
     }
     onChangePriceMaxFilter(e) {
-        this.setState({
-            priceMaxFilter: e.target.value
-        })
+        this.setState({ priceMaxFilter: e.target.value })
+    }
+    onChangeSortType(e) {
+        this.sortType = e.target.value;
+        this.refreshCarList();
     }
 
-    itemFormatter = (cell, row) => {
+    itemFormatter = (cell, row, rowIndex) => {
+        let itemStyle = null;
+
+        if (this.state.cars.length <= 4) {
+            if (rowIndex === 14 || this.state.cars.length === rowIndex + 1) {
+                itemStyle = {
+                    borderTop: "0", 
+                    borderLeft: "0", 
+                    borderBottom: "0"
+                }
+            }
+            else {
+                itemStyle = {
+                    borderTop: "0", 
+                    borderLeft: "0", 
+                    borderBottom: "1px solid lightgray"
+                }
+            }
+        }
+        else {
+            if (rowIndex === 14 || this.state.cars.length === rowIndex + 1) {
+                itemStyle = {
+                    borderTop: "0", 
+                    borderLeft: "1px solid lightgray", 
+                    borderBottom: "0"
+                }
+            }
+            else {
+                itemStyle = {
+                    borderTop: "0", 
+                    borderLeft: "1px solid lightgray", 
+                    borderBottom: "1px solid lightgray"
+                }
+            }
+        }
+
         return (
             <Link to={"/cars/" + row.id}s  class="car__item__link" >
-                <div class="car__item" action style={this.state.cars.length <= 5 ? {borderTop: "1px solid lightgray", borderLeft: "0px solid lightgray"} : 
-                                                                                  {borderTop: "1px solid lightgray", borderLeft: "1px solid lightgray"}} >
+                <div class="car__item" action style={itemStyle} >
                     {row.image == null ? 
                     (
                         <div class="car__item__photo--empty">
@@ -246,16 +253,24 @@ export default class CarsList extends Component {
                             <img src={row.image} style={{width: "100%", height: "100%"}} alt="Автомобиль"></img>
                         </div>
                     )}
+                    {row.isSold ? (
+                        <div class="car__item__photo-sold">
+                            <span>Продано</span>
+                        </div>
+                    ) : null}
                     <div class="car__item__data">
                         <div class="car__item__data-main">
-                            <div class="car__item__data-title">{row.brand} {row.model}</div>
-                            <div class="car__item__data-specs">
-                                <div class="car__item__data-other-engine">{row.engineVolume} л / {Utils.getEngineTypes()[row.engineType]}</div>
-                                <div class="car__item__data-other-transmission">{Utils.getTransmissionTypes()[row.transmissionType]}</div>
-                                <div class="car__item__data-other-body">{Utils.getBodyTypes()[row.bodyType]}</div>
-                                <div class="car__item__data-other-wheeldrive">{Utils.getWheelDriveTypes()[row.wheelDriveType]}</div>
-                                <div class="car__item__data-other-more">Еще {Object.getOwnPropertyNames(row).length - 7 - 5} опций</div>
+                            <div style={{height: "100px"}}>
+                                <div class="car__item__data-title">{row.brand} {row.model}</div>
+                                <div class="car__item__data-specs">
+                                    <div class="car__item__data-other-engine">{row.engineVolume} л / {Utils.getEngineTypes()[row.engineType]}</div>
+                                    <div class="car__item__data-other-transmission">{Utils.getTransmissionTypes()[row.transmissionType]}</div>
+                                    <div class="car__item__data-other-body">{Utils.getBodyTypes()[row.bodyType]}</div>
+                                    <div class="car__item__data-other-wheeldrive">{Utils.getWheelDriveTypes()[row.wheelDriveType]}</div>
+                                    <div class="car__item__data-other-more">Еще {Object.getOwnPropertyNames(row).length - 7 - 5} опций</div>
+                                </div>
                             </div>
+                            <div style={{marginTop: "40px"}}>Опубликовано {new Date(row.receiptDate).toLocaleDateString("ru-RU")}</div>
                         </div>
                         <div class="car__item__data-mileage-year">
                             <div>{row.mileage} км</div>
@@ -285,10 +300,10 @@ export default class CarsList extends Component {
 
     applyFilter = () => {
         if (this.state.brandFilter === "" && this.state.modelFilter === "" && this.state.yearOfIssueMinFilter === "" && this.state.yearOfIssueMaxFilter === "" &&
-            this.state.bodyTypeFilter === "-1" && this.state.engineVolumeMinFilter === "" && this.state.engineVolumeMaxFilter === "" &&
-            this.state.engineTypeFilter === "-1" && this.state.transmissionTypeFilter === "-1" && this.state.wheelDriveTypeFilter === "-1" &&
-            this.state.mileageMaxFilter === "" && this.state.mileageMinFilter === "" && this.state.bodyColorFilter === "-1" && 
-            this.state.interiorMaterialFilter === "-1" && this.state.interiorColorFilter === "-1" && this.state.priceMinFilter === "" &&
+            this.state.bodyTypeFilter === "" && this.state.engineVolumeMinFilter === "" && this.state.engineVolumeMaxFilter === "" &&
+            this.state.engineTypeFilter === "" && this.state.transmissionTypeFilter === "" && this.state.wheelDriveTypeFilter === "" &&
+            this.state.mileageMaxFilter === "" && this.state.mileageMinFilter === "" && this.state.bodyColorFilter === "" && 
+            this.state.interiorMaterialFilter === "" && this.state.interiorColorFilter === "" && this.state.priceMinFilter === "" &&
             this.state.priceMaxFilter === "") {
                 toast.error("Ни один параметр фильтра не выбран.", { position: toast.POSITION.BOTTOM_RIGHT });
                 return;
@@ -303,17 +318,17 @@ export default class CarsList extends Component {
                 modelFilter: "",
                 yearOfIssueMinFilter: "",
                 yearOfIssueMaxFilter: "",
-                bodyTypeFilter: "-1",
+                bodyTypeFilter: "",
                 engineVolumeMinFilter: "",
                 engineVolumeMaxFilter: "",
-                engineTypeFilter: "-1",
-                transmissionTypeFilter: "-1",
-                wheelDriveTypeFilter: "-1",
+                engineTypeFilter: "",
+                transmissionTypeFilter: "",
+                wheelDriveTypeFilter: "",
                 mileageMinFilter: "",
                 mileageMaxFilter: "",
-                bodyColorFilter: "-1",
-                interiorMaterialFilter: "-1",
-                interiorColorFilter: "-1",
+                bodyColorFilter: "",
+                interiorMaterialFilter: "",
+                interiorColorFilter: "",
                 priceMinFilter: "",
                 priceMaxFilter: ""
             });
@@ -324,17 +339,17 @@ export default class CarsList extends Component {
                 modelFilter: "",
                 yearOfIssueMinFilter: "",
                 yearOfIssueMaxFilter: "",
-                bodyTypeFilter: "-1",
+                bodyTypeFilter: "",
                 engineVolumeMinFilter: "",
                 engineVolumeMaxFilter: "",
-                engineTypeFilter: "-1",
-                transmissionTypeFilter: "-1",
-                wheelDriveTypeFilter: "-1",
+                engineTypeFilter: "",
+                transmissionTypeFilter: "",
+                wheelDriveTypeFilter: "",
                 mileageMinFilter: "",
                 mileageMaxFilter: "",
-                bodyColorFilter: "-1",
-                interiorMaterialFilter: "-1",
-                interiorColorFilter: "-1",
+                bodyColorFilter: "",
+                interiorMaterialFilter: "",
+                interiorColorFilter: "",
                 priceMinFilter: "",
                 priceMaxFilter: ""
             }));
@@ -368,13 +383,12 @@ export default class CarsList extends Component {
     }
 
     refreshCarList = () => {
-        if (localStorage.getItem('autodealer') === null) {
+        if (AutodealerService.getCurrentAutodealer() === null) {
             return;
         }
 
-        CarService.getNotSoldCars().then(
+        CarService.getCars(this.sortType).then(
             response => {
-                console.log(response);
                 this.setState({
                     cars: response.data.cars,
                     countOfNotSoldCars: response.data.countOfNotSoldCars,
@@ -385,6 +399,7 @@ export default class CarsList extends Component {
             error => {
                 if (error.response.data.status === 401) {
                     AuthService.logout();
+
                     this.props.history.push({
                         pathname: "/login",
                         state: {
@@ -395,9 +410,7 @@ export default class CarsList extends Component {
                     window.location.reload();
                 }
                 else {
-                    this.setState({
-                        isLoading: false,
-                    })
+                    this.setState({ isLoading: false })
                     toast.error((error.response &&
                         error.response.data &&
                         error.response.data.message) ||
@@ -405,17 +418,17 @@ export default class CarsList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
-    handleClose = () => {
-        this.setState({
-            show: false,
-        })
+    handleSelectAutodealerModalClose = () => {
+        this.setState({ showSelectAutodealerModal: false })
         this.refreshCarList();
     }
 
-    onCancel = () => {
+    onSelectAutodealerModalCancel = () => {
         this.props.history.push("/profile");
         window.location.reload();
     }
@@ -487,162 +500,178 @@ export default class CarsList extends Component {
                 <div class="car__list__header-count">{this.state.countOfNotSoldCars} объявлений(-ия) {this.state.countOfTodayReceiptCars !== 0 ? <span style={{color: "#7dbf26"}}>+ {this.state.countOfTodayReceiptCars} за сегодня!</span> : null}</div>
                     <h2 class="car__list__header-title"><FontAwesomeIcon icon={faCar}/>&nbsp;Список автомобилей</h2>
                 </div>
-                    <div class="car__list__container">
-                        <div>
-                            <Form style={this.state.cars.length <= 5 ? {width: "300px", borderTop: "1px solid lightgray", borderRight: "1px solid lightgray"} :
-                                                                      {width: "300px", borderTop: "1px solid lightgray", borderRight: "0px solid lightgray"}}>
-                            <Form.Group controlId="price" style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Цена</Form.Label>
-                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Form.Control style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} placeholder="от" value={this.state.priceMinFilter} onChange={this.priceMinFilter}/>
-                                        <Form.Control style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} placeholder="до" value={this.state.priceMaxFilter} onChange={this.priceMaxFilter}/>
-                                    </div>
-                                </Form.Group>
-                                <Form.Group controlId="brandAndModel" style={{marginRight: "20px", marginBottom: "5px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Марка</Form.Label>
-                                    <Form.Control type="text" placeholder="Введите марку" value={this.state.brandFilter} onChange={this.onChangeBrandFilter}/>
-                                    <Form.Control type="text" placeholder="Введите модель" style={{marginTop: "5px"}} value={this.state.modelFilter} onChange={this.onChangeModelFilter}/>
-                                </Form.Group>
-                                <Form.Group controlId="yearOfIssue" style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Год выпуска</Form.Label>
-                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Form.Control as="select" style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} value={this.state.yearOfIssueMinFilter} onChange={this.onChangeYearOfIssueMinFilter}>
-                                            <option value="" disabled selected hidden>с</option>
-                                            {
-                                                this.years.map((year, index) => {
-                                                    return <option key={`year${index}`} value={year}>{year}</option>
-                                                })
-                                            }
-                                        </Form.Control>
-                                        <Form.Control as="select" style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} value={this.state.yearOfIssueMaxFilter} onChange={this.onChangeYearOfIssueMaxFilter}>
-                                            <option value="" disabled selected hidden>до</option>
-                                            {
-                                                this.years.map((year, index) => {
-                                                    return <option key={index} value={year}>{year}</option>
-                                                })
-                                            }
-                                        </Form.Control>
-                                    </div>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Тип кузова</Form.Label>
-                                    <Form.Control as="select" value={this.state.bodyTypeFilter} onChange={this.onChangeBodyTypeFilter}>
-                                        <option value="-1" selected>Любой</option>
+                <div class="car__list__container">
+                    <div>
+                        <Form style={this.state.cars.length <= 4 ? {width: "300px", borderTop: "1px solid lightgray", borderRight: "1px solid lightgray"} :
+                                                                    {width: "300px", borderTop: "1px solid lightgray", borderRight: "0px solid lightgray"}}>
+                        <Form.Group controlId="price" style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Цена</Form.Label>
+                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                                    <Form.Control style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} placeholder="от" value={this.state.priceMinFilter} onChange={this.onChangePriceMinFilter}/>
+                                    <Form.Control style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} placeholder="до" value={this.state.priceMaxFilter} onChange={this.onChangePriceMaxFilter}/>
+                                </div>
+                            </Form.Group>
+                            <Form.Group controlId="brandAndModel" style={{marginRight: "20px", marginBottom: "5px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Марка</Form.Label>
+                                <Form.Control type="text" placeholder="Введите марку" value={this.state.brandFilter} onChange={this.onChangeBrandFilter}/>
+                                <Form.Control type="text" placeholder="Введите модель" style={{marginTop: "5px"}} value={this.state.modelFilter} onChange={this.onChangeModelFilter}/>
+                            </Form.Group>
+                            <Form.Group controlId="yearOfIssue" style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Год выпуска</Form.Label>
+                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                                    <Form.Control as="select" style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} value={this.state.yearOfIssueMinFilter} onChange={this.onChangeYearOfIssueMinFilter}>
+                                        <option value="" disabled selected hidden>с</option>
                                         {
-                                            Utils.getBodyTypes().map((type, index) => {
-                                                return <option key={index} value={index}>{type}</option>
+                                            Utils.generateYearArray(1975).map((year, index) => {
+                                                return <option key={`year${index}`} value={year}>{year}</option>
                                             })
                                         }
                                     </Form.Control>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Тип двигателя</Form.Label>
-                                    <Form.Control as="select" value={this.state.engineTypeFilter} onChange={this.onChangeEngineTypeFilter}>
-                                        <option value="-1" selected>Любой</option>
+                                    <Form.Control as="select" style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} value={this.state.yearOfIssueMaxFilter} onChange={this.onChangeYearOfIssueMaxFilter}>
+                                        <option value="" disabled selected hidden>до</option>
                                         {
-                                            Utils.getEngineTypes().map((type, index) => {
-                                                return <option key={index} value={index}>{type}</option>
+                                            Utils.generateYearArray(1975).map((year, index) => {
+                                                return <option key={index} value={year}>{year}</option>
                                             })
                                         }
                                     </Form.Control>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Коробка передач</Form.Label>
-                                    <Form.Control as="select" value={this.state.transmissionTypeFilter} onChange={this.onChangeTransmissionTypeFilter}>
-                                        <option value="-1" selected>Любая</option>
+                                </div>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Тип кузова</Form.Label>
+                                <Form.Control as="select" value={this.state.bodyTypeFilter} onChange={this.onChangeBodyTypeFilter}>
+                                    <option value="" selected>Любой</option>
+                                    {
+                                        Utils.getBodyTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Тип двигателя</Form.Label>
+                                <Form.Control as="select" value={this.state.engineTypeFilter} onChange={this.onChangeEngineTypeFilter}>
+                                    <option value="" selected>Любой</option>
+                                    {
+                                        Utils.getEngineTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Коробка передач</Form.Label>
+                                <Form.Control as="select" value={this.state.transmissionTypeFilter} onChange={this.onChangeTransmissionTypeFilter}>
+                                    <option value="" selected>Любая</option>
+                                    {
+                                        Utils.getTransmissionTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="model" style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Объем двигателя</Form.Label>
+                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                                    <Form.Control as="select" style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} value={this.state.engineVolumeMinFilter} onChange={this.onChangeEngineVolumeMinFilter}>
+                                        <option value="" disabled selected hidden>от</option>
                                         {
-                                            Utils.getTransmissionTypes().map((type, index) => {
-                                                return <option key={index} value={index}>{type}</option>
+                                            Utils.generateEngineVolumeArray(0.8, 7.0).map((engineVolume, index) => {
+                                                return <option key={`year${index}`} value={engineVolume}>{engineVolume}</option>
                                             })
                                         }
                                     </Form.Control>
-                                </Form.Group>
-                                <Form.Group controlId="model" style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Объем двигателя</Form.Label>
-                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Form.Control as="select" style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} value={this.state.engineVolumeMinFilter} onChange={this.onChangeEngineVolumeMinFilter}>
-                                            <option value="" disabled selected hidden>от</option>
-                                            {
-                                                this.engineVolumes.map((engineVolume, index) => {
-                                                    return <option key={`year${index}`} value={engineVolume}>{engineVolume}</option>
-                                                })
-                                            }
-                                        </Form.Control>
-                                        <Form.Control as="select" style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} value={this.state.engineVolumeMaxFilter} onChange={this.onChangeEngineVolumeMaxFilter}>
-                                            <option value="" disabled selected hidden>до</option>
-                                            {
-                                                this.engineVolumes.map((engineVolume, index) => {
-                                                    return <option key={`year${index}`} value={engineVolume}>{engineVolume}</option>
-                                                })
-                                            }
-                                        </Form.Control>
-                                    </div>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Привод</Form.Label>
-                                    <Form.Control as="select" value={this.state.wheelDriveTypeFilter} onChange={this.onChangeWheelDriveTypeFilter}>
-                                        <option value="-1" selected>Любая</option>
+                                    <Form.Control as="select" style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} value={this.state.engineVolumeMaxFilter} onChange={this.onChangeEngineVolumeMaxFilter}>
+                                        <option value="" disabled selected hidden>до</option>
                                         {
-                                            Utils.getWheelDriveTypes().map((type, index) => {
-                                                return <option key={index} value={index}>{type}</option>
+                                            Utils.generateEngineVolumeArray(0.8, 7.0).map((engineVolume, index) => {
+                                                return <option key={`year${index}`} value={engineVolume}>{engineVolume}</option>
                                             })
                                         }
                                     </Form.Control>
-                                </Form.Group>
-                                <Form.Group controlId="model" style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Пробег</Form.Label>
-                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Form.Control style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} placeholder="от" value={this.state.mileageMinFilter} onChange={this.onChangeMileageMinFilter}/>
-                                        <Form.Control style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} placeholder="до" value={this.state.mileageMaxFilter} onChange={this.onChangeMileageMaxFilter}/>
-                                    </div>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Цвет кузова</Form.Label>
-                                    <Form.Control as="select" value={this.state.bodyColorFilter} onChange={this.onChangeBodyColorFilter}>
-                                        <option value="-1" selected>Любой</option>
-                                        {
-                                            Utils.getBodyColors().map((color, index) => {
-                                                return <option key={index} value={index}>{color}</option>
-                                            })
-                                        }
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Цвет салона</Form.Label>
-                                    <Form.Control as="select" value={this.state.interiorColorFilter} onChange={this.onChangeInteriorColorFilter}>
-                                        <option value="-1" selected>Любой</option>
-                                        {
-                                            Utils.getInteriorColors().map((color, index) => {
-                                                return <option key={index} value={index}>{color}</option>
-                                            })
-                                        }
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group style={{marginRight: "20px"}}>
-                                    <Form.Label style={{fontWeight: "500"}}>Материал салона</Form.Label>
-                                    <Form.Control as="select" value={this.state.interiorMaterialFilter} onChange={this.onChangeInteriorMaterialFilter}>
-                                        <option value="-1" selected>Любой</option>
-                                        {
-                                            Utils.getInteriorMaterials().map((material, index) => {
-                                                return <option key={index} value={index}>{material}</option>
-                                            })
-                                        }
-                                    </Form.Control>
-                                </Form.Group>
+                                </div>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Привод</Form.Label>
+                                <Form.Control as="select" value={this.state.wheelDriveTypeFilter} onChange={this.onChangeWheelDriveTypeFilter}>
+                                    <option value="" selected>Любая</option>
+                                    {
+                                        Utils.getWheelDriveTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="model" style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Пробег</Form.Label>
+                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                                    <Form.Control style={{width: "49%", borderRadius: "5px 0px 0px 5px"}} placeholder="от" value={this.state.mileageMinFilter} onChange={this.onChangeMileageMinFilter}/>
+                                    <Form.Control style={{width: "49%", borderRadius: "0px 5px 5px 0px"}} placeholder="до" value={this.state.mileageMaxFilter} onChange={this.onChangeMileageMaxFilter}/>
+                                </div>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Цвет кузова</Form.Label>
+                                <Form.Control as="select" value={this.state.bodyColorFilter} onChange={this.onChangeBodyColorFilter}>
+                                    <option value="" selected>Любой</option>
+                                    {
+                                        Utils.getBodyColors().map((color, index) => {
+                                            return <option key={index} value={index}>{color}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Цвет салона</Form.Label>
+                                <Form.Control as="select" value={this.state.interiorColorFilter} onChange={this.onChangeInteriorColorFilter}>
+                                    <option value="" selected>Любой</option>
+                                    {
+                                        Utils.getInteriorColors().map((color, index) => {
+                                            return <option key={index} value={index}>{color}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group style={{marginRight: "20px"}}>
+                                <Form.Label style={{fontWeight: "500"}}>Материал салона</Form.Label>
+                                <Form.Control as="select" value={this.state.interiorMaterialFilter} onChange={this.onChangeInteriorMaterialFilter}>
+                                    <option value="" selected>Любой</option>
+                                    {
+                                        Utils.getInteriorMaterials().map((material, index) => {
+                                            return <option key={index} value={index}>{material}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
 
-                                <Form.Group style={{marginRight: "20px", textAlign: "center"}}>
-                                    <Button variant={!this.isFilterModeEnabled ? "success" : "danger"} style={{width: "75%"}} onClick={this.applyFilter} disable={this.isFilterOptionAdded}>{!this.isFilterModeEnabled ? <span>Применить</span> : <span>Отменить</span> }</Button>
-                                </Form.Group>
+                            <Form.Group style={{marginRight: "20px", textAlign: "center"}}>
+                                <Button variant={!this.isFilterModeEnabled ? "success" : "danger"} style={{width: "75%"}} onClick={this.applyFilter} disable={this.isFilterOptionAdded}>{!this.isFilterModeEnabled ? <span>Применить</span> : <span>Отменить</span> }</Button>
+                            </Form.Group>
 
-                            </Form>
+                        </Form>
+                    </div>
+                    <div style={{display: "flex", flexDirection: "column", borderTop: "1px solid lightgray", width: "100%"}}>
+                        <div style={this.state.cars.length !== 0 ? {paddingTop: "16px", width: "100%", borderLeft: "1px solid lightgray", display: "flex", justifyContent: "flex-end"} :
+                                                                   {paddingTop: "16px", width: "100%", display: "flex", justifyContent: "flex-end"}}>
+                            <div>
+                            <Form.Group style={{marginBottom: "0", width: "190px"}}>
+                                <Form.Control as="select" value={this.sortType} onChange={this.onChangeSortType}>
+                                    {
+                                        Utils.getCarSortTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            </div>
                         </div>
                         {table}
                     </div>
+                </div>
                 <SelectAutodealer 
                     prevProps={this.props}
-                    show={this.state.show}
-                    onHide={this.handleClose} 
-                    onCancel={this.onCancel}/>
+                    show={this.state.showSelectAutodealerModal}
+                    onHide={this.handleSelectAutodealerModalClose} 
+                    onCancel={this.onSelectAutodealerModalCancel}/>
                 <ToastContainer limit={3}/>
             </Container>
         )

@@ -47,8 +47,8 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfRegistration;
 
-    @Column(name = "IsAccountNonLocked")
-    private Byte isAccountNonLocked;
+    @Column(name = "IsAccountNonLocked", columnDefinition = "TINYINT(1)")
+    private Boolean isAccountNonLocked;
 
     @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_role", 
@@ -67,7 +67,7 @@ public class User {
     @OneToMany(targetEntity = Deal.class, mappedBy = "id", fetch = FetchType.LAZY)
     private Set<Deal> deals = new HashSet<>();
     
-    public User(String username, String password, String firstname, String surname, String email, String mobilePhone, Date dateOfRegistration, Byte isAccountNonLocked) {
+    public User(String username, String password, String firstname, String surname, String email, String mobilePhone, Date dateOfRegistration, Boolean isAccountNonLocked) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -86,6 +86,6 @@ public class User {
         this.email = email;
         this.mobilePhone = mobilePhone;
         this.dateOfRegistration = new Date();
-        this.isAccountNonLocked = 1;
+        this.isAccountNonLocked = true;
     }
 }

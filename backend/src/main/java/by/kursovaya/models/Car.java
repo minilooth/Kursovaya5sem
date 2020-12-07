@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,12 +33,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "by.kursovaya.kursovaya.models.Car")
-@Table(name = "Car")
+@Table(name = "car")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -92,8 +91,8 @@ public class Car {
     @Column(name = "ReceiptDate", nullable = false, columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime receiptDate;
 
-    @Column(name = "IsSold", nullable = false, columnDefinition="TINYINT DEFAULT 0")
-    private Byte isSold;
+    @Column(name = "IsSold", nullable = false, columnDefinition="TINYINT(1) DEFAULT 0")
+    private Boolean isSold;
 
     @Column(name = "AutodealerId", nullable = false)
     private Integer autodealerId;
@@ -106,11 +105,11 @@ public class Car {
     private String image;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "AutodealerId", referencedColumnName = "Id", insertable = false, updatable = false)
     private Autodealer autodealer;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Deal.class, mappedBy="id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(targetEntity = Deal.class, mappedBy="id", fetch = FetchType.LAZY)
     private Set<Deal> deals = new HashSet<>();
 }

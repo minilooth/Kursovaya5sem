@@ -4,6 +4,10 @@ import AuthService from "../services/auth.service";
 import {Container, Card, Form, Col, Button, InputGroup} from 'react-bootstrap';
 import MaskedFormControl from 'react-bootstrap-maskedinput';
 
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const leftFormGroupStyle = {
   marginRight: "15px"
@@ -305,7 +309,11 @@ export default class Register extends Component {
             message: resMessage
           });
         }
-      );
+      ).catch(
+        error => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        }
+    );
     }
   }
 
@@ -427,6 +435,7 @@ export default class Register extends Component {
             </Card.Body>
           </Form>
         </Card>
+        <ToastContainer limit={3}/>
       </Container>
     )
   }

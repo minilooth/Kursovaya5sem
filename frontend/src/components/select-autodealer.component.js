@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheck, faWarehouse, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCheck, faWarehouse, faSearch, faSort } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import { Card, Button, ListGroup, InputGroup, FormControl, Modal, Spinner } from 'react-bootstrap';
 
@@ -14,6 +14,8 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import AutodealerService from "../services/autodealer.service";
 import AuthService from "../services/auth.service";
 
+import Utils from '../utils/utils';
+
 const rowStyle = {
     border: "0",
     margin: "0",
@@ -23,6 +25,8 @@ const rowStyle = {
 export default class SelectAutodealer extends Component {
     constructor(props) {
         super(props);
+
+        this.selectAutodealer = this.selectAutodealer.bind(this);
 
         this.state = {
             isLoading: true,
@@ -59,12 +63,20 @@ export default class SelectAutodealer extends Component {
         }
 
         this.searchTitle = "";
+        this.sortType = "0";
+        this.isFormInvalid = false;
 
         this.titleOnChange = this.titleOnChange.bind(this);
+        this.sortTypeOnChange = this.sortTypeOnChange.bind(this);
     }
 
     titleOnChange = event => {
         this.searchTitle = event.target.value;
+        this.refreshAutodealerList();
+    }
+
+    sortTypeOnChange = event => {
+        this.sortType = event.target.value;
         this.refreshAutodealerList();
     }
 
@@ -82,7 +94,7 @@ export default class SelectAutodealer extends Component {
     }
 
     refreshAutodealerList = () => {
-        AutodealerService.getAutodealers(this.searchTitle).then(
+        AutodealerService.getAll(this.searchTitle, this.sortType).then(
             response => {
                 this.setState({
                     autodealers: response.data,
@@ -92,45 +104,15 @@ export default class SelectAutodealer extends Component {
             error => {
                 if (error.response.data.status === 401) {
                     AuthService.logout();
-                    this.props.prevProps.history.push({
+
+                    this.props.history.push({
                         pathname: "/login",
                         state: {
                             showToast: true,
                             toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
                         }
                     });
-                }
-                else {
-                    toast.error((error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                        error.message ||
-                        error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
-                }
-            }
-        )
-    }
 
-    selectAutodealer = () => {
-        AutodealerService.selectAutodealer(this.state.selectedAutodealerId).then(
-            response => {
-                localStorage.setItem("autodealer", JSON.stringify(response.data));
-                this.props.onHide();
-
-                if (typeof this.props.onSelect === "function") {
-                    this.props.onSelect();
-                }
-            },
-            error => {
-                if (error.response.data.status === 401) {
-                    AuthService.logout();
-                    this.props.prevProps.history.push({
-                        pathname: "/login",
-                        state: {
-                            showToast: true,
-                            toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
-                        }
-                    });
                     window.location.reload();
                 }
                 else {
@@ -141,7 +123,61 @@ export default class SelectAutodealer extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
+    }
+
+    validate = () => {
+        this.isFormInvalid = false;
+
+        if (this.state.selectedAutodealerId === null || this.state.selectedAutodealerId === "") {
+            this.isFormInvalid = true;
+            toast.error("Автосалон не выбран.", { position: toast.POSITION.BOTTOM_RIGHT });
+        }
+    }
+
+    selectAutodealer = (e) => {
+        e.preventDefault();
+
+        this.validate();
+
+        if (!this.isFormInvalid) {
+            AutodealerService.select(this.state.selectedAutodealerId).then(
+                response => {
+                    localStorage.setItem("autodealer", JSON.stringify(response.data));
+                    this.props.onHide();
+
+                    if (typeof this.props.onSelect === "function") {
+                        this.props.onSelect();
+                    }
+                },
+                error => {
+                    if (error.response.data.status === 401) {
+                        AuthService.logout();
+
+                        this.props.history.push({
+                            pathname: "/login",
+                            state: {
+                                showToast: true,
+                                toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
+                            }
+                        });
+                        
+                        window.location.reload();
+                    }
+                    else {
+                        toast.error((error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                            error.message ||
+                            error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
+                    }
+                }
+            ).catch(() => {
+                toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+            })
+        }
     }
 
     componentDidMount() {
@@ -194,18 +230,35 @@ export default class SelectAutodealer extends Component {
                             <Modal.Title><FontAwesomeIcon icon={faWarehouse}/>&nbsp;Выбор автосалона</Modal.Title>
                         </Modal.Header>
                         <Modal.Body style={{display: "flex", flexDirection: "column"}}>
-                            <InputGroup style={{ marginBottom: "17px", alignSelf: "flex-end"}}>
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                    value={this.state.searchTitle}
-                                    ref={input => { this.inputElement = input }}
-                                    onChange={this.titleOnChange}
-                                    placeholder="Название"
-                                    aria-label="Title"
-                                    aria-describedby="basic-addon1"/>
-                            </InputGroup>
+                            <div style={{display: "flex", flexDirection: "row", marginBottom: "15px"}}>
+                                <InputGroup style={{marginRight: "15px"}}>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <FormControl
+                                        value={this.state.searchTitle}
+                                        ref={input => { this.inputElement = input }}
+                                        onChange={this.titleOnChange}
+                                        placeholder="Название"
+                                        aria-label="Title"
+                                        aria-describedby="basic-addon1"/>
+                                </InputGroup>
+                                <InputGroup style={{marginLeft: "15px"}}>
+                                    <InputGroup.Prepend style={{width: "42px"}}>
+                                        <InputGroup.Text style={{width: "42px", display: "flex", justifyContent: "center"}}><FontAwesomeIcon icon={ faSort } /></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <FormControl
+                                        as="select"
+                                        value={ this.sortType }
+                                        onChange={ this.sortTypeOnChange }>
+                                        {
+                                            Utils.getAutodealerSortTypes().map((type, index) => {
+                                                return <option key={index} value={index}>{type}</option>
+                                            })
+                                        }
+                                    </FormControl>
+                                </InputGroup>
+                            </div>
                             {table}
                         </Modal.Body>
                         <Modal.Footer style={{marginTop: "-15px"}}>

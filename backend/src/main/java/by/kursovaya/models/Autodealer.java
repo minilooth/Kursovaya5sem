@@ -49,17 +49,17 @@ public class Autodealer {
     private String description;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable( name = "user_autodealer",
                 joinColumns = {@JoinColumn(name = "AutodealerId", referencedColumnName = "Id")},
                 inverseJoinColumns = {@JoinColumn(name = "UserId", referencedColumnName = "Id")})
     private User user;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Car.class, mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(targetEntity = Car.class, mappedBy = "id", fetch = FetchType.LAZY)
     private Set<Car> cars = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(targetEntity = Statistics.class, mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(targetEntity = Statistics.class, mappedBy = "id", fetch = FetchType.LAZY)
     private Set<Statistics> statistics = new HashSet<>();
 }

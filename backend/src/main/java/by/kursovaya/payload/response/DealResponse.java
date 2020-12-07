@@ -16,6 +16,7 @@ public class DealResponse {
     private Date date;
     private Boolean isConfirmed;
     private String username;
+    private Integer userId;
     private String brand;
     private String model;
     private Integer yearOfIssue;

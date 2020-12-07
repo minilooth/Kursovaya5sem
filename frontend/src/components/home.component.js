@@ -1,28 +1,28 @@
 import React, { Component } from "react";
-
 import {Container, Card, Jumbotron, Spinner} from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
 
 import AuthService from "../services/auth.service";
 import AutodealerService from "../services/autodealer.service";
 
 import SelectAutodealer from './select-autodealer.component';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 export default class Home extends Component {
     constructor(props) {
         super(props);
 
+        console.log(props);
+
         this.state = {
-            autodealerData: null,
+            autodealerData: [],
             isLoading: true,
-            show: JSON.parse(localStorage.getItem('autodealer')) === null ? true : false,
+
+            show: AutodealerService.getCurrentAutodealer() === null ? true : false,
         };
+
     }
 
     getAutodealer() {
-        AutodealerService.getAutodealer(JSON.parse(localStorage.getItem('autodealer')).id).then(
+        AutodealerService.get(AutodealerService.getCurrentAutodealer()).then(
             response => {
                 this.setState({
                     autodealerData: response.data,
@@ -30,14 +30,6 @@ export default class Home extends Component {
                 })
             },
             error => {
-                this.setState({
-                    isLoading: false,
-                });
-                toast.error((error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                    error.message ||
-                    error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 if (error.response.data.status === 401) {
                     AuthService.logout();
                     this.props.history.push({
@@ -49,16 +41,23 @@ export default class Home extends Component {
                     });
                     window.location.reload();
                 }
+                else {
+                    this.props.toast.error((error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                        error.message ||
+                        error.toString(), { position: this.props.toast.POSITION.BOTTOM_RIGHT });
+                }
             }
-        )
+        ).catch(() => {
+            this.props.toast.error("Что-то пошло не так :(", { position: this.props.toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     handleClose = () => {
-        this.setState({
-            show: false,
-        })
+        this.setState({ show: false })
 
-        if (localStorage.getItem('autodealer') !== null) {
+        if (AutodealerService.getCurrentAutodealer() !== null) {
             this.getAutodealer();
         }
     }
@@ -69,7 +68,7 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        if (localStorage.getItem('autodealer') !== null) {
+        if (AutodealerService.getCurrentAutodealer() !== null) {
           this.getAutodealer();
         }
     }
@@ -113,7 +112,6 @@ export default class Home extends Component {
                   onHide={this.handleClose} 
                   data={this.state.modalData}
                   onCancel={this.onCancel}/>
-            <ToastContainer limit={3}/>
             </Container>
       );
     }

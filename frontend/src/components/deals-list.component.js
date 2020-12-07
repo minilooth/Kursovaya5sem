@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Card, InputGroup, FormControl, Spinner, ListGroup, Button } from 'react-bootstrap';
-import { faCheck, faSearch, faEdit, faTrash, faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faSearch, faEdit, faTrash, faDollarSign, faSort } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -12,6 +12,8 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 import SelectAutodealer from './select-autodealer.component';
+import EditDealModal from './edit-deal-modal.component';
+import CheckModal from "./check-modal";
 import DealService from '../services/deal.service';
 import AuthService from '../services/auth.service';
 import Utils from '../utils/utils';
@@ -33,6 +35,13 @@ export default class DealsList extends Component {
             showSelectAutodealerModal: false,
             isLoading: true,
 
+            editDealModalData: [],
+            showEditDealModal: false,
+            resetEditDealModalData: true,
+
+            checkModalData: [],
+            showCheckModal: false,
+            resetCheckModalData: true,
 
             columns: [{
                 dataField: "id",
@@ -64,8 +73,13 @@ export default class DealsList extends Component {
         }
 
         this.searchUsername = "";
+        this.sortType = '0';
+
         this.usernameOnChange = this.usernameOnChange.bind(this);
+        this.sortTypeOnChange = this.sortTypeOnChange.bind(this);
     }
+
+
 
     itemFormatter = (cell, row) => {
         return(
@@ -73,11 +87,11 @@ export default class DealsList extends Component {
                 <div style={{display: "flex", flexDirection: "row", height: "100%"}}>
                     <div style={{width: "80%", borderRight: "1px solid lightgray", display: "flex", flexDirection: "row"}}>
                         <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
-                            <div style={{width: "40%"}}>
+                            <div style={{width: "33%"}}>
                                 {row.image !== null ? 
                                 (
                                     <div className="deal__item__photo">
-                                        <img src={row.image} style={{width: "100%", height: "100%"}}></img>
+                                        <img src={row.image} style={{width: "100%", height: "100%"}} alt="Автомобиль"></img>
                                     </div>
                                 ) : (
                                     <div className="deal__item__photo--empty">
@@ -85,7 +99,7 @@ export default class DealsList extends Component {
                                     </div>
                                 )}
                             </div>
-                            <div style={{width: "60%", marginLeft: "20px", marginRight: "20px"}}>
+                            <div style={{width: "67%", marginLeft: "20px", marginRight: "20px"}}>
                                 <div style={{fontSize: "20px", fontWeight: "bold"}}>
                                     {row.brand}&nbsp;{row.model}
                                 </div>
@@ -126,7 +140,7 @@ export default class DealsList extends Component {
                                 <Button variant={"primary"} style={{width: "100%"}} disabled={row.isConfirmed ? true : false} onClick={this.confirm.bind(this, row.id)}><FontAwesomeIcon icon={faCheck}/>&nbsp;Подтвердить</Button>
                             </div>
                             <div style={{marginBottom: "10px"}}>
-                                <Button variant={"success"} style={{width: "100%"}} disabled={row.isConfirmed ? true : false}><FontAwesomeIcon icon={faEdit}/>&nbsp;Изменить</Button>
+                                <Button variant={"success"} style={{width: "100%"}} disabled={row.isConfirmed ? true : false} onClick={this.edit.bind(this, row.id)}><FontAwesomeIcon icon={faEdit}/>&nbsp;Изменить</Button>
                             </div>
                             <div>
                                 <Button variant={"danger"} style={{width: "100%"}} disabled={row.isConfirmed ? true : false} onClick={this.delete.bind(this, row.id)}><FontAwesomeIcon icon={faTrash}/>&nbsp;Удалить</Button>
@@ -139,9 +153,16 @@ export default class DealsList extends Component {
     }
 
     handleSelectAutodealerModalClose = () => {
-        this.setState({
-            showSelectAutodealerModal: false,
-        })
+        this.setState({ showSelectAutodealerModal: false })
+    }
+
+    handleEditDealModalClose = () => {
+        this.setState({ showEditDealModal: false })
+        this.refreshDealsList();
+    }
+
+    handleCheckModalClose = () => {
+        this.setState({ showCheckModal: false });
     }
 
     usernameOnChange = event => {
@@ -149,8 +170,13 @@ export default class DealsList extends Component {
         this.refreshDealsList();
     }
 
+    sortTypeOnChange = event => {
+        this.sortType = event.target.value;
+        this.refreshDealsList();
+    }
+
     refreshDealsList = () => {
-        DealService.get(this.searchUsername).then(
+        DealService.getAll(this.searchUsername, this.sortType).then(
             response => {
                 this.setState({
                     deals: response.data,
@@ -176,13 +202,22 @@ export default class DealsList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     confirm = (id) => {
         DealService.confirm(id).then(
             response => {
                 toast.success(response.data.message, {position: toast.POSITION.BOTTOM_RIGHT});
+                this.setState({
+                    showCheckModal: true,
+                    resetCheckModalData: false,
+                    checkModalData: {
+                        check: response.data.check
+                    },
+                })
                 this.refreshDealsList();
             },
             error => {
@@ -204,7 +239,9 @@ export default class DealsList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+                toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     delete = (id) => {
@@ -232,7 +269,48 @@ export default class DealsList extends Component {
                         error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             }
-        )
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
+    }
+
+    edit = (id) => {
+        DealService.get(id).then(
+            response => {
+                this.setState({
+                    showEditDealModal: !this.state.showEditDealModal,
+                    resetEditDealModalData: false,
+                    editDealModalData: {
+                        id: response.data.id,
+                        userId: response.data.userId,
+                        carId: response.data.carId,
+                        image: response.data.image
+                    }
+                })
+            },
+            error => {
+                if (error.response.data.status === 401) {
+                    AuthService.logout();
+                    this.props.history.push({
+                        pathname: "/login",
+                        state: {
+                            showToast: true,
+                            toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
+                        }
+                    });
+                    window.location.reload();
+                }
+                else {
+                    toast.error((error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                                error.message ||
+                                error.toString(), { position: toast.POSITION.BOTTOM_RIGHT });
+                }
+            }
+        ).catch(() => {
+            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+        })
     }
 
     componentDidMount() {
@@ -268,23 +346,34 @@ export default class DealsList extends Component {
         }
 
         return(
-            <Container style={{marginTop: "100px", marginBottom: "100px", width: "75%"}} fluid>
+            <Container style={{marginTop: "100px", marginBottom: "100px", width: "85%"}} fluid>
                 <Card>
                     <Card.Header className={"d-flex justify-content-between"}>
                         <div style={{display: 'flex', alignItems: 'center', fontSize: '24px'}}><FontAwesomeIcon icon={faDollarSign}/>&nbsp;Сделки</div>
-                        <div>
-                            <InputGroup style={{width: "250px"}}>
+                        <div style={{display: "flex", flexDirection: "row"}}>
+                            <InputGroup style={{width: "250px", marginRight: "20px"}}>
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
+                                    <InputGroup.Text><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <FormControl
                                     value={this.state.searchUsername}
-                                    ref={input => { this.inputElement = input }}
                                     onChange={this.usernameOnChange}
-                                    placeholder="Имя пользователя"
-                                    aria-label="Title"
-                                    aria-describedby="basic-addon1"
-                                />
+                                    placeholder="Имя пользователя"/>
+                            </InputGroup>
+                            <InputGroup style={{ width: "250px" }}>
+                                <InputGroup.Prepend style={{width: "42px"}}>
+                                    <InputGroup.Text style={{width: "42px", display: "flex", justifyContent: "center"}}><FontAwesomeIcon icon={ faSort } /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                    as="select"
+                                    value={ this.sortType }
+                                    onChange={ this.sortTypeOnChange }>
+                                    {
+                                        Utils.getDealSortTypes().map((type, index) => {
+                                            return <option key={index} value={index}>{type}</option>
+                                        })
+                                    }
+                                </FormControl>
                             </InputGroup>
                         </div>
                     </Card.Header>
@@ -297,6 +386,19 @@ export default class DealsList extends Component {
                     show={this.state.showSelectAutodealerModal}
                     onHide={this.handleSelectAutodealerModalClose} 
                     onCancel={this.handleSelectAutodealerModalClose}/>
+                <EditDealModal
+                    prevProps={this.props}
+                    show={this.state.showEditDealModal}
+                    onHide={this.handleEditDealModalClose}
+                    onCancel={this.handleEditDealModalClose}
+                    data={this.state.editDealModalData}
+                    resetData={this.state.resetEditDealModalData}/>
+                <CheckModal
+                    prevProps={this.props}
+                    show={this.state.showCheckModal}
+                    onHide={this.handleCheckModalClose}
+                    data={this.state.checkModalData}
+                    resetData={this.state.resetCheckModalData} />
                 <ToastContainer limit={3}/>
             </Container>
         )

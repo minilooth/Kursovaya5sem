@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Modal, Button, Spinner, Form, Col, Card } from 'react-bootstrap';
-import { faTimes, faSave, faEdit, faShoppingCart, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Modal, Button, Form, } from 'react-bootstrap';
+import { faShoppingCart, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ToastContainer, toast } from 'react-toastify';
-
-import UserService from '../services/user.service';
-import CarService from '../services/car.service';
-import AuthService from '../services/auth.service';
-import DealService from '../services/deal.service';
+import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 

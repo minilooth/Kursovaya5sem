@@ -74,7 +74,7 @@ public class DealController {
             dealResponse.setUserId(deal.getUser().getId());
             dealResponse.setBrand(deal.getCar().getBrand());
             dealResponse.setModel(deal.getCar().getModel());
-            dealResponse.setCarId(deal.getCarId());
+            dealResponse.setCarId(deal.getCar().getId());
             dealResponse.setYearOfIssue(deal.getCar().getYearOfIssue());
             dealResponse.setEngineVolume(deal.getCar().getEngineVolume());
             dealResponse.setEngineType(deal.getCar().getEngineType());
@@ -110,7 +110,7 @@ public class DealController {
         dealResponse.setUserId(deal.getUser().getId());
         dealResponse.setBrand(deal.getCar().getBrand());
         dealResponse.setModel(deal.getCar().getModel());
-        dealResponse.setCarId(deal.getCarId());
+        dealResponse.setCarId(deal.getCar().getId());
         dealResponse.setYearOfIssue(deal.getCar().getYearOfIssue());
         dealResponse.setEngineVolume(deal.getCar().getEngineVolume());
         dealResponse.setEngineType(deal.getCar().getEngineType());
@@ -204,9 +204,7 @@ public class DealController {
         Deal newDeal = new Deal();
 
         newDeal.setUser(user);
-        newDeal.setUserId(user.getId());
         newDeal.setCar(car);
-        newDeal.setCarId(car.getId());
         newDeal.setAmount(car.getPrice());
         newDeal.setIsConfirmed(false);
         newDeal.setDate(new Date());
@@ -249,8 +247,8 @@ public class DealController {
         carService.update(oldCar);
         carService.update(car);
 
-        deal.setCarId(car.getId());
-        deal.setUserId(user.getId());
+        deal.setCar(car);
+        deal.setUser(user);
         deal.setAmount(car.getPrice());
         
         dealService.update(deal);

@@ -49,7 +49,7 @@ public class StatisticsController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]Автосалон с таким id не найден."));
         }
 
-        List<Statistics> statistics = statisticsService.get().stream().filter(s -> s.getAutodealerId() == autodealer.getId()).collect(Collectors.toList());
+        List<Statistics> statistics = statisticsService.get().stream().filter(s -> s.getAutodealer().getId() == autodealer.getId()).collect(Collectors.toList());
         Integer currentMonth = LocalDate.now().getMonthValue();
         Integer currentYear = LocalDate.now().getYear();
         List<Statistics> sendStatistics = new ArrayList<>();

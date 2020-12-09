@@ -348,7 +348,7 @@ export default class EditCarModal extends Component {
           })
           this.isFormInvalid = true;
         } 
-        else if (!this.state.brand.match(/^[A-Za-zА-Яа-я ]+$/)) {
+        else if (!this.state.brand.match(/^[A-Za-zА-Яа-я -]+$/)) {
           this.setState({
             brandError: "Марка должна состоять только из букв и символа пробела.",
             isBrandInvalid: true,

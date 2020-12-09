@@ -20,13 +20,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity(name = "by.kursovaya.kursovaya.models.Autodealer")
 @Table(name = "autodealer")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"statistics", "cars", "user"})
+@EqualsAndHashCode(exclude = {"statistics", "cars", "user"})
 public class Autodealer {
     @Id
     @Column(name = "Id", nullable = false)
@@ -56,10 +60,10 @@ public class Autodealer {
     private User user;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Car.class, mappedBy = "id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "autodealer", fetch = FetchType.LAZY)
     private Set<Car> cars = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(targetEntity = Statistics.class, mappedBy = "id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "autodealer", fetch = FetchType.LAZY)
     private Set<Statistics> statistics = new HashSet<>();
 }

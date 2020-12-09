@@ -41,7 +41,8 @@ export default class Register extends Component {
       email: "",
       mobilePhone: "",
 
-      successful: false,
+      loading: false,
+      successfull: true,
       message: "",
 
       isUsernameInvalid: false,
@@ -276,44 +277,40 @@ export default class Register extends Component {
 
     this.setState({
       message: "",
-      successful: false
+      successful: false,
+      loading: true,
     });
 
     this.validate()
 
     if (this.isFormInvalid === false) {
       AuthService.register(
-        this.state.username,
-        this.state.password,
-        this.state.firstname,
-        this.state.surname,
-        this.state.email,
-        "+375" + this.state.mobilePhone
+          this.state.username,
+          this.state.password,
+          this.state.firstname,
+          this.state.surname,
+          this.state.email,
+          "+375" + this.state.mobilePhone
       ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
+          response => {
+              this.setState({
+                message: response.data.message,
+                successful: true,
+                loading: false
+              });
+          },
       ).catch(
-        error => {
-            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
-        }
-    );
+          error => {
+              const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+
+              toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+              this.setState({
+                successful: false,
+                message: resMessage,
+                loading: false,
+              });
+          }
+      );
     }
   }
 
@@ -420,7 +417,12 @@ export default class Register extends Component {
                   </Form.Row>
 
                   <Form.Group style={{display: 'flex', justifyContent: 'center', marginTop: "20px"}}>
-                    <Button variant="primary" type="submit" style={{width: "50%"}}>Зарегистрироваться</Button>
+                    <Button variant="primary" type="submit" disabled={this.state.loading} style={{width: "50%"}}>
+                      {this.state.loading && (
+                        <span className="spinner-border spinner-border-sm" style={{marginRight: "5px"}}></span>
+                      )}
+                      <span>Зарегистрироваться</span>
+                    </Button>
                   </Form.Group>
                 </div>
               )}

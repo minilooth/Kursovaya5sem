@@ -17,13 +17,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity(name = "by.kursovaya.kursovaya.models.Deal")
 @Table(name = "deal")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"car", "user"})
+@EqualsAndHashCode(exclude = {"car", "user"})
 public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,20 +44,14 @@ public class Deal {
     @Column(name = "IsConfirmed", nullable = false, columnDefinition="TINYINT(1)")
     private Boolean isConfirmed;
 
-    @Column(name = "UserId", nullable = false)
-    private Integer userId;
-
-    @Column(name = "CarId", nullable = false)
-    private Integer carId;
-
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "CarId", referencedColumnName = "Id", insertable = false, updatable = false)
+    @JoinColumn(name = "CarId", nullable = false)
     private Car car;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "UserId", referencedColumnName = "Id", insertable = false, updatable = false)
+    @JoinColumn(name = "UserId", nullable = false)
     private User user;
 }
 

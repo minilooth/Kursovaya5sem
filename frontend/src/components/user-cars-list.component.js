@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Card, InputGroup, FormControl, Spinner, ListGroup, Button } from 'react-bootstrap';
-import { faCheck, faSearch, faEdit, faTrash, faDollarSign, faSort, faCar } from '@fortawesome/free-solid-svg-icons';
+import { Container, Card, InputGroup, FormControl, Spinner, ListGroup } from 'react-bootstrap';
+import { faSearch, faSort, faCar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';

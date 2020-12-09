@@ -155,7 +155,7 @@ class App extends Component {
         </Navbar>
 
         <Switch>
-            <Route exact path={["/", "/home"]} component={ Home } />
+            <Route exact path={["/", "/home"]} render={(props) => {return <Home {...props} toast={toast}/>}} />
             <Route exact path="/login" component={ Login }/>
             <Route exact path="/register" component={ Register } />
             <Route exact path="/profile" component={ Profile } />

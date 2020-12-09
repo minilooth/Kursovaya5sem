@@ -36,7 +36,11 @@ export default class Home extends Component {
                         pathname: "/login",
                         state: {
                             showToast: true,
-                            toastMessage: "Сессия истекла, пожалуйста войдите в учетную запись."
+                            toastMessage: (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                                error.message ||
+                                error.toString()
                         }
                     });
                     window.location.reload();

@@ -9,10 +9,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import by.kursovaya.models.enums.RoleEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity(name = "by.kursovaya.kursovaya.models.Role")
 @Table(name = "role")
+@ToString(exclude = {"users"})
+@EqualsAndHashCode(exclude = {"users"})
 public class Role {
     @Id
     @Column(name = "Id", nullable = false)

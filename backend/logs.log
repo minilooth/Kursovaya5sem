@@ -1,118 +1,811 @@
-2020-12-03 17:08:16.418  INFO 20052 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20052 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
-2020-12-03 17:08:16.580  INFO 20052 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
-2020-12-03 17:08:17.377  INFO 20052 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2020-12-03 17:08:17.379  INFO 20052 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2020-12-03 17:08:20.506  INFO 20052 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
-2020-12-03 17:08:20.778  INFO 20052 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 231ms. Found 6 JPA repository interfaces.
-2020-12-03 17:08:21.897  INFO 20052 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@49c57a74' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-12-03 17:08:21.907  INFO 20052 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-12-03 17:08:23.962  INFO 20052 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-12-03 17:08:24.029  INFO 20052 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-12-03 17:08:24.030  INFO 20052 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
-2020-12-03 17:08:24.579  INFO 20052 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-12-03 17:08:24.579  INFO 20052 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7182 ms
-2020-12-03 17:08:24.686  WARN 20052 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-12-03 17:08:24.865  INFO 20052 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-12-03 17:08:47.378  INFO 20052 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-12-03 17:08:47.794  INFO 20052 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-12-03 17:08:48.269  INFO 20052 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-12-03 17:08:49.340  INFO 20052 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
-2020-12-03 17:08:51.300  INFO 20052 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-12-03 17:08:52.174  INFO 20052 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2020-12-03 17:08:53.839  INFO 20052 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@891344e, org.springframework.security.web.context.SecurityContextPersistenceFilter@e49fe7a, org.springframework.security.web.header.HeaderWriterFilter@b16da28, org.springframework.web.filter.CorsFilter@51ca537e, org.springframework.security.web.authentication.logout.LogoutFilter@1ca216f7, by.kursovaya.security.jwt.AuthTokenFilter@15023373, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@11ea22d7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f556939, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c93c62c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bd65233, org.springframework.security.web.session.SessionManagementFilter@3a994a69, org.springframework.security.web.access.ExceptionTranslationFilter@5dfd068b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@266ee07b]
-2020-12-03 17:08:54.551  INFO 20052 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2020-12-03 17:08:54.734  INFO 20052 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-12-03 17:08:54.738  INFO 20052 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
-2020-12-03 17:09:12.815  INFO 20052 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-12-03 17:09:12.824  INFO 20052 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-12-03 17:09:13.989  INFO 20052 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
-2020-12-03 17:09:14.001  INFO 20052 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 59.87 seconds (JVM running for 65.399)
-2020-12-03 17:12:14.152  INFO 20052 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-12-03 17:12:14.154  INFO 20052 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-12-03 17:12:14.214  INFO 20052 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 59 ms
-2020-12-03 17:12:14.601 ERROR 20052 --- [http-nio-8080-exec-5] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-11-28T16:49:33Z. Current time: 2020-12-03T17:12:14Z, a difference of 433361599 milliseconds.  Allowed clock skew: 0 milliseconds.
-2020-12-03 17:12:14.601 ERROR 20052 --- [http-nio-8080-exec-4] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-11-28T16:49:33Z. Current time: 2020-12-03T17:12:14Z, a difference of 433361599 milliseconds.  Allowed clock skew: 0 milliseconds.
-2020-12-03 17:12:14.623 ERROR 20052 --- [http-nio-8080-exec-4] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
-2020-12-03 17:12:14.623 ERROR 20052 --- [http-nio-8080-exec-5] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
-2020-12-03 17:12:15.200 ERROR 20052 --- [http-nio-8080-exec-6] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-11-28T16:49:33Z. Current time: 2020-12-03T17:12:15Z, a difference of 433362199 milliseconds.  Allowed clock skew: 0 milliseconds.
-2020-12-03 17:12:15.201 ERROR 20052 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
-2020-12-03 17:12:23.288  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.AuthController   : Auth user request.
-2020-12-03 17:12:28.239  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
-2020-12-03 17:12:29.467  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:12:30.113  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:12:30.146  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:12:30.154  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:12:37.942  INFO 20052 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Select autodealer request.
-2020-12-03 17:12:44.854  INFO 20052 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Responsed select autodealer id.
-2020-12-03 17:12:45.245  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get autodealer request.
-2020-12-03 17:12:45.251  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Responsed autodealer.
-2020-12-03 17:12:45.721  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Select autodealer request.
-2020-12-03 17:12:46.585  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed select autodealer id.
-2020-12-03 17:12:46.947  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get autodealer request.
-2020-12-03 17:12:46.952  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Responsed autodealer.
-2020-12-03 17:12:51.795  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.UserController   : Get all users request.
-2020-12-03 17:12:51.797  INFO 20052 --- [http-nio-8080-exec-8] by.kursovaya.controller.UserController   : Responsed all users.
-2020-12-03 17:12:51.812  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:12:51.818  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:12:55.012  INFO 20052 --- [http-nio-8080-exec-10] by.kursovaya.controller.UserController   : Get user request
-2020-12-03 17:12:55.017  INFO 20052 --- [http-nio-8080-exec-10] by.kursovaya.controller.UserController   : Reponsed user.
-2020-12-03 17:12:57.354  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Get all users request.
-2020-12-03 17:12:57.355  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Responsed all users.
-2020-12-03 17:12:59.572  INFO 20052 --- [http-nio-8080-exec-3] by.kursovaya.controller.UserController   : Lock user request.
-2020-12-03 17:12:59.579  INFO 20052 --- [http-nio-8080-exec-3] by.kursovaya.controller.UserController   : Responsed succesfully user lock message.
-2020-12-03 17:12:59.998  INFO 20052 --- [http-nio-8080-exec-5] by.kursovaya.controller.UserController   : Get all users request.
-2020-12-03 17:12:59.998  INFO 20052 --- [http-nio-8080-exec-5] by.kursovaya.controller.UserController   : Responsed all users.
-2020-12-03 17:13:01.649  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.UserController   : Lock user request.
-2020-12-03 17:13:01.654  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.UserController   : Responsed succesfully user lock message.
-2020-12-03 17:13:01.739  INFO 20052 --- [http-nio-8080-exec-7] by.kursovaya.controller.UserController   : Get all users request.
-2020-12-03 17:13:01.740  INFO 20052 --- [http-nio-8080-exec-7] by.kursovaya.controller.UserController   : Responsed all users.
-2020-12-03 17:13:05.817  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:05.829  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:09.923  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:09.965  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:10.002  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Get not sold cars request.
-2020-12-03 17:13:10.059  INFO 20052 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:10.067  INFO 20052 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:10.680  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
-2020-12-03 17:13:35.377  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Get car request with id: 2
-2020-12-03 17:13:35.395  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:35.403  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:35.427  INFO 20052 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Responsed car.
-2020-12-03 17:13:41.434  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:41.436  INFO 20052 --- [http-nio-8080-exec-6] by.kursovaya.controller.CarController    : Get not sold cars request.
-2020-12-03 17:13:41.440  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:41.524  INFO 20052 --- [http-nio-8080-exec-6] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
-2020-12-03 17:13:44.223  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:44.228  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:44.234  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.CarController    : Get car request with id: 2
-2020-12-03 17:13:44.269  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.CarController    : Responsed car.
-2020-12-03 17:13:46.143  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Get car request with id: 2
-2020-12-03 17:13:46.152  INFO 20052 --- [http-nio-8080-exec-9] by.kursovaya.controller.CarController    : Responsed car.
-2020-12-03 17:13:50.923  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.CarController    : Get car request with id: 2
-2020-12-03 17:13:50.933  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.CarController    : Responsed car.
-2020-12-03 17:13:54.089  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:54.095  INFO 20052 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:54.112  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:54.117  INFO 20052 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:13:57.876  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get autodealer request.
-2020-12-03 17:13:57.883  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Responsed autodealer.
-2020-12-03 17:13:59.757  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:13:59.763  INFO 20052 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:02.422  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:14:02.428  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:05.434  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:14:05.443  INFO 20052 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:05.467  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:14:05.472  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:21.957  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:14:21.962  INFO 20052 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:21.965  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.StatisticsController      : Get statistics request.
-2020-12-03 17:14:21.983  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:14:21.989  INFO 20052 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:22.001  INFO 20052 --- [http-nio-8080-exec-6] b.k.controller.StatisticsController      : Responsed statistics.
-2020-12-03 17:14:34.324  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Get current user request.
-2020-12-03 17:14:34.334  INFO 20052 --- [http-nio-8080-exec-1] by.kursovaya.controller.UserController   : Responsed current user.
-2020-12-03 17:14:34.350  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
-2020-12-03 17:14:34.354  INFO 20052 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
-2020-12-03 17:14:37.693  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.UserController   : Get current user request.
-2020-12-03 17:14:37.697  INFO 20052 --- [http-nio-8080-exec-2] by.kursovaya.controller.UserController   : Responsed current user.
+2020-12-08 23:15:25.160  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:15:25.164  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:15:25.312  INFO 20144 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-08 23:15:25.337  INFO 20144 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-08 23:15:27.487  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:15:27.670  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 163ms. Found 6 JPA repository interfaces.
+2020-12-08 23:15:28.376  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@e3c4e99' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:15:28.384  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:15:29.714  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:15:29.780  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:15:29.781  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:15:29.997  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:15:29.998  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4645 ms
+2020-12-08 23:15:30.099  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:15:30.491  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:15:30.641  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:15:30.836  INFO 20144 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2020-12-08 23:15:31.435  INFO 20144 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-12-08 23:15:31.826  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-12-08 23:15:32.570  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b51be26, org.springframework.security.web.context.SecurityContextPersistenceFilter@71e1376c, org.springframework.security.web.header.HeaderWriterFilter@9d6fdea, org.springframework.web.filter.CorsFilter@4d7a4404, org.springframework.security.web.authentication.logout.LogoutFilter@7155c1fe, by.kursovaya.security.jwt.AuthTokenFilter@54eb5a3d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6baf7d1f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@ddf40ae, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@56ef69d9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@664f59ac, org.springframework.security.web.session.SessionManagementFilter@37f210b8, org.springframework.security.web.access.ExceptionTranslationFilter@96c1ee7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2ad91ff3]
+2020-12-08 23:15:33.139  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:15:33.495  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:15:33.498  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:15:35.146  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-12-08 23:15:35.233  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:15:38.923  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:15:38.952  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:15:39.485  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:15:39.512  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 15.53 seconds (JVM running for 16.899)
+2020-12-08 23:15:57.440  INFO 20144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:15:57.441  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:15:57.470  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 27 ms
+2020-12-08 23:15:57.720  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:15:58.782  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:15:59.526  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:15:59.747  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:15:59.793  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:15:59.804  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:02.005  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:16:02.848  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:16:02.932  INFO 20144 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:16:02.940  INFO 20144 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:16:06.052  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:06.060  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:06.102  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:06.124  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:06.232  INFO 20144 --- [http-nio-8080-exec-3] by.kursovaya.controller.CarController    : Get not sold cars request.
+2020-12-08 23:16:06.506  INFO 20144 --- [http-nio-8080-exec-3] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
+2020-12-08 23:16:13.940  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:13.947  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:13.958  INFO 20144 --- [http-nio-8080-exec-6] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-08 23:16:13.960  INFO 20144 --- [http-nio-8080-exec-6] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-08 23:16:21.066  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:21.071  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:21.106  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.UserController   : Get current user request.
+2020-12-08 23:16:21.123  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.UserController   : Responsed current user.
+2020-12-08 23:16:24.598  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:24.604  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:24.608  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.StatisticsController      : Get statistics request.
+2020-12-08 23:16:24.645  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:24.690  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:24.819  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.StatisticsController      : Responsed statistics.
+2020-12-08 23:16:32.246  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:16:32.369  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:16:32.952  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:32.956  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.StatisticsController      : Get statistics request.
+2020-12-08 23:16:32.961  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:33.001  INFO 20144 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:33.084  INFO 20144 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:33.184  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.StatisticsController      : Responsed statistics.
+2020-12-08 23:16:39.287  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:16:39.421  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:16:39.993  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:39.997  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.StatisticsController      : Get statistics request.
+2020-12-08 23:16:39.998  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:40.085  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:40.094  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.StatisticsController      : Responsed statistics.
+2020-12-08 23:16:40.095  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:46.082  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.StatisticsController      : Get statistics request.
+2020-12-08 23:16:46.083  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:46.087  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:46.121  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.StatisticsController      : Responsed statistics.
+2020-12-08 23:16:46.140  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:46.159  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:50.051  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:50.056  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:50.089  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:50.095  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:58.150  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:58.153  INFO 20144 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Get not sold cars request.
+2020-12-08 23:16:58.154  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:16:58.211  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:16:58.216  INFO 20144 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
+2020-12-08 23:16:58.254  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:17:14.635  INFO 20144 --- [http-nio-8080-exec-7] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:17:14.901 ERROR 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Bad credentials
+2020-12-08 23:19:21.833  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:19:22.016 ERROR 20144 --- [http-nio-8080-exec-10] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Bad credentials
+2020-12-08 23:20:49.834  INFO 20144 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:20:49.837  INFO 20144 --- [Thread-5] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:20:49.854  INFO 20144 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-12-08 23:20:49.894  INFO 20144 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-12-08 23:20:50.088  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:20:50.089  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:20:50.376  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:20:50.429  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51ms. Found 6 JPA repository interfaces.
+2020-12-08 23:20:50.521  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@42ac62bc' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:20:50.523  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:20:50.616  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:20:50.617  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:20:50.618  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:20:50.669  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:20:50.670  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 577 ms
+2020-12-08 23:20:50.722  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:20:50.791  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:20:50.807  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:20:50.824  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2020-12-08 23:20:50.880  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2020-12-08 23:20:50.887  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:20:51.294  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67169bbe, org.springframework.security.web.context.SecurityContextPersistenceFilter@3169d7e4, org.springframework.security.web.header.HeaderWriterFilter@191cebbe, org.springframework.web.filter.CorsFilter@6301a13a, org.springframework.security.web.authentication.logout.LogoutFilter@36e5587e, by.kursovaya.security.jwt.AuthTokenFilter@48b3a34, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@748d0c57, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1069561d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6ed61eb5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c5b8428, org.springframework.security.web.session.SessionManagementFilter@740a76f5, org.springframework.security.web.access.ExceptionTranslationFilter@1416b6f2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@13a18c8e]
+2020-12-08 23:20:51.465  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:20:51.494  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:20:51.495  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:20:51.597  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:20:51.599  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:20:51.769  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:20:51.774  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.736 seconds (JVM running for 329.162)
+2020-12-08 23:20:51.777  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:20:55.467  INFO 20144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:20:55.468  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:20:55.490  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2020-12-08 23:20:55.497  INFO 20144 --- [http-nio-8080-exec-1] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:20:55.807 ERROR 20144 --- [http-nio-8080-exec-1] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Bad credentials
+2020-12-08 23:21:22.921  INFO 20144 --- [Thread-8] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:21:22.923  INFO 20144 --- [Thread-8] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:21:22.924  INFO 20144 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2020-12-08 23:21:22.952  INFO 20144 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2020-12-08 23:21:23.108  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:21:23.111  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:21:23.386  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:21:23.435  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48ms. Found 6 JPA repository interfaces.
+2020-12-08 23:21:23.515  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@e1e9f78' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:21:23.518  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:21:23.614  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:21:23.615  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:21:23.615  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:21:23.649  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:21:23.661  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 537 ms
+2020-12-08 23:21:23.706  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:21:23.763  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:21:23.785  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:21:23.799  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2020-12-08 23:21:23.913  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2020-12-08 23:21:23.914  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:21:24.237  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2ba6a9c4, org.springframework.security.web.context.SecurityContextPersistenceFilter@2289ad00, org.springframework.security.web.header.HeaderWriterFilter@380c060f, org.springframework.web.filter.CorsFilter@110f0a90, org.springframework.security.web.authentication.logout.LogoutFilter@24435faa, by.kursovaya.security.jwt.AuthTokenFilter@10fc81c3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@68c5883e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3b33ea2e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6357bf39, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bb8c8df, org.springframework.security.web.session.SessionManagementFilter@75ebab36, org.springframework.security.web.access.ExceptionTranslationFilter@5e3981f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@8345523]
+2020-12-08 23:21:24.393  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:21:24.422  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:21:24.424  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:21:24.576  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:21:24.577  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:21:24.757  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:21:24.763  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.71 seconds (JVM running for 362.15)
+2020-12-08 23:21:24.774  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:21:29.586  INFO 20144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:21:29.587  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:21:29.596  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2020-12-08 23:21:29.615  INFO 20144 --- [http-nio-8080-exec-1] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:21:29.889 ERROR 20144 --- [http-nio-8080-exec-1] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Bad credentials
+2020-12-08 23:22:04.895  INFO 20144 --- [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:22:04.896  INFO 20144 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:22:04.897  INFO 20144 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2020-12-08 23:22:04.930  INFO 20144 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2020-12-08 23:22:05.103  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:22:05.104  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:22:05.958  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:22:06.067  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108ms. Found 6 JPA repository interfaces.
+2020-12-08 23:22:06.179  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2c3285a6' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:22:06.181  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:22:06.409  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:22:06.411  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:22:06.412  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:22:06.517  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:22:06.517  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1400 ms
+2020-12-08 23:22:06.594  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:22:06.682  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:22:06.703  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:22:06.732  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2020-12-08 23:22:06.808  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2020-12-08 23:22:06.809  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:22:07.323  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31c0fa00, org.springframework.security.web.context.SecurityContextPersistenceFilter@43e88773, org.springframework.security.web.header.HeaderWriterFilter@582d6a1a, org.springframework.web.filter.CorsFilter@7709751f, org.springframework.security.web.authentication.logout.LogoutFilter@6b338549, by.kursovaya.security.jwt.AuthTokenFilter@82e58ef, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7d15f16, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@246cbd5a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@17a27e77, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3361440c, org.springframework.security.web.session.SessionManagementFilter@240bf6ac, org.springframework.security.web.access.ExceptionTranslationFilter@182ff985, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@78779b61]
+2020-12-08 23:22:07.582  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:22:07.617  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:22:07.619  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:22:07.691  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:22:07.701  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:22:07.926  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:22:07.931  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 2.88 seconds (JVM running for 405.317)
+2020-12-08 23:22:07.945  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:22:35.747  INFO 20144 --- [Thread-18] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:22:35.749  INFO 20144 --- [Thread-18] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:22:35.750  INFO 20144 --- [Thread-18] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2020-12-08 23:22:35.776  INFO 20144 --- [Thread-18] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2020-12-08 23:22:36.163  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:22:36.165  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:22:36.758  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:22:36.875  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117ms. Found 6 JPA repository interfaces.
+2020-12-08 23:22:36.986  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@5a300d07' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:22:36.988  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:22:37.084  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:22:37.085  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:22:37.086  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:22:37.112  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:22:37.113  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 937 ms
+2020-12-08 23:22:37.164  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:22:37.221  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:22:37.233  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:22:37.261  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2020-12-08 23:22:37.337  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2020-12-08 23:22:37.338  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:22:37.625  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@156fe462, org.springframework.security.web.context.SecurityContextPersistenceFilter@64588b5, org.springframework.security.web.header.HeaderWriterFilter@6eb48fe3, org.springframework.web.filter.CorsFilter@61a07ced, org.springframework.security.web.authentication.logout.LogoutFilter@752d6263, by.kursovaya.security.jwt.AuthTokenFilter@66eb2911, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6ff7d3a4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1954b00c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5355ef52, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a17e3, org.springframework.security.web.session.SessionManagementFilter@6c4c124c, org.springframework.security.web.access.ExceptionTranslationFilter@5f781ed7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@300a2c26]
+2020-12-08 23:22:37.814  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:22:37.847  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:22:37.848  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:22:37.898  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:22:37.904  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:22:38.064  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:22:38.068  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 2.102 seconds (JVM running for 435.455)
+2020-12-08 23:22:38.079  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:25:22.462  INFO 20144 --- [Thread-23] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:25:22.463  INFO 20144 --- [Thread-23] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:25:22.464  INFO 20144 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2020-12-08 23:25:22.493  INFO 20144 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2020-12-08 23:25:22.624  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:25:22.625  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:25:23.011  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:25:23.060  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48ms. Found 6 JPA repository interfaces.
+2020-12-08 23:25:23.137  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@56bf9683' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:25:23.140  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:25:23.225  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:25:23.226  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:25:23.227  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:25:23.253  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:25:23.265  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 637 ms
+2020-12-08 23:25:23.307  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:25:23.358  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:25:23.375  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:25:23.394  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2020-12-08 23:25:23.482  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2020-12-08 23:25:23.501  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:25:24.203  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@90bbf34, org.springframework.security.web.context.SecurityContextPersistenceFilter@5402f377, org.springframework.security.web.header.HeaderWriterFilter@38a3728a, org.springframework.web.filter.CorsFilter@76377f2c, org.springframework.security.web.authentication.logout.LogoutFilter@19bd36ba, by.kursovaya.security.jwt.AuthTokenFilter@1f069f08, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@21f588bf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5084afb0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7310a008, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1b594bf5, org.springframework.security.web.session.SessionManagementFilter@1667f72f, org.springframework.security.web.access.ExceptionTranslationFilter@1262cc13, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@19ce89a6]
+2020-12-08 23:25:24.211  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:25:24.237  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:25:24.299  INFO 20144 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:25:24.529  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:25:24.538  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:25:24.867  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:25:24.875  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 2.287 seconds (JVM running for 602.261)
+2020-12-08 23:25:24.891  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:25:39.287  INFO 20144 --- [Thread-28] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:25:39.288  INFO 20144 --- [Thread-28] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:25:39.289  INFO 20144 --- [Thread-28] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2020-12-08 23:25:39.314  INFO 20144 --- [Thread-28] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2020-12-08 23:25:39.472  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:25:39.472  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:25:39.722  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:25:39.768  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45ms. Found 6 JPA repository interfaces.
+2020-12-08 23:25:39.833  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@7fb3328c' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:25:39.847  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:25:39.928  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:25:39.929  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:25:39.930  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:25:39.950  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:25:39.957  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 482 ms
+2020-12-08 23:25:39.996  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:25:40.062  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:25:40.073  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:25:40.083  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2020-12-08 23:25:40.163  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2020-12-08 23:25:40.166  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:25:40.534  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@148aedcc, org.springframework.security.web.context.SecurityContextPersistenceFilter@27231a33, org.springframework.security.web.header.HeaderWriterFilter@28f4bb63, org.springframework.web.filter.CorsFilter@226a31b2, org.springframework.security.web.authentication.logout.LogoutFilter@33860bbf, by.kursovaya.security.jwt.AuthTokenFilter@3ad4c40e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@37ad9301, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5079013c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d5b87f3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6e7df8b4, org.springframework.security.web.session.SessionManagementFilter@67ae768, org.springframework.security.web.access.ExceptionTranslationFilter@8ffea49, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@232deecd]
+2020-12-08 23:25:40.768  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:25:40.797  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:25:40.798  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:25:40.801  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:25:40.805  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:25:40.970  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:25:40.974  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.547 seconds (JVM running for 618.361)
+2020-12-08 23:25:40.986  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:25:46.939  INFO 20144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:25:46.940  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:25:46.947  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-12-08 23:25:46.970  INFO 20144 --- [http-nio-8080-exec-1] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:25:47.257 ERROR 20144 --- [http-nio-8080-exec-1] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Bad credentials
+2020-12-08 23:27:39.166  INFO 20144 --- [Thread-33] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:27:39.168  INFO 20144 --- [Thread-33] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:27:39.168  INFO 20144 --- [Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2020-12-08 23:27:39.181  INFO 20144 --- [Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2020-12-08 23:27:39.337  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:27:39.338  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:27:39.712  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:27:39.763  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50ms. Found 6 JPA repository interfaces.
+2020-12-08 23:27:39.858  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6231659e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:27:39.861  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:27:40.022  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:27:40.023  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:27:40.024  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:27:40.055  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:27:40.056  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 715 ms
+2020-12-08 23:27:40.103  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:27:40.192  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:27:40.210  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:27:40.232  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2020-12-08 23:27:40.340  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2020-12-08 23:27:40.341  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:27:40.868  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@cdad0ca, org.springframework.security.web.context.SecurityContextPersistenceFilter@2f39d198, org.springframework.security.web.header.HeaderWriterFilter@7f335b8c, org.springframework.web.filter.CorsFilter@242aa7a4, org.springframework.security.web.authentication.logout.LogoutFilter@5f66c998, by.kursovaya.security.jwt.AuthTokenFilter@c930d2c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@bd10e2b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3da9116a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58a3c268, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@20274e9e, org.springframework.security.web.session.SessionManagementFilter@4394bc6f, org.springframework.security.web.access.ExceptionTranslationFilter@5438d752, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5deb3c5b]
+2020-12-08 23:27:40.974  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:27:40.975  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:27:40.979  INFO 20144 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:27:41.048  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:27:41.205  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:27:41.512  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:27:41.519  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 2.217 seconds (JVM running for 738.906)
+2020-12-08 23:27:41.533  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:27:49.753  INFO 20144 --- [Thread-38] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:27:49.754  INFO 20144 --- [Thread-38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:27:49.754  INFO 20144 --- [Thread-38] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2020-12-08 23:27:49.767  INFO 20144 --- [Thread-38] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+2020-12-08 23:27:49.908  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:27:49.921  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:27:50.317  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:27:50.420  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102ms. Found 6 JPA repository interfaces.
+2020-12-08 23:27:50.500  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4348a86c' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:27:50.502  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:27:50.589  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:27:50.590  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:27:50.590  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:27:50.619  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:27:50.629  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 703 ms
+2020-12-08 23:27:50.669  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:27:50.718  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:27:50.733  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:27:50.754  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2020-12-08 23:27:50.819  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2020-12-08 23:27:50.821  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:27:51.182  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@592ca03f, org.springframework.security.web.context.SecurityContextPersistenceFilter@408af29e, org.springframework.security.web.header.HeaderWriterFilter@e1061b1, org.springframework.web.filter.CorsFilter@52a2b681, org.springframework.security.web.authentication.logout.LogoutFilter@13044b7b, by.kursovaya.security.jwt.AuthTokenFilter@756e09cb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1c1d63dd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64864a9d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6916b255, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76b63a44, org.springframework.security.web.session.SessionManagementFilter@5ac6e61f, org.springframework.security.web.access.ExceptionTranslationFilter@6268d81a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@cc50ea7]
+2020-12-08 23:27:51.343  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:27:51.355  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:27:51.363  INFO 20144 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:27:51.621  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:27:51.626  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:27:51.831  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:27:51.835  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.956 seconds (JVM running for 749.223)
+2020-12-08 23:27:51.848  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:29:21.677  INFO 20144 --- [Thread-43] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:29:21.678  INFO 20144 --- [Thread-43] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:29:21.702  INFO 20144 --- [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
+2020-12-08 23:29:21.728  INFO 20144 --- [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.
+2020-12-08 23:29:21.889  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:29:21.890  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:29:22.134  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:29:22.179  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44ms. Found 6 JPA repository interfaces.
+2020-12-08 23:29:22.258  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@378f9a1' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:29:22.267  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:29:22.455  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:29:22.456  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:29:22.457  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:29:22.498  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:29:22.502  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 609 ms
+2020-12-08 23:29:22.553  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:29:22.646  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:29:22.671  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:29:22.684  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
+2020-12-08 23:29:22.781  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
+2020-12-08 23:29:22.782  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:29:23.131  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@430b8e46, org.springframework.security.web.context.SecurityContextPersistenceFilter@34577a88, org.springframework.security.web.header.HeaderWriterFilter@1ac8ce62, org.springframework.web.filter.CorsFilter@6af221fb, org.springframework.security.web.authentication.logout.LogoutFilter@136b43ae, by.kursovaya.security.jwt.AuthTokenFilter@5cf52249, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@68088738, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4dc88b7e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11aff77b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a6a2726, org.springframework.security.web.session.SessionManagementFilter@66cd6117, org.springframework.security.web.access.ExceptionTranslationFilter@16ade97d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1310]
+2020-12-08 23:29:23.285  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:29:23.286  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:29:23.287  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:29:23.302  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:29:23.308  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:29:23.505  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:29:23.513  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.667 seconds (JVM running for 840.9)
+2020-12-08 23:29:23.529  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:29:28.354  INFO 20144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:29:28.355  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:29:28.363  INFO 20144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-12-08 23:29:28.379  INFO 20144 --- [http-nio-8080-exec-1] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:29:28.745  INFO 20144 --- [http-nio-8080-exec-1] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:29:29.780  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:29.858  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:29:29.885  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:29.909  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:29:32.957  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:29:33.231  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:29:33.280  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:29:33.285  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:29:39.655  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:29:39.789  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:29:40.108  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:40.114  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:29:40.178  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:40.194  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:29:42.459  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:29:42.610  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:29:42.658  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:29:42.663  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:29:46.093  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:46.100  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:29:46.233  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-08 23:29:46.234  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-08 23:29:49.903  INFO 20144 --- [http-nio-8080-exec-4] by.kursovaya.controller.UserController   : Lock user request.
+2020-12-08 23:29:49.906  INFO 20144 --- [http-nio-8080-exec-4] by.kursovaya.controller.UserController   : Responsed succesfully user lock message.
+2020-12-08 23:29:50.369  INFO 20144 --- [http-nio-8080-exec-5] by.kursovaya.controller.UserController   : Get all users request.
+2020-12-08 23:29:50.369  INFO 20144 --- [http-nio-8080-exec-5] by.kursovaya.controller.UserController   : Responsed all users.
+2020-12-08 23:29:58.322  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:29:58.454  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:29:58.784  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:58.789  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:29:58.845  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:29:58.869  INFO 20144 --- [http-nio-8080-exec-7] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:30:01.108  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:30:01.570  INFO 20144 --- [http-nio-8080-exec-8] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:30:01.618  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:30:01.622  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:30:04.494  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:30:04.497  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:30:04.538  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:30:04.597  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:30:06.900  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:30:06.905  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:30:06.920  INFO 20144 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Get not sold cars request.
+2020-12-08 23:30:06.923  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:30:06.929  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:30:07.088  INFO 20144 --- [http-nio-8080-exec-4] by.kursovaya.controller.CarController    : Responsed cars, count of cars and count of today added cars.
+2020-12-08 23:30:17.300  INFO 20144 --- [http-nio-8080-exec-10] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:30:17.309 ERROR 20144 --- [http-nio-8080-exec-10] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: User account is locked
+2020-12-08 23:31:53.713  INFO 20144 --- [Thread-48] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:31:53.715  INFO 20144 --- [Thread-48] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:31:53.716  INFO 20144 --- [Thread-48] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown initiated...
+2020-12-08 23:31:53.729  INFO 20144 --- [Thread-48] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown completed.
+2020-12-08 23:31:53.839  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:31:53.839  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:31:54.052  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:31:54.090  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 6 JPA repository interfaces.
+2020-12-08 23:31:54.142  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@5946bcdf' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:31:54.145  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:31:54.229  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:31:54.231  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:31:54.231  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:31:54.256  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:31:54.256  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 414 ms
+2020-12-08 23:31:54.290  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:31:54.324  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:31:54.335  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:31:54.342  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
+2020-12-08 23:31:54.406  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
+2020-12-08 23:31:54.407  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:31:54.670  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6b0413fa, org.springframework.security.web.context.SecurityContextPersistenceFilter@1da15365, org.springframework.security.web.header.HeaderWriterFilter@64a0304a, org.springframework.web.filter.CorsFilter@485a5480, org.springframework.security.web.authentication.logout.LogoutFilter@4cfbfe6, by.kursovaya.security.jwt.AuthTokenFilter@423c1309, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2fe809b9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c508bde, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3917c27e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5f7b32eb, org.springframework.security.web.session.SessionManagementFilter@5aee063e, org.springframework.security.web.access.ExceptionTranslationFilter@3bef5bf4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6bbf9139]
+2020-12-08 23:31:54.793  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:31:54.810  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:31:54.811  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:31:54.820  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:31:54.821  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:31:55.137  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:31:55.148  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.333 seconds (JVM running for 992.534)
+2020-12-08 23:31:55.152  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:32:08.597  INFO 20144 --- [Thread-53] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:32:08.598  INFO 20144 --- [Thread-53] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:32:08.599  INFO 20144 --- [Thread-53] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown initiated...
+2020-12-08 23:32:08.614  INFO 20144 --- [Thread-53] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown completed.
+2020-12-08 23:32:08.772  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:32:08.772  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:32:08.998  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:32:09.039  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40ms. Found 6 JPA repository interfaces.
+2020-12-08 23:32:09.104  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@1fb58ca2' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:32:09.107  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:32:09.191  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:32:09.192  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:32:09.193  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:32:09.213  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:32:09.222  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 448 ms
+2020-12-08 23:32:09.264  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:32:09.307  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:32:09.322  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:32:09.337  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Starting...
+2020-12-08 23:32:09.356  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Start completed.
+2020-12-08 23:32:09.362  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:32:09.697  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73bd33cd, org.springframework.security.web.context.SecurityContextPersistenceFilter@53ec6c58, org.springframework.security.web.header.HeaderWriterFilter@137019ff, org.springframework.web.filter.CorsFilter@2e41dc14, org.springframework.security.web.authentication.logout.LogoutFilter@15f49559, by.kursovaya.security.jwt.AuthTokenFilter@796c0e59, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4b0eebf9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6684e65a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@75a8b494, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@201aa3ae, org.springframework.security.web.session.SessionManagementFilter@2ea5b0e, org.springframework.security.web.access.ExceptionTranslationFilter@3330cda2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@74ef574d]
+2020-12-08 23:32:09.812  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:32:09.813  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:32:09.815  INFO 20144 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:32:09.863  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:32:09.864  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:32:10.000  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:32:10.004  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.28 seconds (JVM running for 1007.391)
+2020-12-08 23:32:10.016  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:32:38.373  INFO 20144 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:32:38.374  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:32:38.381  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2020-12-08 23:32:38.386  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:32:38.676  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:32:39.986  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:32:40.003  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:32:40.026  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:32:40.032  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:32:42.293  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:32:42.513  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:32:42.573  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:32:42.576  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:32:57.359 ERROR 20144 --- [http-nio-8080-exec-7] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:32:48Z. Current time: 2020-12-08T23:32:57Z, a difference of 9355 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:32:57.359 ERROR 20144 --- [http-nio-8080-exec-6] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:32:48Z. Current time: 2020-12-08T23:32:57Z, a difference of 9359 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:32:57.372 ERROR 20144 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:32:57.372 ERROR 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:32:57.389 ERROR 20144 --- [http-nio-8080-exec-10] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:32:48Z. Current time: 2020-12-08T23:32:57Z, a difference of 9389 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:32:57.390 ERROR 20144 --- [http-nio-8080-exec-10] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:34:16.569  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:34:16.696  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:34:17.119  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:34:17.123  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:34:17.142  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:34:17.149  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:34:19.408  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:34:19.765  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:34:19.851  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:34:19.854  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:34:31.962 ERROR 20144 --- [http-nio-8080-exec-6] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:34:26Z. Current time: 2020-12-08T23:34:31Z, a difference of 5962 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:34:31.964 ERROR 20144 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:34:31.964 ERROR 20144 --- [http-nio-8080-exec-7] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:34:26Z. Current time: 2020-12-08T23:34:31Z, a difference of 5964 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:34:31.967 ERROR 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:34:31.972 ERROR 20144 --- [http-nio-8080-exec-10] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:34:26Z. Current time: 2020-12-08T23:34:31Z, a difference of 5972 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:34:31.973 ERROR 20144 --- [http-nio-8080-exec-10] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:35:45.218  INFO 20144 --- [Thread-58] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:35:45.222  INFO 20144 --- [Thread-58] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:35:45.238  INFO 20144 --- [Thread-58] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown initiated...
+2020-12-08 23:35:45.267  INFO 20144 --- [Thread-58] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown completed.
+2020-12-08 23:35:45.469  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:35:45.485  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:35:45.915  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:35:45.960  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43ms. Found 6 JPA repository interfaces.
+2020-12-08 23:35:46.022  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@338de8d6' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:35:46.024  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:35:46.122  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:35:46.123  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:35:46.123  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:35:46.148  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:35:46.149  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 658 ms
+2020-12-08 23:35:46.180  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:35:46.219  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:35:46.230  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:35:46.239  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Starting...
+2020-12-08 23:35:46.316  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Start completed.
+2020-12-08 23:35:46.316  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:35:46.549  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@48df499d, org.springframework.security.web.context.SecurityContextPersistenceFilter@319902c2, org.springframework.security.web.header.HeaderWriterFilter@4f3dca86, org.springframework.web.filter.CorsFilter@33ba339, org.springframework.security.web.authentication.logout.LogoutFilter@77e0aab4, by.kursovaya.security.jwt.AuthTokenFilter@25024f27, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6c41bc1c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27bd609, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2333553a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a5fbcde, org.springframework.security.web.session.SessionManagementFilter@bb4d795, org.springframework.security.web.access.ExceptionTranslationFilter@618a5b7b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7afe6272]
+2020-12-08 23:35:46.655  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:35:46.672  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:35:46.688  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:35:46.969  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:35:46.970  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:35:47.104  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:35:47.109  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.722 seconds (JVM running for 1224.496)
+2020-12-08 23:35:47.123  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:36:19.738  INFO 20144 --- [Thread-63] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:36:19.739  INFO 20144 --- [Thread-63] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:36:19.742  INFO 20144 --- [Thread-63] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown initiated...
+2020-12-08 23:36:19.796  INFO 20144 --- [Thread-63] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown completed.
+2020-12-08 23:36:19.935  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:36:19.935  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:36:20.162  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:36:20.204  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41ms. Found 6 JPA repository interfaces.
+2020-12-08 23:36:20.262  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6334373d' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:36:20.264  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:36:20.436  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:36:20.437  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:36:20.438  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:36:20.461  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:36:20.469  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 532 ms
+2020-12-08 23:36:20.510  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:36:20.548  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:36:20.562  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:36:20.581  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Starting...
+2020-12-08 23:36:20.646  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Start completed.
+2020-12-08 23:36:20.647  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:36:20.897  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c50c99f, org.springframework.security.web.context.SecurityContextPersistenceFilter@69193123, org.springframework.security.web.header.HeaderWriterFilter@15fe8756, org.springframework.web.filter.CorsFilter@499d4093, org.springframework.security.web.authentication.logout.LogoutFilter@3f24b421, by.kursovaya.security.jwt.AuthTokenFilter@69012876, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@73e76a1b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3888a4bf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@592d50cf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d1680a1, org.springframework.security.web.session.SessionManagementFilter@1deb6299, org.springframework.security.web.access.ExceptionTranslationFilter@4ac37077, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@309a9ea7]
+2020-12-08 23:36:21.058  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:36:21.069  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:36:21.075  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:36:21.091  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:36:21.105  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:36:21.263  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:36:21.268  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.366 seconds (JVM running for 1258.655)
+2020-12-08 23:36:21.279  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:36:29.589  INFO 20144 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:36:29.590  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:36:29.597  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-12-08 23:36:29.601  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:36:29.901  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:36:30.970  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:36:31.015  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:36:31.037  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:36:31.048  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:36:33.728  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:36:33.910  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:36:33.948  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:36:33.952  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:36:46.926 ERROR 20144 --- [http-nio-8080-exec-6] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:36:39Z. Current time: 2020-12-08T23:36:46Z, a difference of 7926 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:36:46.927 ERROR 20144 --- [http-nio-8080-exec-7] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:36:39Z. Current time: 2020-12-08T23:36:46Z, a difference of 7927 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:36:46.932 ERROR 20144 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:36:46.933 ERROR 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:36:46.967  INFO 20144 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : org.springframework.security.authentication.InsufficientAuthenticationException
+2020-12-08 23:36:47.000  INFO 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : org.springframework.security.authentication.InsufficientAuthenticationException
+2020-12-08 23:36:47.021 ERROR 20144 --- [http-nio-8080-exec-8] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:36:39Z. Current time: 2020-12-08T23:36:47Z, a difference of 8021 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:36:47.039 ERROR 20144 --- [http-nio-8080-exec-8] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:36:47.070  INFO 20144 --- [http-nio-8080-exec-8] b.k.security.jwt.AuthEntryPointJwt       : org.springframework.security.authentication.InsufficientAuthenticationException
+2020-12-08 23:37:31.647  INFO 20144 --- [Thread-68] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:37:31.648  INFO 20144 --- [Thread-68] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:37:31.648  INFO 20144 --- [Thread-68] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Shutdown initiated...
+2020-12-08 23:37:31.664  INFO 20144 --- [Thread-68] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Shutdown completed.
+2020-12-08 23:37:31.832  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:37:31.833  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:37:32.126  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:37:32.176  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49ms. Found 6 JPA repository interfaces.
+2020-12-08 23:37:32.244  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@53500f1' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:37:32.246  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:37:32.345  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:37:32.346  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:37:32.347  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:37:32.379  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:37:32.380  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 540 ms
+2020-12-08 23:37:32.424  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:37:32.471  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:37:32.491  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:37:32.507  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Starting...
+2020-12-08 23:37:32.587  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Start completed.
+2020-12-08 23:37:32.588  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:37:32.859  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@729e3909, org.springframework.security.web.context.SecurityContextPersistenceFilter@1b17c1d6, org.springframework.security.web.header.HeaderWriterFilter@2cf7ef96, org.springframework.web.filter.CorsFilter@77e34c52, org.springframework.security.web.authentication.logout.LogoutFilter@2e7552fb, by.kursovaya.security.jwt.AuthTokenFilter@54dc40cf, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@53705e98, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4272cbe0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51ea1767, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@222a5082, org.springframework.security.web.session.SessionManagementFilter@58805f20, org.springframework.security.web.access.ExceptionTranslationFilter@60d73d61, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1de90eb2]
+2020-12-08 23:37:33.044  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:37:33.074  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:37:33.076  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:37:33.092  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:37:33.093  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:37:33.263  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:37:33.268  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.469 seconds (JVM running for 1330.654)
+2020-12-08 23:37:33.277  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:37:45.092  INFO 20144 --- [Thread-73] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:37:45.092  INFO 20144 --- [Thread-73] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:37:45.093  INFO 20144 --- [Thread-73] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Shutdown initiated...
+2020-12-08 23:37:45.107  INFO 20144 --- [Thread-73] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Shutdown completed.
+2020-12-08 23:37:45.258  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:37:45.259  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:37:45.485  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:37:45.526  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40ms. Found 6 JPA repository interfaces.
+2020-12-08 23:37:45.586  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@433561f3' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:37:45.589  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:37:45.747  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:37:45.748  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:37:45.749  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:37:45.781  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:37:45.782  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 517 ms
+2020-12-08 23:37:45.836  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:37:45.880  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:37:45.896  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:37:45.908  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Starting...
+2020-12-08 23:37:45.978  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Start completed.
+2020-12-08 23:37:45.979  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:37:46.259  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7bd86ea5, org.springframework.security.web.context.SecurityContextPersistenceFilter@973249a, org.springframework.security.web.header.HeaderWriterFilter@29a49d38, org.springframework.web.filter.CorsFilter@f4b946, org.springframework.security.web.authentication.logout.LogoutFilter@22397f21, by.kursovaya.security.jwt.AuthTokenFilter@33d38e07, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4079c5d8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5abf3b3b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@577f2009, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2af8cfa9, org.springframework.security.web.session.SessionManagementFilter@5dc71472, org.springframework.security.web.access.ExceptionTranslationFilter@6c17f10e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@30e358a1]
+2020-12-08 23:37:46.417  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:37:46.424  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:37:46.431  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:37:46.439  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:37:46.452  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:37:46.596  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:37:46.600  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.378 seconds (JVM running for 1343.987)
+2020-12-08 23:37:46.608  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:37:57.215  INFO 20144 --- [Thread-78] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:37:57.216  INFO 20144 --- [Thread-78] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:37:57.229  INFO 20144 --- [Thread-78] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Shutdown initiated...
+2020-12-08 23:37:57.240  INFO 20144 --- [Thread-78] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Shutdown completed.
+2020-12-08 23:37:57.391  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:37:57.391  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:37:57.649  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:37:57.714  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63ms. Found 6 JPA repository interfaces.
+2020-12-08 23:37:57.792  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@387d9af4' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:37:57.794  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:37:57.888  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:37:57.889  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:37:57.889  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:37:57.913  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:37:57.914  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 520 ms
+2020-12-08 23:37:57.954  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:37:58.016  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:37:58.030  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:37:58.052  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Starting...
+2020-12-08 23:37:58.084  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Start completed.
+2020-12-08 23:37:58.097  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:37:58.460  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b4f29ec, org.springframework.security.web.context.SecurityContextPersistenceFilter@4a295c24, org.springframework.security.web.header.HeaderWriterFilter@6ef3e769, org.springframework.web.filter.CorsFilter@62053d07, org.springframework.security.web.authentication.logout.LogoutFilter@4df5a6c2, by.kursovaya.security.jwt.AuthTokenFilter@3a755fd0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2fb612c3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f2b4c93, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e9234b0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43162d59, org.springframework.security.web.session.SessionManagementFilter@22bc3a0d, org.springframework.security.web.access.ExceptionTranslationFilter@1fc54e5c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3c43ae30]
+2020-12-08 23:37:58.621  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:37:58.622  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:37:58.634  INFO 20144 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:37:58.672  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:37:58.677  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:37:58.844  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:37:58.849  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.494 seconds (JVM running for 1356.236)
+2020-12-08 23:37:58.856  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:38:08.495  INFO 20144 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:38:08.496  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:38:08.504  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-12-08 23:38:08.518  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:38:08.823  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:38:09.788  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:38:09.803  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:38:09.833  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:38:09.845  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:38:12.215  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:38:12.376  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:38:12.416  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:38:12.421  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:38:26.626 ERROR 20144 --- [http-nio-8080-exec-7] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:38:18Z. Current time: 2020-12-08T23:38:26Z, a difference of 8625 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:38:26.626 ERROR 20144 --- [http-nio-8080-exec-6] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:38:18Z. Current time: 2020-12-08T23:38:26Z, a difference of 8626 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:38:26.631 ERROR 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:38:26.631 ERROR 20144 --- [http-nio-8080-exec-6] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:38:26.676 ERROR 20144 --- [http-nio-8080-exec-8] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:38:18Z. Current time: 2020-12-08T23:38:26Z, a difference of 8675 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:38:26.726 ERROR 20144 --- [http-nio-8080-exec-8] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:38:40.853  INFO 20144 --- [Thread-83] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:38:40.855  INFO 20144 --- [Thread-83] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:38:40.869  INFO 20144 --- [Thread-83] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown initiated...
+2020-12-08 23:38:40.881  INFO 20144 --- [Thread-83] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown completed.
+2020-12-08 23:38:41.044  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:38:41.047  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:38:41.264  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:38:41.309  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44ms. Found 6 JPA repository interfaces.
+2020-12-08 23:38:41.363  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@35a9135c' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:38:41.367  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:38:41.457  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:38:41.458  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:38:41.459  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:38:41.486  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:38:41.487  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 437 ms
+2020-12-08 23:38:41.521  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:38:41.561  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:38:41.575  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:38:41.595  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Starting...
+2020-12-08 23:38:41.628  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Start completed.
+2020-12-08 23:38:41.629  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:38:41.922  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@44bfec84, org.springframework.security.web.context.SecurityContextPersistenceFilter@737e585a, org.springframework.security.web.header.HeaderWriterFilter@4fcb4d84, org.springframework.web.filter.CorsFilter@59c80760, org.springframework.security.web.authentication.logout.LogoutFilter@2d4a628c, by.kursovaya.security.jwt.AuthTokenFilter@24338c31, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5ab7f5f6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15e6c361, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@540b34, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41018498, org.springframework.security.web.session.SessionManagementFilter@38f29fb9, org.springframework.security.web.access.ExceptionTranslationFilter@5a67933f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@741d9998]
+2020-12-08 23:38:42.043  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:38:42.044  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:38:42.068  INFO 20144 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:38:42.084  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:38:42.088  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:38:42.231  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:38:42.235  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.23 seconds (JVM running for 1399.622)
+2020-12-08 23:38:42.243  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:39:46.051  INFO 20144 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-08 23:39:46.053  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-08 23:39:46.059  INFO 20144 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-12-08 23:39:46.063  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:39:46.311  INFO 20144 --- [http-nio-8080-exec-2] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:39:47.377  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:39:47.391  INFO 20144 --- [http-nio-8080-exec-3] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:39:47.408  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:39:47.413  INFO 20144 --- [http-nio-8080-exec-4] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:39:49.592  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:39:49.780  INFO 20144 --- [http-nio-8080-exec-1] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:39:49.815  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:39:49.820  INFO 20144 --- [http-nio-8080-exec-5] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:39:57.957 ERROR 20144 --- [http-nio-8080-exec-7] by.kursovaya.security.jwt.JwtUtils       : JWT token is expired: JWT expired at 2020-12-08T23:39:56Z. Current time: 2020-12-08T23:39:57Z, a difference of 1950 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-12-08 23:39:57.964 ERROR 20144 --- [http-nio-8080-exec-7] b.k.security.jwt.AuthEntryPointJwt       : Unauthorized error: Full authentication is required to access this resource
+2020-12-08 23:40:21.419  INFO 20144 --- [http-nio-8080-exec-8] by.kursovaya.controller.AuthController   : Auth user request.
+2020-12-08 23:40:21.563  INFO 20144 --- [http-nio-8080-exec-8] by.kursovaya.controller.AuthController   : Responsed user data with auth token.
+2020-12-08 23:40:21.944  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:40:21.950  INFO 20144 --- [http-nio-8080-exec-6] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:40:21.969  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Get all autodealers request.
+2020-12-08 23:40:21.972  INFO 20144 --- [http-nio-8080-exec-9] b.k.controller.AutodealerController      : Response all autodealers.
+2020-12-08 23:40:24.182  INFO 20144 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Select autodealer request.
+2020-12-08 23:40:24.297  INFO 20144 --- [http-nio-8080-exec-10] b.k.controller.AutodealerController      : Responsed select autodealer id.
+2020-12-08 23:40:24.340  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Get autodealer request.
+2020-12-08 23:40:24.345  INFO 20144 --- [http-nio-8080-exec-2] b.k.controller.AutodealerController      : Responsed autodealer.
+2020-12-08 23:41:21.563  INFO 20144 --- [Thread-88] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:41:21.564  INFO 20144 --- [Thread-88] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:41:21.564  INFO 20144 --- [Thread-88] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Shutdown initiated...
+2020-12-08 23:41:21.578  INFO 20144 --- [Thread-88] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Shutdown completed.
+2020-12-08 23:41:21.704  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Starting SpringsecuritytestApplication on Minilooth with PID 20144 (D:\Visual Studio Code Projects\Kursovaya5sem\backend\target\classes started by Lenovo in D:\Visual Studio Code Projects\Kursovaya5sem\backend)
+2020-12-08 23:41:21.705  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : No active profile set, falling back to default profiles: default
+2020-12-08 23:41:21.933  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-08 23:41:21.972  INFO 20144 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39ms. Found 6 JPA repository interfaces.
+2020-12-08 23:41:22.024  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@245d0ab8' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:41:22.027  INFO 20144 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-08 23:41:22.090  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-08 23:41:22.091  INFO 20144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-08 23:41:22.092  INFO 20144 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-08 23:41:22.112  INFO 20144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-08 23:41:22.112  INFO 20144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 404 ms
+2020-12-08 23:41:22.139  WARN 20144 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-08 23:41:22.173  INFO 20144 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:41:22.189  INFO 20144 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-08 23:41:22.198  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Starting...
+2020-12-08 23:41:22.214  INFO 20144 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Start completed.
+2020-12-08 23:41:22.214  INFO 20144 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-12-08 23:41:22.499  INFO 20144 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@50733ed1, org.springframework.security.web.context.SecurityContextPersistenceFilter@77d24b8d, org.springframework.security.web.header.HeaderWriterFilter@534271fb, org.springframework.web.filter.CorsFilter@e6542f7, org.springframework.security.web.authentication.logout.LogoutFilter@23e4e27d, by.kursovaya.security.jwt.AuthTokenFilter@4f49e3f3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1c904f3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@661aec9c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2697940d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6715615e, org.springframework.security.web.session.SessionManagementFilter@79032f72, org.springframework.security.web.access.ExceptionTranslationFilter@781d388b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@73c35b4e]
+2020-12-08 23:41:22.612  INFO 20144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-12-08 23:41:22.631  INFO 20144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-08 23:41:22.633  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-08 23:41:22.653  INFO 20144 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-08 23:41:22.654  INFO 20144 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:41:22.776  INFO 20144 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-08 23:41:22.782  INFO 20144 --- [restartedMain] b.k.SpringsecuritytestApplication        : Started SpringsecuritytestApplication in 1.105 seconds (JVM running for 1560.169)
+2020-12-08 23:41:22.784  INFO 20144 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-12-08 23:41:32.345  INFO 20144 --- [Thread-93] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-08 23:41:32.346  INFO 20144 --- [Thread-93] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-08 23:41:32.347  INFO 20144 --- [Thread-93] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Shutdown initiated...
+2020-12-08 23:41:32.361  INFO 20144 --- [Thread-93] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Shutdown completed.

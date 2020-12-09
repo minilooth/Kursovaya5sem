@@ -1,5 +1,6 @@
 package by.kursovaya.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"autodealer"})
+@EqualsAndHashCode(exclude = {"autodealer"})
 public class Statistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +46,8 @@ public class Statistics {
     @Column(name = "TotalSales", nullable = false, columnDefinition = "decimal(10,0)")
     private Float totalSales;
 
-    @Column(name = "AutodealerId", nullable = false)
-    private Integer autodealerId;
-
     @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name = "AutodealerId", referencedColumnName = "Id", nullable = false, insertable = false, updatable = false) 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "AutodealerId", nullable = false) 
     private Autodealer autodealer;
 }

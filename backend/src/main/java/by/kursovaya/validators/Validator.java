@@ -108,7 +108,7 @@ public class Validator {
         if (brand.length() < 2 || brand.length() > 25) {
             return new ValidationResult(false, "Длина марки должна быть между 2 и 25 символами.");
         }
-        if (!brand.matches("^[A-Za-zА-Яа-я ]+$")) {
+        if (!brand.matches("^[A-Za-zА-Яа-я -]+$")) {
             return new ValidationResult(false, "Марка должна состоять только из букв и символа пробела.");
         }
         return new ValidationResult(true, null);

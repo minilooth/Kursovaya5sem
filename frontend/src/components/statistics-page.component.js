@@ -3,9 +3,7 @@ import { Container, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
-import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Pie, PieChart, Sector, ResponsiveContainer, Bar, BarChart
-  } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar, BarChart } from 'recharts';
 
 import StatisticsService from '../services/statistics.service';
 import AuthService from '../services/auth.service';

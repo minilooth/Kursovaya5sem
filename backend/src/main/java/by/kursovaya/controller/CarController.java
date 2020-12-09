@@ -126,7 +126,7 @@ public class CarController {
         User user = principal instanceof UserDetailsImpl ? userService.getUsers().stream().filter(u -> u.getUsername().equals(((UserDetailsImpl)principal).getUsername())).findFirst().orElse(null) : null;
         
         List<Car> cars = new ArrayList<>();
-        List<Deal> deals = dealService.get().stream().filter(d -> d.getUserId() == user.getId() && d.getIsConfirmed()).collect(Collectors.toList());
+        List<Deal> deals = dealService.get().stream().filter(d -> d.getUser().getId() == user.getId() && d.getIsConfirmed()).collect(Collectors.toList());
 
         for (Deal deal : deals) {
             cars.add(deal.getCar());
@@ -189,7 +189,7 @@ public class CarController {
             }
         }
 
-        if (!car.getAutodealerId().equals(autodealer.getId())) {
+        if (!car.getAutodealer().getId().equals(autodealer.getId())) {
             logger.warn("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль не найден."));
         }
@@ -243,7 +243,7 @@ public class CarController {
             logger.warn("Car not found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("[Ошибка]Автомобиль с таким id не найден."));
         }
-        if (car.getAutodealerId() != autodealer.getId()) {
+        if (car.getAutodealer().getId() != autodealer.getId()) {
             logger.warn("This autodealer haven't this car.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("[Ошибка]В текущем автосалоне нет такого автомобиля."));
         }
@@ -330,7 +330,7 @@ public class CarController {
         car.setInteriorColor(editCarRequest.getInteriorColor());
         car.setInteriorMaterial(editCarRequest.getInteriorMaterial());
         car.setPrice(editCarRequest.getPrice());
-        car.setAutodealerId(autodealer.getId());
+        car.setAutodealer(autodealer);
 
         if (editCarRequest.getImage() != null && !editCarRequest.getImage().isEmpty() && !editCarRequest.getImage().isBlank()){
             car.setImageName(carService.saveCarImage(editCarRequest.getImage()));
@@ -438,7 +438,7 @@ public class CarController {
         newCar.setInteriorColor(newCarRequest.getInteriorColor());
         newCar.setInteriorMaterial(newCarRequest.getInteriorMaterial());
         newCar.setPrice(newCarRequest.getPrice());
-        newCar.setAutodealerId(autodealer.getId());
+        newCar.setAutodealer(autodealer);
         newCar.setIsSold(false);
         newCar.setReceiptDate(LocalDateTime.now());
         newCar.setImageName(carService.saveCarImage(newCarRequest.getImage()));
@@ -476,9 +476,7 @@ public class CarController {
         deal.setAmount(car.getPrice());
         deal.setDate(new Date());
         deal.setIsConfirmed(false);
-        deal.setCarId(car.getId());
         deal.setCar(car);
-        deal.setUserId(user.getId());
         deal.setUser(user);
 
         dealService.add(deal);

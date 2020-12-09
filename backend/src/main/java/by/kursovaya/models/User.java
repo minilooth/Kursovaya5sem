@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,8 @@ import lombok.ToString;
 @Table(name = "User")
 @NoArgsConstructor
 @Getter @Setter
-@ToString(exclude = {"autodealer", "deals"})
+@ToString(exclude = {"autodealer", "deals", "roles"})
+@EqualsAndHashCode(exclude = {"autodealer", "deals", "roles"})
 public class User {
     
     @Id
@@ -64,7 +66,7 @@ public class User {
     private Autodealer autodealer;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Deal.class, mappedBy = "id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Set<Deal> deals = new HashSet<>();
     
     public User(String username, String password, String firstname, String surname, String email, String mobilePhone, Date dateOfRegistration, Boolean isAccountNonLocked) {

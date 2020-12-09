@@ -100,35 +100,26 @@ export default class Login extends Component {
 
     this.validate();
 
-    if (this.isFormInvalid === false) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          window.location.replace("/");
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
-        }
-      );
-    } else {
-      this.setState({
-        loading: false
-      }).catch(
-        error => {
-            toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
-        }
-    );
-    }
-  }
+    if (!this.isFormInvalid) {
+        AuthService.login(this.state.username, this.state.password).then(
+            () => {
+                window.location.replace("/");
+            },
+            error => {
+                this.setState({
+                    message: (error.response && error.response.data && error.response.data.message) || error.message || error.toString(),
+                    loading: false
+                })
+            }
+        )
+        .catch(
+          error => {
+              this.setState({loading: false});
+              toast.error("Что-то пошло не так :(", { position: toast.POSITION.BOTTOM_RIGHT });
+          }
+        );
+    } 
+}
 
   render() {
     if (this.state.showToast && this.state.toastMessage !== null) {

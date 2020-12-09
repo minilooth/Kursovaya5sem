@@ -46,12 +46,11 @@ public class StatisticsService {
         List<Statistics> statistics = this.get();
 
         for(Autodealer autodealer : autodealers) {
-            Statistics autodealerStatistics = statistics.stream().filter(s -> s.getMonth() == LocalDate.now().getMonthValue() && s.getYear() == LocalDate.now().getYear() && s.getAutodealerId() == autodealer.getId()).findFirst().orElse(null);
+            Statistics autodealerStatistics = statistics.stream().filter(s -> s.getMonth() == LocalDate.now().getMonthValue() && s.getYear() == LocalDate.now().getYear() && s.getAutodealer().getId() == autodealer.getId()).findFirst().orElse(null);
 
             if (autodealerStatistics == null) {
 
                 Statistics newStatistics = new Statistics();
-                newStatistics.setAutodealerId(autodealer.getId());
                 newStatistics.setAutodealer(autodealer);
                 newStatistics.setMonth(LocalDate.now().getMonthValue());
                 newStatistics.setYear(LocalDate.now().getYear());
@@ -67,7 +66,7 @@ public class StatisticsService {
     public void addVisitToAutodealer(Autodealer autodealer) {
         checkAndCreateNewStatistics();
 
-        Statistics autodealerCurrentMonthStatistics = this.get().stream().filter(s -> s.getMonth() == LocalDate.now().getMonthValue() && s.getYear() == LocalDate.now().getYear() && s.getAutodealerId() == autodealer.getId()).findFirst().orElse(null);
+        Statistics autodealerCurrentMonthStatistics = this.get().stream().filter(s -> s.getMonth() == LocalDate.now().getMonthValue() && s.getYear() == LocalDate.now().getYear() && s.getAutodealer().getId() == autodealer.getId()).findFirst().orElse(null);
 
         if (autodealerCurrentMonthStatistics != null) {
             autodealerCurrentMonthStatistics.setCountOfClients(autodealerCurrentMonthStatistics.getCountOfClients() + 1);
@@ -78,7 +77,7 @@ public class StatisticsService {
     public void addSaleToStatistics(Car car, Autodealer autodealer) {
         checkAndCreateNewStatistics();
 
-        Statistics autodealerCurrentMonthStatistics = this.get().stream().filter(s -> s.getMonth() == LocalDate.now().getMonthValue() && s.getYear() == LocalDate.now().getYear() && s.getAutodealerId() == autodealer.getId()).findFirst().orElse(null);
+        Statistics autodealerCurrentMonthStatistics = this.get().stream().filter(s -> s.getMonth() == LocalDate.now().getMonthValue() && s.getYear() == LocalDate.now().getYear() && s.getAutodealer().getId() == autodealer.getId()).findFirst().orElse(null);
 
         if (autodealerCurrentMonthStatistics != null) {
             autodealerCurrentMonthStatistics.setCountOfCarsSold(autodealerCurrentMonthStatistics.getCountOfCarsSold() + 1);

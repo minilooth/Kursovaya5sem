@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
@@ -24,9 +24,6 @@ import by.kursovaya.models.enums.UserCarsListSortType;
 import by.kursovaya.models.enums.WheelDriveType;
 import by.kursovaya.payload.request.SetCarFilterRequest;
 import by.kursovaya.repositories.CarRepository;
-import by.kursovaya.utils.FileUtils;
-import by.kursovaya.utils.SpringUtilsFactory;
-import by.kursovaya.utils.UtilsFactory;
 import lombok.SneakyThrows;
 
 @Service
@@ -36,10 +33,6 @@ public class CarService {
 
     @Autowired
     private ResourceService resourceService;
-
-    private String IMAGES_PATH = "/static/car-images/";
-    private Integer IMAGE_NAME_HIGHER_BOUND = 999999;
-    private Integer IMAGE_NAME_LOWER_BOUND = 100000;
 
     @Transactional
     public void add(Car car){
@@ -53,7 +46,7 @@ public class CarService {
 
     @Transactional
     public List<Car> getCarsByAutodealerId(Integer id) {
-        return carRepository.findAll().stream().filter(c -> c.getAutodealerId().equals(id)).collect(Collectors.toList());
+        return carRepository.findAll().stream().filter(c -> c.getAutodealer().getId().equals(id)).collect(Collectors.toList());
     }
 
     @Transactional
@@ -67,14 +60,14 @@ public class CarService {
     }
 
     @SneakyThrows
-    public String getCarImage(String imageName) {
-        Resource resource = imageName != null ? resourceService.getImageAsResource(IMAGES_PATH + imageName) : null;
+    public String getCarImage(String filename) {
+        FileSystemResource fileSystemResource = filename != null ? resourceService.getImageAsResource(filename) : null;
 
-        if (resource == null || !resource.exists()) {
+        if (fileSystemResource == null || !fileSystemResource.exists()) {
             return null;
         }
 
-        return resource != null ? "data:;base64," + Base64Utils.encodeToString(resource.getInputStream().readAllBytes()) : null;
+        return fileSystemResource != null ? "data:;base64," + Base64Utils.encodeToString(fileSystemResource.getInputStream().readAllBytes()) : null;
     }
 
     @SneakyThrows
@@ -83,19 +76,7 @@ public class CarService {
             return null;
         }
 
-        UtilsFactory utilsFactory = new SpringUtilsFactory();
-        FileUtils fileUtils = utilsFactory.createFileUtils();
-
-        while(true) {
-            String filename = fileUtils.generateFilename(IMAGE_NAME_LOWER_BOUND, IMAGE_NAME_HIGHER_BOUND);
-
-            Car car = carRepository.findAll().stream().filter(c -> c.getImageName() != null && c.getImageName().startsWith(filename)).findFirst().orElse(null);
-
-            if (car == null) {
-                return resourceService.saveImageAsResource(base64, IMAGES_PATH, filename);
-            }
-        }
-
+        return resourceService.saveImageAsResource(base64);
     }
 
     public List<Car> filterCars(List<Car> cars, SetCarFilterRequest setCarFilterRequest){

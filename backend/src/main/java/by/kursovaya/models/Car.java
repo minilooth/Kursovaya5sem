@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,13 +29,17 @@ import by.kursovaya.models.enums.TransmissionType;
 import by.kursovaya.models.enums.WheelDriveType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity(name = "by.kursovaya.kursovaya.models.Car")
 @Table(name = "car")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"autodealer", "deals"})
+@EqualsAndHashCode(exclude = {"autodealer", "deals"})
 public class Car {
     @Id
     @Column(name = "Id", nullable = false, unique = true)
@@ -94,9 +98,6 @@ public class Car {
     @Column(name = "IsSold", nullable = false, columnDefinition="TINYINT(1) DEFAULT 0")
     private Boolean isSold;
 
-    @Column(name = "AutodealerId", nullable = false)
-    private Integer autodealerId;
-
     @JsonIgnore
     @Column(name = "ImageName", nullable = true)
     private String imageName;
@@ -106,10 +107,10 @@ public class Car {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "AutodealerId", referencedColumnName = "Id", insertable = false, updatable = false)
+    @JoinColumn(name = "AutodealerId", nullable = false)
     private Autodealer autodealer;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Deal.class, mappedBy="id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="car", cascade = CascadeType.REMOVE)
     private Set<Deal> deals = new HashSet<>();
 }
